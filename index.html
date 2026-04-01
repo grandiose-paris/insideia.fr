@@ -619,7 +619,8 @@ function clearLogs(){document.getElementById('log-list').innerHTML='<div class="
 const CONFIG = {
   META_TOKEN: 'EAAYgWw5dkZBIBREPmomgnhtlbNDDg9zw7Q5zsYFZC4g3ZC5auYZAVGvjnpb5XDFzrzUSad4xSX5k7dDioZAWQZCZBGx9bH8wGMfEgCxjidyKeqOn24ToRknP82WSDlzPZCHiCnLkhdBwSoSGfpnNFnUf1zCTac5f5VjeYYg3rsQnp7xFtMk7Wz2xfkcg2f2oDo4NBwZDZD',
   INSTA_ID: '17841439188239554',
-  GROQ_KEY: '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'
+  GROQ_KEY: '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',
+  IMGBB_KEY: '0678cb48fae0cf30732dfedecaf8ec72'
 };
 
 function dessinerSlide(canvas, type, data){
@@ -730,7 +731,9 @@ async function testerGemini(){
       <div style="font-weight:700;font-size:14px;margin-bottom:16px;color:var(--purple)">✓ ${slides.length} Slides générées !</div>
       <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px" id="slides-preview"></div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px"><strong>Caption :</strong></div>
-      <div style="font-size:12px;background:#fff;padding:10px;border-radius:6px;border:1px solid var(--border)">${result.caption}</div>
+      <div style="font-size:12px;background:#fff;padding:10px;border-radius:6px;border:1px solid var(--border);margin-bottom:12px">${result.caption}</div>
+      <button class="btn btn-green" onclick="publierCarousel()" id="btn-publier">🚀 Publier sur Instagram</button>
+      <div id="publish-status" style="margin-top:10px;font-size:13px"></div>
     </div>`;
     resultDiv.innerHTML = html;
     const preview = document.getElementById('slides-preview');
@@ -748,6 +751,8 @@ async function testerGemini(){
       };
       preview.appendChild(canvas);
     });
+    window._lastResult = result;
+    window._lastCanvases = Array.from(document.getElementById('slides-preview').querySelectorAll('canvas'));
     addLog('ok','Slides générées et prêtes à télécharger ✓');
   } else {
     resultDiv.innerHTML='<div style="color:var(--red);font-size:13px">❌ Erreur lors de la génération.</div>';
@@ -773,6 +778,83 @@ async function genererAvecGemini(article){
     addLog('ok','Slides generees avec Groq');
     return result;
   } catch(e){addLog('err','Erreur Groq : '+e.message);return null;}
+}
+
+// ── UPLOAD IMGBB ──
+async function uploaderImage(canvas){
+  return new Promise(async (resolve, reject)=>{
+    const dataUrl = canvas.toDataURL('image/png');
+    const base64 = dataUrl.split(',')[1];
+    const form = new FormData();
+    form.append('key', CONFIG.IMGBB_KEY);
+    form.append('image', base64);
+    try {
+      const res = await fetch('https://api.imgbb.com/1/upload', {method:'POST', body:form});
+      const data = await res.json();
+      if(data.success) resolve(data.data.url);
+      else reject(new Error(data.error?.message || 'Upload failed'));
+    } catch(e){ reject(e); }
+  });
+}
+
+// ── PUBLIER CAROUSEL ──
+async function publierCarousel(){
+  const btn = document.getElementById('btn-publier');
+  const status = document.getElementById('publish-status');
+  if(!window._lastCanvases || !window._lastResult){
+    status.innerHTML='<span style="color:var(--red)">❌ Génère d'abord les slides !</span>';
+    return;
+  }
+  btn.disabled=true;
+  btn.textContent='⏳ Upload en cours...';
+  status.innerHTML='<span style="color:var(--muted)">Upload des images sur ImgBB...</span>';
+  try {
+    // Upload toutes les images
+    const urls = [];
+    for(let i=0; i<window._lastCanvases.length; i++){
+      status.innerHTML=`<span style="color:var(--muted)">Upload slide ${i+1}/${window._lastCanvases.length}...</span>`;
+      const url = await uploaderImage(window._lastCanvases[i]);
+      urls.push(url);
+      addLog('ok','Slide '+(i+1)+' uploadée : '+url);
+    }
+    status.innerHTML='<span style="color:var(--muted)">Publication sur Instagram...</span>';
+    btn.textContent='⏳ Publication...';
+    // Créer carousel sur Instagram
+    const containerIds = [];
+    for(const url of urls){
+      const r = await fetch(`https://graph.facebook.com/v19.0/${CONFIG.INSTA_ID}/media`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({image_url:url, is_carousel_item:true, access_token:CONFIG.META_TOKEN})
+      });
+      const d = await r.json();
+      if(d.error) throw new Error(d.error.message);
+      containerIds.push(d.id);
+    }
+    // Publier le carousel
+    const r2 = await fetch(`https://graph.facebook.com/v19.0/${CONFIG.INSTA_ID}/media`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({media_type:'CAROUSEL', children:containerIds.join(','), caption:window._lastResult.caption, access_token:CONFIG.META_TOKEN})
+    });
+    const d2 = await r2.json();
+    if(d2.error) throw new Error(d2.error.message);
+    const r3 = await fetch(`https://graph.facebook.com/v19.0/${CONFIG.INSTA_ID}/media_publish`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({creation_id:d2.id, access_token:CONFIG.META_TOKEN})
+    });
+    const d3 = await r3.json();
+    if(d3.error) throw new Error(d3.error.message);
+    status.innerHTML='<span style="color:var(--green)">✅ Carousel publié sur Instagram @insideia.fr !</span>';
+    btn.textContent='✅ Publié !';
+    addLog('ok','Carousel publié sur Instagram ✓ (ID: '+d3.id+')');
+  } catch(e){
+    status.innerHTML='<span style="color:var(--red)">❌ Erreur : '+e.message+'</span>';
+    btn.disabled=false;
+    btn.textContent='🚀 Publier sur Instagram';
+    addLog('err','Erreur publication : '+e.message);
+  }
 }
 
 // ── AUTO-CONNEXION ──
