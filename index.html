@@ -4,757 +4,626 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Agent IA — L'information IA</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --bg:#080808;--surface:#111111;--surface2:#181818;--border:#222;
-    --text:#f0f0f0;--muted:#666;--dim:#333;
-    --purple:#a855f7;--purple-bg:#1e0a3c;--purple-dim:#2d1b69;
-    --green:#22c55e;--green-bg:#052e16;
-    --yellow:#facc15;--yellow-bg:#2d2000;
-    --red:#ef4444;
-    --font-head:'Syne',sans-serif;
-    --font-mono:'Space Mono',monospace;
-  }
-  html{scroll-behavior:smooth}
-  body{font-family:var(--font-head);background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fafafa;--white:#ffffff;--border:#e5e5e5;
+  --text:#111;--muted:#888;--dim:#ccc;
+  --purple:#7c3aed;--purple-light:#ede9fe;--purple-border:#c4b5fd;
+  --green:#16a34a;--green-light:#dcfce7;
+  --yellow:#d97706;--yellow-light:#fef3c7;
+  --red:#dc2626;--red-light:#fee2e2;
+  --sidebar:220px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;font-size:14px}
 
-  /* ── SIDEBAR ── */
-  .sidebar{
-    position:fixed;left:0;top:0;width:230px;height:100vh;
-    background:var(--surface);border-right:1px solid var(--border);
-    display:flex;flex-direction:column;z-index:200;
-    overflow:hidden;
-  }
-  .sidebar-logo{
-    padding:24px 20px 20px;
-    border-bottom:1px solid var(--border);
-  }
-  .logo-badge{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--purple-dim);border:1px solid var(--purple);
-    border-radius:6px;padding:6px 10px;margin-bottom:12px;
-  }
-  .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--purple);animation:blink 1.8s ease-in-out infinite}
-  @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--purple)}50%{opacity:.3;box-shadow:none}}
-  .logo-badge-text{font-size:10px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase}
-  .logo-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.5px}
-  .logo-sub{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--font-mono)}
+/* SIDEBAR */
+.sidebar{
+  position:fixed;left:0;top:0;width:var(--sidebar);height:100vh;
+  background:var(--white);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;z-index:100;
+}
+.logo{padding:20px;border-bottom:1px solid var(--border)}
+.logo-name{font-size:15px;font-weight:700;color:var(--text)}
+.logo-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.logo-status{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:11px;color:var(--green);background:var(--green-light);padding:3px 8px;border-radius:20px;font-weight:500}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-  .nav{flex:1;padding:16px 0;overflow-y:auto}
-  .nav-section{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1.5px;padding:12px 20px 6px;font-family:var(--font-mono)}
-  .nav-item{
-    display:flex;align-items:center;gap:10px;
-    padding:10px 20px;font-size:13px;font-weight:600;
-    color:var(--muted);cursor:pointer;transition:all .15s;
-    border-left:2px solid transparent;
-    text-decoration:none;
-  }
-  .nav-item:hover{color:var(--text);background:var(--surface2)}
-  .nav-item.active{color:#fff;background:var(--surface2);border-left-color:var(--purple)}
-  .nav-item svg{flex-shrink:0;opacity:.7}
-  .nav-item.active svg{opacity:1}
-  .nav-chip{
-    margin-left:auto;font-size:9px;padding:2px 6px;
-    border-radius:4px;font-family:var(--font-mono);font-weight:400;
-  }
-  .chip-green{background:var(--green-bg);color:var(--green)}
-  .chip-yellow{background:var(--yellow-bg);color:var(--yellow)}
-  .chip-purple{background:var(--purple-dim);color:var(--purple)}
+.nav{flex:1;padding:12px 0;overflow-y:auto}
+.nav-label{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;padding:10px 16px 4px;font-weight:600}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 16px;font-size:13px;font-weight:500;
+  color:var(--muted);cursor:pointer;transition:all .1s;
+  border-radius:0;text-decoration:none;
+}
+.nav-item:hover{color:var(--text);background:#f5f5f5}
+.nav-item.active{color:var(--purple);background:var(--purple-light);font-weight:600}
+.nav-count{margin-left:auto;font-size:11px;padding:1px 7px;border-radius:10px;font-weight:600}
+.nc-green{background:var(--green-light);color:var(--green)}
+.nc-yellow{background:var(--yellow-light);color:var(--yellow)}
+.nc-purple{background:var(--purple-light);color:var(--purple)}
 
-  .sidebar-footer{
-    padding:16px 20px;border-top:1px solid var(--border);
-    display:flex;align-items:center;gap:10px;
-  }
-  .avatar{
-    width:34px;height:34px;border-radius:50%;
-    background:linear-gradient(135deg,#f97316,var(--purple));
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:800;color:#fff;flex-shrink:0;
-  }
-  .footer-name{font-size:12px;font-weight:700;color:#fff}
-  .footer-role{font-size:10px;color:var(--muted);font-family:var(--font-mono)}
-  .footer-status{margin-left:auto;width:8px;height:8px;border-radius:50%;background:var(--green)}
+.sidebar-bottom{padding:16px;border-top:1px solid var(--border)}
+.user-row{display:flex;align-items:center;gap:10px}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0}
+.user-name{font-size:13px;font-weight:600}
+.user-handle{font-size:11px;color:var(--muted)}
 
-  /* ── MAIN ── */
-  .main{margin-left:230px;flex:1;padding:32px;max-width:calc(100vw - 230px)}
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;padding:28px;max-width:calc(100vw - var(--sidebar))}
 
-  .topbar{
-    display:flex;align-items:flex-start;justify-content:space-between;
-    margin-bottom:28px;gap:16px;flex-wrap:wrap;
-  }
-  .page-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-1px}
-  .page-meta{font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--font-mono)}
-  .topbar-actions{display:flex;gap:10px;align-items:center}
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
 
-  .btn{
-    display:inline-flex;align-items:center;gap:7px;
-    padding:10px 18px;border-radius:7px;font-size:13px;font-weight:700;
-    cursor:pointer;transition:all .15s;border:none;font-family:var(--font-head);
-  }
-  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
-  .btn-ghost:hover{border-color:var(--dim);color:var(--text)}
-  .btn-purple{background:var(--purple);color:#fff}
-  .btn-purple:hover{background:#9333ea;transform:translateY(-1px)}
-  .btn-green{background:var(--green);color:#000}
-  .btn-green:hover{background:#16a34a}
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.page-title{font-size:20px;font-weight:700}
+.page-sub{font-size:12px;color:var(--muted);margin-top:3px}
 
-  /* ── STATS ── */
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
-  .stat-card{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:12px;padding:18px;position:relative;overflow:hidden;
-  }
-  .stat-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:2px;
-    background:var(--accent,var(--purple));
-  }
-  .stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-family:var(--font-mono);margin-bottom:10px}
-  .stat-value{font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
-  .stat-sub{font-size:11px;margin-top:6px;font-family:var(--font-mono)}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;font-family:'Inter',sans-serif}
+.btn-primary{background:var(--purple);color:#fff}
+.btn-primary:hover{background:#6d28d9}
+.btn-outline{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:#999;background:#f9f9f9}
+.btn-danger{background:var(--red-light);color:var(--red);border:1px solid #fca5a5}
+.btn-danger:hover{background:#fecaca}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#15803d}
+.btn-sm{padding:5px 12px;font-size:12px}
 
-  /* ── GRID ── */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
-  .grid-3{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:18px}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
-  .card-header{
-    display:flex;align-items:center;justify-content:space-between;
-    margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);
-  }
-  .card-title{font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
-  .pill{
-    font-size:10px;padding:3px 8px;border-radius:20px;font-weight:600;
-    font-family:var(--font-mono);
-  }
-  .pill-purple{background:var(--purple-dim);color:var(--purple);border:1px solid #4a2299}
-  .pill-green{background:var(--green-bg);color:var(--green)}
-  .pill-yellow{background:var(--yellow-bg);color:var(--yellow)}
-  .pill-gray{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+.stat-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.stat-value{font-size:24px;font-weight:700}
+.stat-note{font-size:11px;color:var(--muted);margin-top:4px}
 
-  /* ── SOURCES ── */
-  .source-row{
-    display:flex;align-items:center;gap:12px;
-    padding:9px 0;border-bottom:1px solid var(--border);
-  }
-  .source-row:last-of-type{border:none}
-  .source-icon{
-    width:30px;height:30px;border-radius:7px;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:700;font-family:var(--font-mono);
-  }
-  .source-name{font-size:12px;color:#ccc;flex:1;font-family:var(--font-mono)}
-  .source-badge{font-size:10px;font-family:var(--font-mono)}
-  .toggle{
-    width:36px;height:20px;border-radius:10px;
-    position:relative;cursor:pointer;flex-shrink:0;transition:background .2s;
-  }
-  .toggle.on{background:var(--purple)}
-  .toggle.off{background:var(--dim)}
-  .toggle::after{
-    content:'';position:absolute;top:3px;width:14px;height:14px;
-    background:#fff;border-radius:50%;transition:left .2s;
-  }
-  .toggle.on::after{left:19px}
-  .toggle.off::after{left:3px}
-  .add-source{display:flex;gap:8px;margin-top:14px;align-items:center}
-  .input{
-    background:var(--surface2);border:1px solid var(--border);
-    border-radius:6px;padding:8px 12px;color:var(--text);
-    font-size:12px;font-family:var(--font-mono);outline:none;
-    transition:border-color .15s;
-  }
-  .input:focus{border-color:var(--purple)}
-  .input::placeholder{color:var(--dim)}
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.card-title{font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.divider{border:none;border-top:1px solid var(--border);margin:14px 0}
 
-  /* ── CONFIG ── */
-  .config-row{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:9px 0;border-bottom:1px solid var(--border);
-  }
-  .config-row:last-child{border:none}
-  .config-label{font-size:12px;color:var(--muted);font-family:var(--font-mono)}
-  .config-val{font-size:12px;color:#fff;font-weight:700;font-family:var(--font-mono)}
-  .config-val.green{color:var(--green)}
-  .config-val.purple{color:var(--purple)}
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-  /* ── POSTS LIST ── */
-  .post-item{
-    display:flex;align-items:center;gap:14px;
-    padding:12px 0;border-bottom:1px solid var(--border);
-  }
-  .post-item:last-child{border:none}
-  .post-num{
-    width:32px;height:32px;border-radius:8px;flex-shrink:0;
-    background:var(--purple-dim);border:1px solid var(--purple);
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:800;color:var(--purple);font-family:var(--font-mono);
-  }
-  .post-body{flex:1;min-width:0}
-  .post-title-text{font-size:13px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .post-meta-text{font-size:10px;color:var(--muted);margin-top:3px;font-family:var(--font-mono)}
-  .post-actions{display:flex;gap:6px;flex-shrink:0}
-  .icon-btn{
-    width:28px;height:28px;border-radius:6px;
-    background:var(--surface2);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;
-    transition:all .15s;
-  }
-  .icon-btn:hover{border-color:var(--purple);background:var(--purple-dim)}
+/* FORM */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.input{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:13px;color:var(--text);font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;background:#fff}
+.input:focus{border-color:var(--purple)}
+.input::placeholder{color:var(--dim)}
+select.input{cursor:pointer}
 
-  /* ── SLIDE PREVIEW ── */
-  .slides-preview{display:flex;gap:10px;padding:16px 0 4px}
-  .slide-thumb{
-    width:90px;height:115px;border-radius:8px;
-    flex-shrink:0;overflow:hidden;border:1px solid var(--border);
-    cursor:pointer;transition:transform .15s;position:relative;
-  }
-  .slide-thumb:hover{transform:scale(1.05);border-color:var(--purple)}
-  .slide-cover{
-    width:100%;height:100%;background:#111;
-    display:flex;flex-direction:column;justify-content:flex-end;padding:8px;
-  }
-  .slide-cover-text{font-size:7px;font-weight:800;color:#fff;line-height:1.3;text-transform:uppercase}
-  .slide-cover-logo{font-size:5px;color:var(--purple);font-weight:700;margin-top:4px;font-family:var(--font-mono)}
-  .slide-content-inner{
-    width:100%;height:100%;background:#f5f0e8;
-    padding:7px;display:flex;flex-direction:column;
-  }
-  .slide-n{font-size:6px;color:#999;font-family:'Courier New',monospace;margin-bottom:2px}
-  .slide-h{font-size:7px;font-weight:800;color:#111;line-height:1.3;margin-bottom:4px}
-  .slide-p{font-size:5.5px;color:#555;line-height:1.5;flex:1}
-  .slide-logo-bottom{font-size:5px;color:#333;font-weight:700;text-align:center;padding-top:5px;border-top:1px solid #ddd;margin-top:auto}
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px}
+.badge-green{background:var(--green-light);color:var(--green)}
+.badge-yellow{background:var(--yellow-light);color:var(--yellow)}
+.badge-purple{background:var(--purple-light);color:var(--purple)}
+.badge-red{background:var(--red-light);color:var(--red)}
+.badge-gray{background:#f5f5f5;color:var(--muted)}
 
-  /* ── INSTAGRAM CONNECT ── */
-  .insta-card{
-    background:linear-gradient(135deg,var(--purple-bg),#0a0a1a);
-    border:1px solid var(--purple);border-radius:12px;padding:18px;
-    margin-bottom:14px;
-  }
-  .insta-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-  .insta-avatar{
-    width:48px;height:48px;border-radius:50%;flex-shrink:0;
-    background:linear-gradient(135deg,#f97316,var(--purple));
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;font-weight:800;color:#fff;
-  }
-  .insta-name{font-size:15px;font-weight:800;color:#fff}
-  .insta-handle{font-size:11px;color:var(--purple);font-family:var(--font-mono)}
-  .insta-stats{display:flex;gap:16px;margin-top:6px}
-  .insta-stat{text-align:center}
-  .insta-stat-val{font-size:14px;font-weight:800;color:#fff}
-  .insta-stat-label{font-size:9px;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase}
-  .connected-badge{
-    margin-left:auto;background:var(--green-bg);border:1px solid var(--green);
-    color:var(--green);font-size:10px;font-weight:700;
-    padding:4px 10px;border-radius:6px;font-family:var(--font-mono);
-    display:flex;align-items:center;gap:5px;
-  }
+/* ROW */
+.row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.row:last-child{border:none}
 
-  /* ── PROMPT ── */
-  .prompt-editor{
-    background:var(--surface2);border:1px solid var(--border);
-    border-radius:8px;padding:14px;font-family:var(--font-mono);
-    font-size:11px;color:#aaa;line-height:1.7;min-height:120px;
-    white-space:pre-wrap;cursor:text;outline:none;
-    border-left:3px solid var(--purple);
-  }
-  .prompt-editor:focus{border-color:var(--purple);color:#ccc}
+/* TOGGLE */
+.toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
+.toggle.on{background:var(--purple)}
+.toggle.off{background:var(--dim)}
+.toggle::after{content:'';position:absolute;top:3px;width:14px;height:14px;background:#fff;border-radius:50%;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle.on::after{left:19px}
+.toggle.off::after{left:3px}
 
-  /* ── LOGS ── */
-  .log-entry{
-    display:flex;gap:10px;padding:8px 0;
-    border-bottom:1px solid #111;align-items:flex-start;
-  }
-  .log-entry:last-child{border:none}
-  .log-time{font-size:10px;color:var(--dim);flex-shrink:0;width:48px;font-family:var(--font-mono);padding-top:1px}
-  .log-indicator{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
-  .log-ok .log-indicator{background:var(--green)}
-  .log-warn .log-indicator{background:var(--yellow)}
-  .log-info .log-indicator{background:var(--purple)}
-  .log-msg{font-size:11px;line-height:1.5;font-family:var(--font-mono)}
-  .log-ok .log-msg{color:#6ee7b7}
-  .log-warn .log-msg{color:#fde68a}
-  .log-info .log-msg{color:#c4b5fd}
+/* INSTA CONNECT */
+.connect-box{border:2px dashed var(--border);border-radius:10px;padding:32px;text-align:center;background:#fafafa}
+.connect-box.connected{border:2px solid var(--green);background:var(--green-light);border-style:solid}
+.connect-icon{width:52px;height:52px;border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.connect-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.connect-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
 
-  /* ── SEPARATOR ── */
-  .section-gap{margin-bottom:18px}
+/* TOKEN INPUT */
+.token-section{background:#f8f7ff;border:1px solid var(--purple-border);border-radius:10px;padding:16px;margin-top:14px}
+.token-steps{counter-reset:step}
+.step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.step:last-child{margin:0}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:12px;color:#555;line-height:1.5}
+.step-text a{color:var(--purple);font-weight:600}
+.step-text strong{color:var(--text)}
 
-  /* ── RESPONSIVO ── */
-  @media(max-width:900px){
-    .sidebar{width:60px}
-    .sidebar-logo,.nav-section,.footer-name,.footer-role,.logo-name,.logo-sub,.logo-badge-text,.nav-item span{display:none}
-    .main{margin-left:60px;padding:20px}
-    .stats-grid{grid-template-columns:1fr 1fr}
-    .grid-2,.grid-3{grid-template-columns:1fr}
-  }
-  @media(max-width:600px){
-    .stats-grid{grid-template-columns:1fr}
-    .slides-preview{overflow-x:auto}
-  }
+/* POSTS */
+.post-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0}
+.post-row:last-child{border:none}
+.post-num{width:30px;height:30px;border-radius:7px;background:var(--purple-light);color:var(--purple);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.post-info{flex:1;min-width:0}
+.post-title-t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.post-meta-t{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* SLIDES PREVIEW */
+.slides-row{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px}
+.slide-mini{width:80px;height:104px;border-radius:7px;flex-shrink:0;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .15s}
+.slide-mini:hover{transform:scale(1.06);border-color:var(--purple)}
+.slide-dark{background:#111;width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:7px}
+.slide-dark-text{font-size:6.5px;font-weight:800;color:#fff;line-height:1.4;text-transform:uppercase}
+.slide-dark-logo{font-size:5px;color:#a855f7;margin-top:4px;font-weight:700}
+.slide-light{background:#f5f0e8;width:100%;height:100%;padding:6px;display:flex;flex-direction:column}
+.slide-n{font-size:5.5px;color:#999;margin-bottom:2px}
+.slide-h{font-size:6.5px;font-weight:800;color:#111;line-height:1.3;margin-bottom:3px}
+.slide-p{font-size:5px;color:#555;line-height:1.5;flex:1}
+.slide-logo{font-size:5px;color:#333;font-weight:700;text-align:center;padding-top:4px;border-top:1px solid #ddd;margin-top:auto}
+
+/* LOGS */
+.log{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
+.log:last-child{border:none}
+.log-t{font-size:11px;color:var(--dim);flex-shrink:0;width:44px;padding-top:1px}
+.log-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.log-ok .log-dot{background:var(--green)}
+.log-warn .log-dot{background:var(--yellow)}
+.log-info .log-dot{background:var(--purple)}
+.log-err .log-dot{background:var(--red)}
+.log-msg{font-size:12px;color:#444;line-height:1.4}
+
+/* ALERT */
+.alert{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+.alert-warning{background:var(--yellow-light);border:1px solid #fcd34d;color:#92400e}
+.alert-info{background:var(--purple-light);border:1px solid var(--purple-border);color:#5b21b6}
+.alert-success{background:var(--green-light);border:1px solid #86efac;color:#166534}
+
+/* PROMPT */
+.prompt-area{width:100%;min-height:120px;padding:12px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-family:'Inter',sans-serif;color:var(--text);resize:vertical;outline:none;line-height:1.6}
+.prompt-area:focus{border-color:var(--purple)}
 </style>
 </head>
 <body>
 
-<!-- ════════════════ SIDEBAR ════════════════ -->
+<!-- SIDEBAR -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-badge">
-      <div class="logo-dot"></div>
-      <span class="logo-badge-text">Agent actif</span>
-    </div>
+  <div class="logo">
     <div class="logo-name">L'information IA</div>
-    <div class="logo-sub">instagram-agent v1.0</div>
+    <div class="logo-sub">Agent Instagram</div>
+    <div class="logo-status"><div class="status-dot"></div>Agent actif</div>
   </div>
-
   <nav class="nav">
-    <div class="nav-section">Principal</div>
-    <a class="nav-item active" href="#dashboard">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.2" fill="currentColor"/><rect x="9" y="1" width="6" height="6" rx="1.2" fill="currentColor" opacity=".5"/><rect x="1" y="9" width="6" height="6" rx="1.2" fill="currentColor" opacity=".5"/><rect x="9" y="9" width="6" height="6" rx="1.2" fill="currentColor" opacity=".3"/></svg>
-      <span>Dashboard</span>
-      <span class="nav-chip chip-green">Live</span>
+    <div class="nav-label">Principal</div>
+    <a class="nav-item active" onclick="showPage('dashboard')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="5.5" height="5.5" rx="1" fill="currentColor" opacity=".4"/><rect x="1" y="8.5" width="5.5" height="5.5" rx="1" fill="currentColor" opacity=".4"/><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1" fill="currentColor" opacity=".2"/></svg>
+      Dashboard
+      <span class="nav-count nc-green">Live</span>
     </a>
-    <a class="nav-item" href="#sources">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span>Veille sources</span>
-      <span class="nav-chip chip-green">4</span>
+    <a class="nav-item" onclick="showPage('sources')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7.5 4v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Sources
+      <span class="nav-count nc-green">4</span>
     </a>
-
-    <div class="nav-section">Contenu</div>
-    <a class="nav-item" href="#posts">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 7h6M5 10h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span>Posts générés</span>
-      <span class="nav-chip chip-yellow">2</span>
+    <div class="nav-label">Contenu</div>
+    <a class="nav-item" onclick="showPage('posts')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="2.5" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 6.5h6M4.5 9.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Posts générés
+      <span class="nav-count nc-yellow">2</span>
     </a>
-    <a class="nav-item" href="#design">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="7" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="11" width="5" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
-      <span>Design slides</span>
+    <a class="nav-item" onclick="showPage('prompt')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h7M2 11h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Prompt IA
     </a>
-    <a class="nav-item" href="#prompt">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span>Prompt IA</span>
-      <span class="nav-chip chip-purple">Syne</span>
+    <div class="nav-label">Connexions</div>
+    <a class="nav-item" id="nav-insta" onclick="showPage('instagram')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="2" width="11" height="11" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="7.5" cy="7.5" r="2.2" stroke="currentColor" stroke-width="1.2"/><circle cx="10.8" cy="4.2" r=".7" fill="currentColor"/></svg>
+      Instagram
+      <span class="nav-count nc-yellow" id="insta-nav-badge">!</span>
     </a>
-
-    <div class="nav-section">Connexions</div>
-    <a class="nav-item" href="#instagram">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><circle cx="11.5" cy="4.5" r=".8" fill="currentColor"/></svg>
-      <span>Instagram</span>
-      <span class="nav-chip chip-green">OK</span>
-    </a>
-    <a class="nav-item" href="#logs">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v2H2zM2 7h8v2H2zM2 11h5v2H2z" fill="currentColor" opacity=".6"/></svg>
-      <span>Logs</span>
+    <a class="nav-item" onclick="showPage('logs')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 3h11M2 6.5h8M2 10h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Logs
     </a>
   </nav>
-
-  <div class="sidebar-footer">
-    <div class="avatar">IA</div>
-    <div>
-      <div class="footer-name">Admin</div>
-      <div class="footer-role">@linformation.ia</div>
+  <div class="sidebar-bottom">
+    <div class="user-row">
+      <div class="user-avatar">IA</div>
+      <div>
+        <div class="user-name">Admin</div>
+        <div class="user-handle">@linformation.ia</div>
+      </div>
     </div>
-    <div class="footer-status"></div>
   </div>
 </aside>
 
-<!-- ════════════════ MAIN ════════════════ -->
+<!-- MAIN -->
 <main class="main">
 
-  <!-- TOPBAR -->
-  <div class="topbar" id="dashboard">
-    <div>
-      <div class="page-title">Dashboard Agent</div>
-      <div class="page-meta">Scan : il y a 12 min &nbsp;·&nbsp; Prochain : dans 48 min &nbsp;·&nbsp; Mode : automatique ON</div>
-    </div>
-    <div class="topbar-actions">
-      <button class="btn btn-ghost" onclick="alert('Paramètres')">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.9 2.9l1.4 1.4M9.7 9.7l1.4 1.4M2.9 11.1l1.4-1.4M9.7 4.3l1.4-1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        Paramètres
-      </button>
-      <button class="btn btn-purple" onclick="lancerScan()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#fff"/></svg>
-        Lancer le scan
-      </button>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-grid">
-    <div class="stat-card" style="--accent:var(--green)">
-      <div class="stat-label">Posts publiés</div>
-      <div class="stat-value">24</div>
-      <div class="stat-sub" style="color:var(--green)">+3 cette semaine</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--purple)">
-      <div class="stat-label">Sources actives</div>
-      <div class="stat-value">4</div>
-      <div class="stat-sub" style="color:var(--purple)">Toutes surveillées</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--yellow)">
-      <div class="stat-label">En attente</div>
-      <div class="stat-value">2</div>
-      <div class="stat-sub" style="color:var(--yellow)">À valider / publier</div>
-    </div>
-    <div class="stat-card" style="--accent:#22d3ee">
-      <div class="stat-label">Tokens Claude</div>
-      <div class="stat-value">4.2k</div>
-      <div class="stat-sub" style="color:#22d3ee">Ce mois (~0.04$)</div>
-    </div>
-  </div>
-
-  <!-- SOURCES + CONFIG -->
-  <div class="grid-2" id="sources">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="var(--purple)" stroke-width="1.3"/><path d="M7 3v4l2.5 1.5" stroke="var(--purple)" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Sources surveillées
-        </div>
-        <span class="pill pill-green">4 actives</span>
-      </div>
-
-      <div class="source-row">
-        <div class="source-icon" style="background:#1e0a3c;color:var(--purple)">AN</div>
-        <div class="source-name">anthropic.com/news</div>
-        <span class="source-badge" style="color:var(--green)">RSS</span>
-        <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
-      </div>
-      <div class="source-row">
-        <div class="source-icon" style="background:#0a1a2e;color:#60a5fa">DO</div>
-        <div class="source-name">docs.claude.ai</div>
-        <span class="source-badge" style="color:var(--green)">Scrape</span>
-        <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
-      </div>
-      <div class="source-row">
-        <div class="source-icon" style="background:#1a1a1a;color:#e2e8f0">X</div>
-        <div class="source-name">@AnthropicAI (X)</div>
-        <span class="source-badge" style="color:var(--green)">API</span>
-        <div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
-      </div>
-      <div class="source-row">
-        <div class="source-icon" style="background:#1a1a1a;color:var(--muted)">CL</div>
-        <div class="source-name">claude.ai/changelog</div>
-        <span class="source-badge" style="color:var(--muted)">OFF</span>
-        <div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
-      </div>
-
-      <div class="add-source">
-        <input class="input" style="flex:1" placeholder="https://nouvelle-source.com..." id="new-source-url"/>
-        <button class="btn btn-purple" style="padding:8px 14px;font-size:12px" onclick="ajouterSource()">+ Ajouter</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="var(--purple)" stroke-width="1.3"/><path d="M4 7h6M4 4.5h6M4 9.5h4" stroke="var(--purple)" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Configuration
-        </div>
-        <span class="pill pill-purple">Claude API</span>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Clé API Claude</div>
-        <div class="config-val purple">sk-ant-••••••1f3a <span style="cursor:pointer;font-size:10px;color:var(--muted)">✎</span></div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Fréquence scan</div>
-        <select class="input" style="width:auto;font-size:11px;padding:4px 8px">
-          <option>Toutes les heures</option>
-          <option>Toutes les 30 min</option>
-          <option>Toutes les 6h</option>
-          <option>1x par jour</option>
-        </select>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Langue de sortie</div>
-        <div class="config-val">Français 🇫🇷</div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Nb slides par post</div>
-        <select class="input" style="width:auto;font-size:11px;padding:4px 8px">
-          <option>3 slides</option>
-          <option>4 slides</option>
-          <option>5 slides</option>
-        </select>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Mode publication</div>
-        <div class="config-val green">Automatique ●</div>
-      </div>
-      <div style="margin-top:12px">
-        <button class="btn btn-purple" style="width:100%;justify-content:center;font-size:12px">Sauvegarder la config</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- POSTS GENERES -->
-  <div class="card section-gap" id="posts">
-    <div class="card-header">
-      <div class="card-title">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="var(--purple)" stroke-width="1.3"/><path d="M4 6h6M4 9h4" stroke="var(--purple)" stroke-width="1.3" stroke-linecap="round"/></svg>
-        Posts générés — Carousel Instagram
+  <!-- ═══ DASHBOARD ═══ -->
+  <div class="page active" id="page-dashboard">
+    <div class="topbar">
+      <div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-sub" id="scan-status">Dernier scan : il y a 12 min · Prochain dans 48 min</div>
       </div>
       <div style="display:flex;gap:8px">
-        <span class="pill pill-gray">24 total</span>
-        <span class="pill pill-yellow">2 en attente</span>
+        <button class="btn btn-outline" onclick="showPage('instagram')">Connecter Instagram</button>
+        <button class="btn btn-primary" onclick="lancerScan()">▶ Lancer le scan</button>
       </div>
     </div>
 
-    <div class="post-item">
-      <div class="post-num">01</div>
-      <div class="post-body">
-        <div class="post-title-text">Claude 4 Opus — Les nouvelles capacités de raisonnement avancé</div>
-        <div class="post-meta-text">Généré il y a 2h &nbsp;·&nbsp; Source : anthropic.com/news &nbsp;·&nbsp; 3 slides</div>
-      </div>
-      <div class="post-actions">
-        <div class="icon-btn" title="Voir">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6s2-4 5-4 5 4 5 4-2 4-5 4-5-4-5-4z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
-        </div>
-        <div class="icon-btn" title="Modifier">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 9.5L3.5 10l6-6-1.5-1.5-6 6zM8 2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        </div>
-      </div>
-      <span class="pill pill-green">Publié</span>
+    <div id="alert-insta" class="alert alert-warning">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:1px"><path d="M8 2L14 13H2L8 2z" stroke="#d97706" stroke-width="1.3"/><path d="M8 6v4M8 11.5v.5" stroke="#d97706" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <span><strong>Instagram non connecté</strong> — Connecte ton compte pour activer la publication automatique. <a href="#" onclick="showPage('instagram');return false" style="color:#d97706;font-weight:600">Configurer →</a></span>
     </div>
 
-    <div class="post-item">
-      <div class="post-num">02</div>
-      <div class="post-body">
-        <div class="post-title-text">Claude Code Channels — Contrôle via Telegram et Discord</div>
-        <div class="post-meta-text">Généré il y a 5h &nbsp;·&nbsp; Source : docs.claude.ai &nbsp;·&nbsp; 3 slides</div>
-      </div>
-      <div class="post-actions">
-        <div class="icon-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6s2-4 5-4 5 4 5 4-2 4-5 4-5-4-5-4z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg></div>
-        <div class="icon-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 9.5L3.5 10l6-6-1.5-1.5-6 6zM8 2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-      </div>
-      <span class="pill pill-green">Publié</span>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Posts publiés</div><div class="stat-value">24</div><div class="stat-note" style="color:var(--green)">+3 cette semaine</div></div>
+      <div class="stat"><div class="stat-label">Sources actives</div><div class="stat-value">4</div><div class="stat-note">Toutes surveillées</div></div>
+      <div class="stat"><div class="stat-label">En attente</div><div class="stat-value">2</div><div class="stat-note" style="color:var(--yellow)">À publier</div></div>
+      <div class="stat"><div class="stat-label">Tokens Claude</div><div class="stat-value">4.2k</div><div class="stat-note">~0.04$ ce mois</div></div>
     </div>
 
-    <div class="post-item">
-      <div class="post-num">03</div>
-      <div class="post-body">
-        <div class="post-title-text">Nouvelle API vision étendue — Analyse vidéo en temps réel</div>
-        <div class="post-meta-text">Généré il y a 8h &nbsp;·&nbsp; Source : @AnthropicAI &nbsp;·&nbsp; 3 slides &nbsp;·&nbsp; En attente de validation</div>
+    <div class="card">
+      <div class="card-title">Derniers posts générés</div>
+      <div class="post-row">
+        <div class="post-num">01</div>
+        <div class="post-info"><div class="post-title-t">Claude 4 Opus — Nouvelles capacités de raisonnement</div><div class="post-meta-t">Il y a 2h · anthropic.com/news · 3 slides</div></div>
+        <span class="badge badge-green">Publié</span>
       </div>
-      <div class="post-actions">
-        <div class="icon-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6s2-4 5-4 5 4 5 4-2 4-5 4-5-4-5-4z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg></div>
-        <div class="icon-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 9.5L3.5 10l6-6-1.5-1.5-6 6zM8 2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+      <div class="post-row">
+        <div class="post-num">02</div>
+        <div class="post-info"><div class="post-title-t">Claude Code Channels — Contrôle via Telegram & Discord</div><div class="post-meta-t">Il y a 5h · docs.claude.ai · 3 slides</div></div>
+        <span class="badge badge-green">Publié</span>
       </div>
-      <span class="pill pill-yellow">En attente</span>
-    </div>
-
-    <!-- SLIDE PREVIEW -->
-    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)" id="design">
-      <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-family:var(--font-mono)">Aperçu slides — Post #03</div>
-      <div class="slides-preview">
-
-        <!-- Slide Cover -->
-        <div class="slide-thumb">
-          <div class="slide-cover">
-            <div class="slide-cover-text">L'IA évolue plus vite que jamais. Voici les dernières actus Claude.</div>
-            <div class="slide-cover-logo">L'information IA</div>
-          </div>
-        </div>
-
-        <!-- Slide 1 -->
-        <div class="slide-thumb">
-          <div class="slide-content-inner">
-            <div class="slide-n">01</div>
-            <div class="slide-h">API Vision Étendue</div>
-            <div class="slide-p">Claude peut maintenant analyser des vidéos complètes et extraire des informations en temps réel depuis n'importe quelle source.</div>
-            <div class="slide-logo-bottom">L'information IA</div>
-          </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="slide-thumb">
-          <div class="slide-content-inner">
-            <div class="slide-n">02</div>
-            <div class="slide-h">Pour les développeurs</div>
-            <div class="slide-p">L'API accepte désormais des flux vidéo en entrée. Les tokens visuels sont traités 3x plus vite qu'avant.</div>
-            <div class="slide-logo-bottom">L'information IA</div>
-          </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="slide-thumb">
-          <div class="slide-content-inner">
-            <div class="slide-n">03</div>
-            <div class="slide-h">Disponibilité</div>
-            <div class="slide-p">Accès via claude-sonnet-4 et claude-opus-4. La nouvelle fonctionnalité est disponible dès aujourd'hui en beta.</div>
-            <div class="slide-logo-bottom">L'information IA</div>
-          </div>
-        </div>
-
-        <!-- Slide CTA -->
-        <div class="slide-thumb">
-          <div class="slide-cover" style="background:#111;align-items:center;justify-content:center;text-align:center">
-            <div>
-              <div style="font-size:7px;font-weight:800;color:#fff;text-transform:uppercase;line-height:1.4">Abonne-toi pour en savoir plus sur l'IA !</div>
-              <div style="font-size:5px;color:var(--purple);margin-top:4px;font-family:var(--font-mono)">L'information IA</div>
-            </div>
-          </div>
-        </div>
+      <div class="post-row">
+        <div class="post-num">03</div>
+        <div class="post-info"><div class="post-title-t">API Vision étendue — Analyse vidéo en temps réel</div><div class="post-meta-t">Il y a 8h · @AnthropicAI · 3 slides · En attente</div></div>
+        <span class="badge badge-yellow">En attente</span>
+        <button class="btn btn-green btn-sm" onclick="publierPost()">Publier</button>
       </div>
 
-      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-        <button class="btn btn-ghost" style="font-size:12px">Modifier le contenu</button>
-        <button class="btn btn-ghost" style="font-size:12px">Changer le design</button>
-        <button class="btn btn-green" style="font-size:12px" onclick="publierPost()">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Publier sur Instagram
-        </button>
+      <hr class="divider"/>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Aperçu slides — Post #03</div>
+      <div class="slides-row">
+        <div class="slide-mini"><div class="slide-dark"><div class="slide-dark-text">L'IA évolue plus vite que jamais.</div><div class="slide-dark-logo">L'information IA</div></div></div>
+        <div class="slide-mini"><div class="slide-light"><div class="slide-n">01</div><div class="slide-h">API Vision Étendue</div><div class="slide-p">Claude analyse des vidéos complètes en temps réel depuis n'importe quelle source.</div><div class="slide-logo">L'information IA</div></div></div>
+        <div class="slide-mini"><div class="slide-light"><div class="slide-n">02</div><div class="slide-h">Pour les développeurs</div><div class="slide-p">L'API accepte des flux vidéo. Les tokens visuels sont traités 3x plus vite.</div><div class="slide-logo">L'information IA</div></div></div>
+        <div class="slide-mini"><div class="slide-light"><div class="slide-n">03</div><div class="slide-h">Disponible maintenant</div><div class="slide-p">Accès via claude-sonnet-4 et claude-opus-4 dès aujourd'hui en beta.</div><div class="slide-logo">L'information IA</div></div></div>
+        <div class="slide-mini"><div class="slide-dark" style="align-items:center;justify-content:center;text-align:center"><div class="slide-dark-text" style="text-align:center">Abonne-toi pour en savoir plus !</div><div class="slide-dark-logo">L'information IA</div></div></div>
       </div>
     </div>
   </div>
 
-  <!-- INSTAGRAM + PROMPT -->
-  <div class="grid-2" id="instagram">
-
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2.5" stroke="var(--purple)" stroke-width="1.3"/><circle cx="7" cy="7" r="2" stroke="var(--purple)" stroke-width="1.3"/><circle cx="10" cy="4" r=".7" fill="var(--purple)"/></svg>
-          Compte Instagram
-        </div>
-        <div class="connected-badge">
-          <div style="width:6px;height:6px;border-radius:50%;background:var(--green)"></div>
-          Connecté
-        </div>
-      </div>
-
-      <div class="insta-card">
-        <div class="insta-header">
-          <div class="insta-avatar">IA</div>
-          <div>
-            <div class="insta-name">L'information IA</div>
-            <div class="insta-handle">@linformation.ia</div>
-          </div>
-        </div>
-        <div class="insta-stats">
-          <div class="insta-stat"><div class="insta-stat-val">421</div><div class="insta-stat-label">posts</div></div>
-          <div class="insta-stat"><div class="insta-stat-val">175K</div><div class="insta-stat-label">followers</div></div>
-          <div class="insta-stat"><div class="insta-stat-val">Business</div><div class="insta-stat-label">type</div></div>
-        </div>
-      </div>
-
-      <div class="config-row">
-        <div class="config-label">Token Meta API</div>
-        <div class="config-val purple">EAAl••••••g3yt <span style="cursor:pointer;font-size:10px;color:var(--muted)">✎</span></div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Page Facebook liée</div>
-        <div class="config-val">L'information IA Page</div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Expiration token</div>
-        <div class="config-val" style="color:var(--yellow)">Dans 5 jours ⚠</div>
-      </div>
-
-      <div style="display:flex;gap:8px;margin-top:14px">
-        <button class="btn btn-ghost" style="flex:1;font-size:12px;justify-content:center">Reconnecter</button>
-        <button class="btn btn-purple" style="flex:1;font-size:12px;justify-content:center" onclick="testerInsta()">Tester</button>
+  <!-- ═══ INSTAGRAM ═══ -->
+  <div class="page" id="page-instagram">
+    <div class="topbar">
+      <div>
+        <div class="page-title">Connexion Instagram</div>
+        <div class="page-sub">Connecte ton compte pour publier automatiquement</div>
       </div>
     </div>
 
-    <div class="card" id="prompt">
-      <div class="card-header">
-        <div class="card-title">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M2 7h7M2 10.5h5" stroke="var(--purple)" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Prompt IA actif
-        </div>
-        <span class="pill pill-purple">Claude Sonnet 4</span>
+    <!-- STEP 1 : pas connecté -->
+    <div id="insta-not-connected">
+      <div class="alert alert-info">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><circle cx="8" cy="8" r="6" stroke="#7c3aed" stroke-width="1.3"/><path d="M8 5v4M8 10.5v.5" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <span>Pour publier automatiquement sur Instagram, tu as besoin d'un <strong>compte Business ou Creator</strong> et d'un <strong>token Meta API</strong>. Suis les étapes ci-dessous.</span>
       </div>
-      <div
-        class="prompt-editor"
-        contenteditable="true"
-        id="prompt-text"
-      >Tu es rédacteur pour "L'information IA", média français N°1 sur l'actualité IA.
+
+      <div class="grid-2" style="margin-bottom:16px">
+        <div class="card" style="margin:0">
+          <div class="card-title">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="11" height="11" rx="2.5" stroke="var(--purple)" stroke-width="1.2"/><circle cx="7" cy="7" r="2" stroke="var(--purple)" stroke-width="1.2"/><circle cx="10" cy="4" r=".7" fill="var(--purple)"/></svg>
+            Étape 1 — Compte Instagram
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Ton compte doit être en mode <strong>Business</strong> ou <strong>Creator</strong>. Si c'est un compte personnel, voici comment changer :</p>
+          <ol style="font-size:13px;color:#555;padding-left:18px;line-height:2">
+            <li>Ouvre Instagram → ton profil</li>
+            <li>Paramètres → Compte</li>
+            <li>"Passer en compte professionnel"</li>
+            <li>Choisir <strong>Business</strong> ou <strong>Creator</strong></li>
+          </ol>
+          <hr class="divider"/>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Mon compte est actuellement :</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-outline btn-sm" id="type-business" onclick="selectAccountType('business')">Business</button>
+            <button class="btn btn-outline btn-sm" id="type-creator" onclick="selectAccountType('creator')">Creator</button>
+            <button class="btn btn-outline btn-sm" id="type-personal" onclick="selectAccountType('personal')">Personnel</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin:0">
+          <div class="card-title">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="11" height="11" rx="2" stroke="var(--purple)" stroke-width="1.2"/><path d="M5 7l2 2 4-4" stroke="var(--purple)" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Étape 2 — Page Facebook
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">L'API Meta exige une <strong>Page Facebook</strong> liée à ton compte Instagram. C'est obligatoire, même si tu ne l'utilises pas.</p>
+          <ol style="font-size:13px;color:#555;padding-left:18px;line-height:2">
+            <li>Va sur <strong>facebook.com/pages/create</strong></li>
+            <li>Crée une page "L'information IA"</li>
+            <li>Dans Instagram → Paramètres → Compte lié → Page Facebook</li>
+          </ol>
+          <hr class="divider"/>
+          <a href="https://www.facebook.com/pages/create" target="_blank" class="btn btn-outline btn-sm">Créer une Page Facebook →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v3M7 10v3M1 7h3M10 7h3" stroke="var(--purple)" stroke-width="1.2" stroke-linecap="round"/><circle cx="7" cy="7" r="2.5" stroke="var(--purple)" stroke-width="1.2"/></svg>
+          Étape 3 — Obtenir ton Token Meta API
+        </div>
+
+        <div class="token-section">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text">Va sur <a href="https://developers.facebook.com" target="_blank">developers.facebook.com</a> → "Mes apps" → <strong>Créer une app</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text">Choisis le type <strong>"Business"</strong> → donne un nom (ex: Agent IA Instagram) → Créer</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">Dans ton app → <strong>Produits</strong> → ajoute <strong>"Instagram Graph API"</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text">Va dans <strong>Outils → Explorateur d'API Graph</strong> → génère un token avec les permissions : <strong>instagram_basic, instagram_content_publish, pages_read_engagement</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-text">Copie le token et colle-le ci-dessous</div>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="field" style="margin-top:14px">
+          <label>Ton Token Meta (Instagram Graph API)</label>
+          <input class="input" type="password" id="meta-token" placeholder="EAAl... (colle ton token ici)"/>
+        </div>
+        <div class="field">
+          <label>Ton Instagram Business Account ID</label>
+          <input class="input" type="text" id="insta-account-id" placeholder="17841400000000000"/>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Trouve-le dans : Instagram → Paramètres → À propos → ID du compte</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn btn-outline" onclick="testerConnexion()">Tester la connexion</button>
+          <button class="btn btn-primary" onclick="connecterInstagram()">Connecter Instagram</button>
+        </div>
+        <div id="test-result" style="margin-top:10px;font-size:12px;display:none"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 : connecté -->
+    <div id="insta-connected" style="display:none">
+      <div class="alert alert-success">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><circle cx="8" cy="8" r="6" stroke="var(--green)" stroke-width="1.3"/><path d="M5 8l2 2 4-4" stroke="var(--green)" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <span><strong>Instagram connecté avec succès !</strong> Ton agent peut maintenant publier automatiquement sur ton compte.</span>
+      </div>
+      <div class="card">
+        <div class="card-title">Compte connecté</div>
+        <div class="row">
+          <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#f97316,#a855f7);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:13px;flex-shrink:0">IA</div>
+          <div style="flex:1"><div style="font-weight:600">L'information IA</div><div style="font-size:12px;color:var(--muted)">@linformation.ia · Business</div></div>
+          <span class="badge badge-green">Connecté</span>
+        </div>
+        <hr class="divider"/>
+        <div class="row"><span style="color:var(--muted);font-size:13px">Token</span><span style="font-size:13px;font-weight:500" id="token-display">EAAl••••••••</span></div>
+        <div class="row"><span style="color:var(--muted);font-size:13px">Permissions</span><span style="font-size:13px">instagram_content_publish ✓</span></div>
+        <div class="row" style="border:none"><span style="color:var(--muted);font-size:13px">Mode publication</span><span class="badge badge-green">Automatique</span></div>
+        <hr class="divider"/>
+        <button class="btn btn-danger btn-sm" onclick="deconnecterInstagram()">Déconnecter le compte</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SOURCES ═══ -->
+  <div class="page" id="page-sources">
+    <div class="topbar"><div><div class="page-title">Sources surveillées</div><div class="page-sub">URLs que l'agent vérifie pour détecter les nouveautés</div></div><button class="btn btn-primary btn-sm" onclick="lancerScan()">▶ Scanner maintenant</button></div>
+    <div class="card">
+      <div class="row"><div style="font-size:13px;font-weight:600;flex:1">anthropic.com/news</div><span class="badge badge-gray">RSS</span><div class="toggle on" onclick="toggleSwitch(this)"></div></div>
+      <div class="row"><div style="font-size:13px;font-weight:600;flex:1">docs.claude.ai</div><span class="badge badge-gray">Scrape</span><div class="toggle on" onclick="toggleSwitch(this)"></div></div>
+      <div class="row"><div style="font-size:13px;font-weight:600;flex:1">@AnthropicAI (X / Twitter)</div><span class="badge badge-gray">API</span><div class="toggle on" onclick="toggleSwitch(this)"></div></div>
+      <div class="row"><div style="font-size:13px;font-weight:600;flex:1">claude.ai/changelog</div><span class="badge badge-gray">Scrape</span><div class="toggle off" onclick="toggleSwitch(this)"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Ajouter une source</div>
+      <div class="field"><label>URL à surveiller</label><input class="input" id="new-url" placeholder="https://..."/></div>
+      <div class="field"><label>Type</label><select class="input"><option>RSS Feed</option><option>Page web (scraping)</option><option>API</option></select></div>
+      <button class="btn btn-primary btn-sm" onclick="ajouterSource()">+ Ajouter la source</button>
+    </div>
+  </div>
+
+  <!-- ═══ POSTS ═══ -->
+  <div class="page" id="page-posts">
+    <div class="topbar"><div><div class="page-title">Posts générés</div><div class="page-sub">Historique de tous les posts créés par l'agent</div></div></div>
+    <div class="card">
+      <div class="post-row"><div class="post-num">01</div><div class="post-info"><div class="post-title-t">Claude 4 Opus — Nouvelles capacités de raisonnement</div><div class="post-meta-t">Il y a 2h · anthropic.com/news · 3 slides</div></div><span class="badge badge-green">Publié</span></div>
+      <div class="post-row"><div class="post-num">02</div><div class="post-info"><div class="post-title-t">Claude Code Channels — Telegram & Discord</div><div class="post-meta-t">Il y a 5h · docs.claude.ai · 3 slides</div></div><span class="badge badge-green">Publié</span></div>
+      <div class="post-row"><div class="post-num">03</div><div class="post-info"><div class="post-title-t">API Vision étendue — Analyse vidéo en temps réel</div><div class="post-meta-t">Il y a 8h · @AnthropicAI · 3 slides</div></div><span class="badge badge-yellow">En attente</span><button class="btn btn-green btn-sm" onclick="publierPost()">Publier</button></div>
+    </div>
+  </div>
+
+  <!-- ═══ PROMPT ═══ -->
+  <div class="page" id="page-prompt">
+    <div class="topbar"><div><div class="page-title">Prompt IA</div><div class="page-sub">Instruction envoyée à Claude pour générer les slides</div></div></div>
+    <div class="card">
+      <div class="field"><label>Clé API Claude</label><input class="input" type="password" placeholder="sk-ant-api03-..." id="claude-key"/></div>
+      <div class="field"><label>Modèle</label><select class="input"><option>claude-sonnet-4-20250514</option><option>claude-opus-4-20250514</option></select></div>
+      <div class="field"><label>Instruction système (prompt)</label>
+        <textarea class="prompt-area" id="system-prompt">Tu es rédacteur pour "L'information IA", média français N°1 sur l'actualité IA.
 
 Quand tu reçois une actualité Anthropic/Claude :
 1. Traduis en français naturel et percutant
 2. Rédige 3 slides carousel Instagram :
-   - Slide COVER : texte accrocheur en majuscules
-   - Slides 01/02/03 : numéro + titre gras + description
+   - Slide COVER : texte accrocheur en majuscules (max 10 mots)
+   - Slides 01 / 02 / 03 : numéro + titre gras + description courte (2-3 phrases)
+   - Slide CTA : "Abonne-toi pour en savoir plus sur l'IA !"
 3. Génère un caption Instagram avec emojis et hashtags FR
 
-Ton style : direct, informatif, sans jargon inutile.</div>
-      <div style="display:flex;gap:8px;margin-top:12px">
-        <button class="btn btn-ghost" style="font-size:12px">Réinitialiser</button>
-        <button class="btn btn-purple" style="font-size:12px" onclick="alert('Prompt sauvegardé !')">Sauvegarder</button>
+Ton style : direct, informatif, sans jargon inutile.</textarea>
       </div>
-
-      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
-        <div style="font-size:11px;color:var(--muted);font-family:var(--font-mono);margin-bottom:8px">Tester le prompt manuellement</div>
-        <textarea class="input" style="width:100%;height:70px;resize:none" placeholder="Colle ici un article ou un tweet Anthropic à tester..."></textarea>
-        <button class="btn btn-purple" style="width:100%;justify-content:center;margin-top:8px;font-size:12px" onclick="testerPrompt()">
-          Générer les slides (test)
-        </button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-outline" onclick="alert('Prompt réinitialisé')">Réinitialiser</button>
+        <button class="btn btn-primary" onclick="alert('Prompt sauvegardé !')">Sauvegarder</button>
       </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tester le prompt</div>
+      <div class="field"><label>Article ou tweet à tester</label><textarea class="prompt-area" placeholder="Colle ici un article ou un tweet Anthropic..." style="min-height:80px"></textarea></div>
+      <button class="btn btn-primary btn-sm" onclick="alert('Test en cours... (connecte la vraie API Claude pour voir le résultat)')">Générer les slides (test)</button>
     </div>
   </div>
 
-  <!-- LOGS -->
-  <div class="card" id="logs">
-    <div class="card-header">
-      <div class="card-title">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3h10v2H2zM2 7h7v2H2zM2 11h5v2H2z" fill="var(--purple)" opacity=".7"/></svg>
-        Journal des actions
+  <!-- ═══ LOGS ═══ -->
+  <div class="page" id="page-logs">
+    <div class="topbar"><div><div class="page-title">Journal des actions</div><div class="page-sub">Tout ce que l'agent a fait</div></div><button class="btn btn-outline btn-sm" onclick="clearLogs()">Effacer les logs</button></div>
+    <div class="card">
+      <div id="log-list">
+        <div class="log log-ok"><div class="log-t">14:02</div><div class="log-dot"></div><div class="log-msg">Scan terminé — 4 sources vérifiées, 0 nouveau contenu</div></div>
+        <div class="log log-ok"><div class="log-t">13:10</div><div class="log-dot"></div><div class="log-msg">Post #24 publié sur Instagram — carousel 3 slides ✓</div></div>
+        <div class="log log-info"><div class="log-t">13:08</div><div class="log-dot"></div><div class="log-msg">Claude API appelé — génération slides post #24 (432 tokens, 0.004$)</div></div>
+        <div class="log log-ok"><div class="log-t">13:06</div><div class="log-dot"></div><div class="log-msg">Nouveau contenu détecté : "Claude 4 Opus launch" — anthropic.com/news</div></div>
+        <div class="log log-warn"><div class="log-t">11:45</div><div class="log-dot"></div><div class="log-msg">Token Instagram expire dans 5 jours — renouvellement requis</div></div>
       </div>
-      <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="clearLogs()">Effacer</button>
-    </div>
-    <div id="log-container">
-      <div class="log-entry log-ok"><div class="log-time">14:02</div><div class="log-indicator"></div><div class="log-msg">Scan terminé — 4 sources vérifiées, 0 nouveau contenu détecté</div></div>
-      <div class="log-entry log-ok"><div class="log-time">13:10</div><div class="log-indicator"></div><div class="log-msg">Post #24 publié sur Instagram — carousel 3 slides ✓</div></div>
-      <div class="log-entry log-info"><div class="log-time">13:08</div><div class="log-indicator"></div><div class="log-msg">Claude API appelé — génération slides post #24 (432 tokens, 0.004$)</div></div>
-      <div class="log-entry log-ok"><div class="log-time">13:06</div><div class="log-indicator"></div><div class="log-msg">Nouveau contenu détecté : "Claude 4 Opus launch" — anthropic.com/news</div></div>
-      <div class="log-entry log-info"><div class="log-time">12:00</div><div class="log-indicator"></div><div class="log-msg">Scan automatique déclenché — 4 sources analysées</div></div>
-      <div class="log-entry log-warn"><div class="log-time">11:45</div><div class="log-indicator"></div><div class="log-msg">Avertissement — Token Instagram expire dans 5 jours. Renouvellement requis.</div></div>
     </div>
   </div>
 
 </main>
 
 <script>
+// ── NAVIGATION ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  event && event.currentTarget && event.currentTarget.classList.add('active');
+}
+document.querySelectorAll('.nav-item').forEach(item=>{
+  item.addEventListener('click',function(){
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ── TOGGLE ──
+function toggleSwitch(el){el.classList.toggle('on');el.classList.toggle('off')}
+
+// ── SCAN ──
 function lancerScan(){
-  addLog('info','Scan manuel lancé par l\'administrateur...');
-  setTimeout(()=>addLog('ok','Scan terminé — 4 sources vérifiées'),1500);
-  setTimeout(()=>addLog('ok','Aucun nouveau contenu détecté pour le moment'),2200);
+  addLog('info','Scan manuel lancé...');
+  document.getElementById('scan-status').textContent='Scan en cours...';
+  setTimeout(()=>{addLog('ok','4 sources vérifiées');document.getElementById('scan-status').textContent='Scan terminé à '+new Date().toLocaleTimeString('fr',{hour:'2-digit',minute:'2-digit'})},1500);
+  setTimeout(()=>addLog('ok','Aucun nouveau contenu détecté'),2200);
 }
-function testerInsta(){
-  addLog('info','Test de connexion Instagram Graph API...');
-  setTimeout(()=>addLog('ok','Connexion Instagram OK — compte @linformation.ia actif'),1200);
+
+// ── INSTAGRAM CONNECT ──
+let instagramConnected = false;
+
+function selectAccountType(type){
+  ['business','creator','personal'].forEach(t=>{
+    const btn=document.getElementById('type-'+t);
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-outline');
+  });
+  document.getElementById('type-'+type).classList.remove('btn-outline');
+  document.getElementById('type-'+type).classList.add('btn-primary');
+  if(type==='personal'){
+    alert('Tu dois d\'abord passer ton compte en mode Business ou Creator dans les paramètres Instagram avant de continuer.');
+  }
 }
-function testerPrompt(){
-  addLog('info','Appel Claude API pour test du prompt...');
-  setTimeout(()=>addLog('ok','Slides générées avec succès — 3 slides prêtes'),2000);
-  setTimeout(()=>addLog('info','Tokens utilisés : 380 — Coût estimé : 0.004$'),2300);
+
+async function testerConnexion(){
+  const token=document.getElementById('meta-token').value.trim();
+  const id=document.getElementById('insta-account-id').value.trim();
+  const result=document.getElementById('test-result');
+  if(!token||!id){result.style.display='block';result.style.color='var(--red)';result.textContent='⚠ Remplis le token et l\'ID de compte avant de tester.';return;}
+  result.style.display='block';result.style.color='var(--muted)';result.textContent='⏳ Test en cours...';
+  try {
+    const res = await fetch(`https://graph.facebook.com/v19.0/${id}?fields=id,username,name,followers_count&access_token=${token}`);
+    const data = await res.json();
+    if(data.error){
+      result.style.color='var(--red)';
+      result.textContent='❌ Erreur : '+data.error.message;
+    } else {
+      result.style.color='var(--green)';
+      result.textContent=`✓ Connexion réussie ! Compte : @${data.username||data.name} (ID: ${data.id})`;
+    }
+  } catch(e) {
+    result.style.color='var(--red)';
+    result.textContent='❌ Erreur réseau : '+e.message;
+  }
 }
+
+function connecterInstagram(){
+  const token=document.getElementById('meta-token').value;
+  const id=document.getElementById('insta-account-id').value;
+  if(!token||!id){alert('Remplis le token Meta et l\'ID de compte Instagram.');return;}
+  // Sauvegarder (en prod : localStorage ou backend)
+  localStorage.setItem('meta_token', token);
+  localStorage.setItem('insta_id', id);
+  instagramConnected=true;
+  document.getElementById('insta-not-connected').style.display='none';
+  document.getElementById('insta-connected').style.display='block';
+  document.getElementById('alert-insta').style.display='none';
+  document.getElementById('insta-nav-badge').textContent='✓';
+  document.getElementById('insta-nav-badge').className='nav-count nc-green';
+  document.getElementById('token-display').textContent=token.substring(0,8)+'••••••••';
+  addLog('ok','Compte Instagram connecté avec succès — @linformation.ia');
+}
+
+function deconnecterInstagram(){
+  if(!confirm('Déconnecter le compte Instagram ?'))return;
+  localStorage.removeItem('meta_token');
+  localStorage.removeItem('insta_id');
+  instagramConnected=false;
+  document.getElementById('insta-not-connected').style.display='block';
+  document.getElementById('insta-connected').style.display='none';
+  document.getElementById('alert-insta').style.display='flex';
+  document.getElementById('insta-nav-badge').textContent='!';
+  document.getElementById('insta-nav-badge').className='nav-count nc-yellow';
+  addLog('warn','Compte Instagram déconnecté');
+}
+
+// ── PUBLIER ──
 function publierPost(){
-  addLog('info','Envoi du carousel sur Instagram...');
-  setTimeout(()=>{
-    addLog('ok','Post #25 publié avec succès sur @linformation.ia !');
-    alert('Post publié sur Instagram !');
-  },1800);
+  if(!instagramConnected){
+    if(confirm('Instagram n\'est pas connecté. Aller à la page de connexion ?')){showPage('instagram');}
+    return;
+  }
+  addLog('info','Publication du carousel en cours...');
+  setTimeout(()=>{addLog('ok','Post #25 publié sur Instagram @linformation.ia ✓');alert('Post publié avec succès sur Instagram !');},1800);
 }
+
+// ── SOURCES ──
 function ajouterSource(){
-  const val=document.getElementById('new-source-url').value;
-  if(!val){return;}
-  addLog('info','Nouvelle source ajoutée : '+val);
-  document.getElementById('new-source-url').value='';
+  const url=document.getElementById('new-url').value;
+  if(!url){alert('Entre une URL valide');return;}
+  addLog('info','Nouvelle source ajoutée : '+url);
+  document.getElementById('new-url').value='';
+  alert('Source ajoutée : '+url);
 }
-function clearLogs(){
-  document.getElementById('log-container').innerHTML='<div class="log-entry log-info"><div class="log-time">'+new Date().toLocaleTimeString('fr',{hour:'2-digit',minute:'2-digit'})+'</div><div class="log-indicator"></div><div class="log-msg">Logs effacés par l\'administrateur</div></div>';
-}
+
+// ── LOGS ──
 function addLog(type,msg){
-  const c=document.getElementById('log-container');
+  const list=document.getElementById('log-list');
   const t=new Date().toLocaleTimeString('fr',{hour:'2-digit',minute:'2-digit'});
   const d=document.createElement('div');
-  d.className='log-entry log-'+type;
-  d.innerHTML=`<div class="log-time">${t}</div><div class="log-indicator"></div><div class="log-msg">${msg}</div>`;
-  c.prepend(d);
+  d.className='log log-'+type;
+  d.innerHTML=`<div class="log-t">${t}</div><div class="log-dot"></div><div class="log-msg">${msg}</div>`;
+  list.prepend(d);
 }
+function clearLogs(){document.getElementById('log-list').innerHTML='<div class="log log-info"><div class="log-t">'+new Date().toLocaleTimeString('fr',{hour:'2-digit',minute:'2-digit'})+'</div><div class="log-dot"></div><div class="log-msg">Logs effacés</div></div>';}
+
+// ── RESTORE ──
+window.onload=function(){
+  const token=localStorage.getItem('meta_token');
+  const id=localStorage.getItem('insta_id');
+  if(token&&id){
+    document.getElementById('meta-token').value=token;
+    document.getElementById('insta-account-id').value=id;
+    connecterInstagram();
+  }
+};
 </script>
 </body>
 </html>
