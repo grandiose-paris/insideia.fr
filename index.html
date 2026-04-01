@@ -614,15 +614,33 @@ function addLog(type,msg){
 }
 function clearLogs(){document.getElementById('log-list').innerHTML='<div class="log log-info"><div class="log-t">'+new Date().toLocaleTimeString('fr',{hour:'2-digit',minute:'2-digit'})+'</div><div class="log-dot"></div><div class="log-msg">Logs effacés</div></div>';}
 
-// ── RESTORE ──
+// ── CONFIG PRE-REMPLI ──
+const CONFIG = {
+  META_TOKEN: 'EAAYgWw5dkZBIBREPmomgnhtlbNDDg9zw7Q5zsYFZC4g3ZC5auYZAVGvjnpb5XDFzrzUSad4xSX5k7dDioZAWQZCZBGx9bH8wGMfEgCxjidyKeqOn24ToRknP82WSDlzPZCHiCnLkhdBwSoSGfpnNFnUf1zCTac5f5VjeYYg3rsQnp7xFtMk7Wz2xfkcg2f2oDo4NBwZDZD',
+  INSTA_ID: '17841439188239554',
+  GEMINI_KEY: 'AIzaSyBORg3PHzv8G41408jLOjcyyDKuW2UJKQg'
+};
+
+async function genererAvecGemini(article){
+  addLog('info','Gemini API appele...');
+  const prompt = 'Tu es redacteur pour L information IA, media francais sur l IA. Actualite : ' + article + '. Genere un carousel Instagram FR avec cover accrocheur, 3 slides (num+titre+desc), cta, caption avec emojis et hashtags. Reponds uniquement en JSON valide: {"cover":"...","slides":[{"num":"01","titre":"...","desc":"..."},{"num":"02","titre":"...","desc":"..."},{"num":"03","titre":"...","desc":"..."}],"cta":"...","caption":"..."}';
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+CONFIG.GEMINI_KEY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+    const data = await res.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const result = JSON.parse(text.replace(/```json|```/g,'').trim());
+    addLog('ok','Slides generees avec Gemini');
+    return result;
+  } catch(e){addLog('err','Erreur Gemini : '+e.message);return null;}
+}
+
+// ── AUTO-CONNEXION ──
 window.onload=function(){
-  const token=localStorage.getItem('meta_token');
-  const id=localStorage.getItem('insta_id');
-  if(token&&id){
-    document.getElementById('meta-token').value=token;
-    document.getElementById('insta-account-id').value=id;
-    connecterInstagram();
-  }
+  document.getElementById('meta-token').value=CONFIG.META_TOKEN;
+  document.getElementById('insta-account-id').value=CONFIG.INSTA_ID;
+  connecterInstagram();
+  const ck=document.getElementById('claude-key');
+  if(ck) ck.value=CONFIG.GEMINI_KEY;
 };
 </script>
 </body>
