@@ -2,680 +2,1199 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>SOFFRA — Art Culinaire Immersif · Paris 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Proposal — Art Culinaire · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Montserrat:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--w:#FAFAF6;--c:#F3EDE1;--b:#E6DDD0;--s:#D0C4AD;--g:#8B6914;--g2:#BF9040;--g3:#E2C36A;--ink:#0E0D0B;--gray:#6B6258;--lg:#AFA69C}
-html{scroll-behavior:smooth}
-body{background:var(--w);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
+/* ═══════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
 
-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:space-between;align-items:center;padding:1rem 5vw;background:rgba(250,250,246,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(139,105,20,.1)}
-.nb{font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.18em;font-weight:400}
-.nb em{font-style:italic;color:var(--g)}
-.nl{display:flex;gap:2rem;list-style:none}
-.nl a{font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .25s}
-.nl a:hover{color:var(--g)}
-.ncta{background:var(--ink)!important;color:var(--w)!important;padding:.42rem 1.2rem}
-.ncta:hover{background:var(--g)!important}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.3rem}
-.ham span{display:block;width:22px;height:1.5px;background:var(--ink)}
-.mob{display:none;position:fixed;inset:0;background:var(--w);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:3rem}
-.mob.open{display:flex}
-.mob a{font-size:1.6rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ink);text-decoration:none}
-
-/* HERO */
-.hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:stretch}
-.hero-bg{position:absolute;inset:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.42);transform:scale(1.06);animation:kenBurns 14s ease-out forwards}
-@keyframes kenBurns{to{transform:scale(1)}}
-.hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;width:100%;align-items:stretch}
-.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(2rem,5vw,5rem)}
-.hero-tag{font-size:.5rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .8s .4s forwards}
-.hero-tag::before{content:'';width:30px;height:1px;background:rgba(255,255,255,.3)}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,8rem);font-weight:300;line-height:.9;color:#fff;opacity:0;animation:fadeUp .8s .7s forwards}
-.hero-title em{font-style:italic;color:var(--g3)}
-.hero-sub{margin-top:2rem;font-size:.82rem;line-height:1.9;color:rgba(255,255,255,.55);max-width:380px;opacity:0;animation:fadeUp .8s 1s forwards}
-.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(2rem,5vw,5rem);border-left:1px solid rgba(255,255,255,.1)}
-.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;opacity:0;animation:fadeUp .8s 1.2s forwards}
-.hstat{border-top:1px solid rgba(255,255,255,.15);padding-top:1.2rem}
-.hstat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--g3);line-height:1}
-.hstat-l{font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.3rem}
-.hero-cta{margin-top:3rem;display:inline-block;padding:.85rem 2.2rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:all .3s;opacity:0;animation:fadeUp .8s 1.4s forwards}
-.hero-cta:hover{background:var(--g);border-color:var(--g)}
-.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1s 2s forwards}
-.hero-scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:spulse 2s infinite}
-.hero-scroll-txt{font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4)}
-@keyframes spulse{0%,100%{opacity:.5}50%{opacity:1}}
-
-/* MANIFESTE */
-.manifeste{padding:clamp(5rem,10vw,9rem) 5vw;background:var(--ink);position:relative;overflow:hidden}
-.manifeste::before{content:'SOFFRA';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cormorant Garamond',serif;font-size:clamp(8rem,20vw,22rem);font-weight:600;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.04);white-space:nowrap;pointer-events:none;letter-spacing:.05em}
-.manifeste-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;position:relative;z-index:1}
-.manifeste-eyebrow{font-size:.5rem;letter-spacing:.45em;text-transform:uppercase;color:var(--g2);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
-.manifeste-eyebrow::before{content:'';width:24px;height:1px;background:var(--g2)}
-.manifeste-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,4.5rem);font-weight:300;line-height:1.05;color:#fff}
-.manifeste-title em{font-style:italic;color:var(--g3)}
-.manifeste-quote{margin-top:2.5rem;font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2vw,1.9rem);font-weight:300;font-style:italic;line-height:1.5;color:rgba(255,255,255,.65);border-left:2px solid var(--g2);padding-left:1.8rem}
-.manifeste-right{display:flex;flex-direction:column;gap:2rem}
-.mp{padding:1.8rem 2rem;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);transition:border-color .3s,background .3s}
-.mp:hover{border-color:rgba(139,105,20,.4);background:rgba(139,105,20,.05)}
-.mp-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:rgba(139,105,20,.2);line-height:1;margin-bottom:.6rem;font-weight:300}
-.mp-t{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:.5rem}
-.mp-d{font-size:.78rem;line-height:1.8;color:rgba(255,255,255,.45)}
-
-/* SECTIONS */
-.sec{padding:clamp(4rem,8vw,7rem) 5vw}
-.sc{background:var(--c)}.sb{background:var(--b)}
-.ey{font-size:.5rem;letter-spacing:.4em;text-transform:uppercase;color:var(--g);margin-bottom:.65rem;display:flex;align-items:center;gap:.8rem}
-.ey::before{content:'';width:22px;height:1px;background:var(--g)}
-.st{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.8vw,4rem);font-weight:300;line-height:1.02;margin-bottom:.8rem}
-.st em{font-style:italic;color:var(--g)}
-.sdesc{font-size:.82rem;line-height:1.95;color:var(--gray);max-width:560px;margin-top:.6rem}
-.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:2.5rem}
-.sec-head p{font-size:.82rem;line-height:1.95;color:var(--gray);margin-top:3rem}
-
-/* CHEF SPLIT */
-.chef-split{display:grid;grid-template-columns:1fr 1fr}
-.ci{overflow:hidden;height:clamp(380px,55vw,700px);position:relative}
-.ci img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform 1s ease}
-.ci:hover img{transform:scale(1.04)}
-.ci-badge{position:absolute;bottom:2rem;left:2rem;z-index:2;background:rgba(250,250,246,.95);padding:1rem 1.5rem}
-.ci-badge-top{font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:.3rem}
-.ci-badge-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--ink)}
-.ct{background:var(--c);padding:clamp(3rem,6vw,5.5rem) clamp(2rem,4vw,4rem);display:flex;flex-direction:column;justify-content:center}
-.cq{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,1.8vw,1.8rem);font-weight:300;font-style:italic;line-height:1.55;color:var(--gray);border-left:2px solid var(--g);padding-left:1.4rem;margin:1.8rem 0}
-.cbio{font-size:.78rem;line-height:2;color:var(--lg);max-width:390px}
-.ctags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
-.ctag{padding:.22rem .85rem;border:1px solid rgba(139,105,20,.22);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--g2)}
-
-/* GALLERY */
-.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--b)}
-.gi{overflow:hidden;position:relative;height:clamp(180px,26vw,320px)}
-.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94)}
-.gi:hover img{transform:scale(1.08)}
-.gi.tall{grid-row:span 2;height:auto}
-.gcap{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,13,11,.78),transparent 52%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.3rem;opacity:0;transition:opacity .4s}
-.gi:hover .gcap{opacity:1}
-.gct{font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.22rem}
-.gca{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:#fff}
-
-/* STRIP */
-.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--s);height:clamp(140px,20vw,260px)}
-.si{overflow:hidden}
-.si img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
-.si:hover img{transform:scale(1.08)}
-
-/* BROWSER */
-.browser{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 16px 60px rgba(0,0,0,.12);margin-bottom:4px}
-.bbar{background:#f0eeeb;padding:.55rem .85rem;display:flex;align-items:center;gap:.65rem}
-.dots{display:flex;gap:.32rem}
-.dot{width:9px;height:9px;border-radius:50%}
-.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
-.url{flex:1;background:#fff;border-radius:4px;padding:.26rem .7rem;font-size:.56rem;color:#999;font-family:monospace}
-.plabel{font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem}
-.plabel::before{content:'';width:20px;height:1px;background:var(--g);display:inline-block}
-
-/* PAGE HOME */
-.phero{position:relative;overflow:hidden;height:200px}
-.phero img{width:100%;height:100%;object-fit:cover;filter:brightness(.55);display:block}
-.phero-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.phero-tag{font-size:.44rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.7rem}
-.phero-h{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:#fff;font-style:italic;line-height:1}
-.pstats{display:grid;grid-template-columns:repeat(4,1fr);background:#f3ede1}
-.ps{padding:.9rem;text-align:center;border-right:1px solid #e6ddd0}
-.ps:last-child{border-right:none}
-.ps-n{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#8B6914;font-weight:300}
-.ps-l{font-size:.42rem;letter-spacing:.14em;text-transform:uppercase;color:#AFA69C;margin-top:.1rem}
-.pbody{display:grid;grid-template-columns:55% 45%;min-height:260px}
-.pbody-img{overflow:hidden;position:relative}
-.pbody-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.72);display:block}
-.pbody-ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem;background:linear-gradient(to top,rgba(0,0,0,.62),transparent 50%)}
-.pbody-ov p{font-size:.44rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.35rem}
-.pbody-ov h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;font-style:italic;font-weight:300;line-height:1.15}
-.pbody-c{background:#fafaf6;padding:1.8rem;display:flex;flex-direction:column;gap:.9rem}
-.pnav{display:flex;gap:.9rem;font-size:.42rem;letter-spacing:.15em;text-transform:uppercase;color:#bbb;padding-bottom:.65rem;border-bottom:1px solid #eee;flex-wrap:wrap}
-.pnav span{color:#8B6914;font-weight:500}
-.ptitle{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;line-height:1.1}
-.ptitle em{font-style:italic;color:#8B6914}
-.pdesc{font-size:.58rem;line-height:1.75;color:#999}
-.pthumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
-.pthumb{overflow:hidden;height:55px}
-.pthumb img{width:100%;height:100%;object-fit:cover;display:block}
-.pbtn{display:inline-block;padding:.48rem 1.1rem;background:#0E0D0B;color:#fff;font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;align-self:flex-start}
-
-/* PAGE VISION */
-.pvision{display:grid;grid-template-columns:1fr 1fr;min-height:300px}
-.pv-l{background:#f3ede1;padding:2rem;display:flex;flex-direction:column;gap:1rem}
-.pv-r{overflow:hidden;position:relative}
-.pv-r img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:brightness(.82)}
-.pv-r-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,13,11,.4),transparent 55%);display:flex;padding:1.5rem}
-.htl{display:flex;flex-direction:column;gap:.85rem}
-.htl-i{display:grid;grid-template-columns:56px 1fr;gap:.7rem;align-items:start}
-.hyr{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#8B6914;font-weight:300;line-height:1}
-.hev{font-size:.6rem;line-height:1.6;color:#6B6258}
-.hev strong{color:#0E0D0B;display:block;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.1rem}
-
-/* PAGE GALERIE */
-.pgal{background:#fafaf6;padding:1.2rem}
-.gtabs{display:flex;gap:1.2rem;margin-bottom:1rem;border-bottom:1px solid #eee;padding-bottom:.6rem}
-.gtab{font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;color:#aaa}
-.gtab.active{color:#8B6914;border-bottom:1.5px solid #8B6914;padding-bottom:.3rem}
-.gmini{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
-.gm{overflow:hidden;height:68px}
-.gm img{width:100%;height:100%;object-fit:cover;display:block}
-.gmini3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-top:3px}
-.gm2{overflow:hidden;height:82px}
-.gm2 img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* PAGE RESA */
-.presa{display:grid;grid-template-columns:1fr 1fr;min-height:300px}
-.presa-l{background:#fafaf6;padding:1.8rem;display:flex;flex-direction:column;gap:.9rem}
-.presa-r{background:#f3ede1;padding:1.8rem;display:flex;flex-direction:column;gap:.75rem}
-.rtitle{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;line-height:1.1}
-.rtitle em{font-style:italic;color:#8B6914}
-.fg{display:flex;flex-direction:column;gap:.28rem}
-.fl{font-size:.46rem;letter-spacing:.18em;text-transform:uppercase;color:#AFA69C}
-.fi{background:#f3ede1;border:1px solid #E6DDD0;padding:.48rem .7rem;font-size:.58rem;color:#6B6258;font-family:'Jost',sans-serif;outline:none;width:100%;-webkit-appearance:none}
-.fs{background:#f3ede1;border:1px solid #E6DDD0;padding:.48rem .7rem;font-size:.58rem;color:#6B6258;font-family:'Jost',sans-serif;-webkit-appearance:none;outline:none;width:100%}
-.fsub{padding:.62rem;background:#0E0D0B;color:#fff;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;border:none;cursor:pointer;width:100%}
-.evc{background:#fff;padding:1rem;border-left:2px solid #8B6914;margin-bottom:.6rem}
-.evdate{font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;color:#8B6914;margin-bottom:.28rem}
-.evname{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:300;margin-bottom:.22rem}
-.evdetail{font-size:.54rem;color:#AFA69C;line-height:1.5}
-.evspot{display:inline-block;padding:.16rem .55rem;background:rgba(139,105,20,.1);font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:#8B6914;margin-top:.35rem}
-
-/* INSTAGRAM */
-.phones{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem}
-.phone{width:235px;background:#111;border-radius:36px;padding:11px;box-shadow:0 24px 70px rgba(0,0,0,.18);flex-shrink:0}
-.psc{background:#fff;border-radius:26px;overflow:hidden}
-.ph-lbl{font-size:.46rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lg);text-align:center;margin-bottom:.8rem}
-.igph{padding:.8rem;border-bottom:1px solid #f0f0f0}
-.igtop{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem}
-.igav{width:50px;height:50px;border-radius:50%;overflow:hidden;border:2px solid #C4993F;flex-shrink:0}
-.igav img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.iginfo{flex:1}
-.ighandle{font-size:.6rem;font-weight:600;color:#111;margin-bottom:.1rem}
-.igstats{display:flex;gap:1rem}
-.igsn{font-size:.6rem;font-weight:600;color:#111;text-align:center}
-.igsl{font-size:.44rem;color:#888;display:block;text-align:center}
-.igbtns{display:flex;gap:.4rem;padding:0 .8rem .6rem}
-.igbtn{flex:1;padding:.3rem;background:#f0f0f0;border:none;border-radius:5px;font-size:.48rem;font-weight:600;cursor:pointer;text-align:center}
-.igbtn.m{background:#0095f6;color:#fff}
-.igbio{padding:0 .8rem .6rem;font-size:.5rem;line-height:1.5;color:#333}
-.igbio strong{display:block;font-size:.56rem;color:#111}
-.igbio span{color:#8B6914}
-.ighls{display:flex;gap:.8rem;padding:.6rem .8rem;overflow-x:auto;border-bottom:1px solid #f0f0f0}
-.ighl{display:flex;flex-direction:column;align-items:center;gap:.28rem;flex-shrink:0}
-.ighl-ring{width:46px;height:46px;border-radius:50%;background:linear-gradient(45deg,#C4993F,#E2C36A);padding:2px}
-.ighl-in{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2px solid #fff}
-.ighl-in img{width:100%;height:100%;object-fit:cover;display:block}
-.ighl-lbl{font-size:.38rem;text-align:center;color:#333;max-width:46px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.igfeed{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px}
-.igpost{aspect-ratio:1;overflow:hidden}
-.igpost img{width:100%;height:100%;object-fit:cover;display:block}
-.igphd{padding:.55rem .8rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid #f0f0f0}
-.igpav{width:24px;height:24px;border-radius:50%;overflow:hidden;border:1.5px solid #C4993F;flex-shrink:0}
-.igpav img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.igpnm{font-size:.54rem;font-weight:600;color:#111;flex:1}
-.igpimg{height:210px;overflow:hidden}
-.igpimg img{width:100%;height:100%;object-fit:cover;display:block}
-.igpact{padding:.5rem .8rem;display:flex;gap:.8rem;align-items:center;border-bottom:1px solid #f0f0f0}
-.igact{font-size:.76rem}
-.iglikes{font-size:.52rem;font-weight:600;color:#111;padding:0 .8rem .22rem}
-.igcap{padding:0 .8rem .6rem;font-size:.48rem;line-height:1.5;color:#333}
-.igcap strong{color:#111}
-.igtags{color:#3797f0}
-
-/* STORY */
-.sph{width:235px;background:#111;border-radius:36px;padding:11px;box-shadow:0 24px 70px rgba(0,0,0,.2);flex-shrink:0}
-.ssc{background:#000;border-radius:26px;overflow:hidden;position:relative;height:425px;cursor:pointer}
-.sbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.sbg.on{z-index:2;opacity:1}
-.sbg.off{z-index:1;opacity:0}
-.sui{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column}
-.sbars{display:flex;gap:2.5px;padding:.6rem .7rem .28rem}
-.sbarw{flex:1;height:2px;background:rgba(255,255,255,.28);border-radius:1px;overflow:hidden}
-.sbarf{height:100%;background:#fff;border-radius:1px;width:0}
-.stop{display:flex;align-items:center;gap:.45rem;padding:.2rem .7rem}
-.sav{width:22px;height:22px;border-radius:50%;border:1.5px solid #BF9040;overflow:hidden;flex-shrink:0}
-.sav img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.snm{font-size:.5rem;color:#fff}
-.stime{font-size:.4rem;color:rgba(255,255,255,.5);margin-left:.25rem}
-.sbody{flex:1;display:flex;align-items:flex-end;padding:.9rem}
-.sbadge{display:inline-block;background:rgba(139,105,20,.85);color:#fff;font-size:.4rem;letter-spacing:.15em;text-transform:uppercase;padding:.16rem .55rem;border-radius:3px;margin-bottom:.45rem}
-.stxt{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#fff;line-height:1.35}
-.sbot{display:flex;align-items:center;gap:.4rem;padding:.48rem .7rem}
-.sinp{flex:1;background:rgba(255,255,255,.18);border-radius:20px;padding:.25rem .62rem;font-size:.42rem;color:rgba(255,255,255,.45)}
-
-/* HIGHLIGHTS */
-.hlbig{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2rem}
-.hlitem{display:flex;flex-direction:column;align-items:center;gap:.5rem;cursor:pointer;transition:transform .3s}
-.hlitem:hover{transform:scale(1.06)}
-.hlring{width:68px;height:68px;border-radius:50%;background:linear-gradient(45deg,var(--g),var(--g3));padding:2.5px}
-.hlinner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2.5px solid var(--w)}
-.hlinner img{width:100%;height:100%;object-fit:cover;display:block}
-.hllbl{font-size:.46rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);text-align:center;max-width:70px}
-
-/* STRAT */
-.sg3{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--s);margin-top:2.5rem}
-.sg{background:var(--w);padding:1.8rem}
-.sgt{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:1rem}
-.sgi{font-size:.72rem;line-height:1.75;color:var(--gray);padding:.48rem 0;border-bottom:1px solid var(--b)}
-.sgi:last-child{border-bottom:none}
-.sgi strong{color:var(--ink);display:block;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.12rem}
-
-/* TIKTOK */
-.ttwrap{display:grid;grid-template-columns:1fr 260px;gap:4rem;align-items:start;margin-top:2.5rem}
-.ttlist{display:flex;flex-direction:column}
-.tti{display:grid;grid-template-columns:38px 1fr;gap:1rem;padding:1.3rem 0;border-bottom:1px solid var(--b);align-items:start}
-.ttn{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:rgba(139,105,20,.2);line-height:1;font-weight:300}
-.ttt{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);margin-bottom:.28rem}
-.ttd{font-size:.72rem;line-height:1.8;color:var(--gray)}
-.ttphwrap{position:sticky;top:75px}
-.ttp{width:210px;background:#111;border-radius:28px;padding:9px}
-.ttsc{background:#000;border-radius:21px;overflow:hidden;height:375px;position:relative}
-.ttsc img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.ttcap{position:absolute;bottom:3.5rem;left:.75rem;right:3rem;font-size:.5rem;color:#fff;line-height:1.6}
-.ttht{color:#69C9D0}
-.ttside{position:absolute;right:.62rem;bottom:2.5rem;display:flex;flex-direction:column;gap:.9rem;align-items:center}
-.ttact{display:flex;flex-direction:column;align-items:center;gap:.12rem}
-.tticon{font-size:.88rem}
-.ttlab{font-size:.38rem;color:#fff}
-.ttm{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.2rem}
-.tm{background:var(--c);padding:.9rem 1rem}
-.tmn{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--g);line-height:1;font-weight:300}
-.tml{font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lg);margin-top:.15rem}
-
-/* COLLAB */
-.cb2{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--s);margin-top:2.5rem}
-.cbc{background:var(--w);padding:2.2rem 2rem}
-.cbh{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;margin-bottom:.25rem}
-.cbs{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g);margin-bottom:1.3rem;padding-bottom:1rem;border-bottom:1px solid var(--b)}
-.cbi{display:flex;gap:.65rem;padding:.62rem 0;border-bottom:1px solid var(--b);font-size:.72rem;line-height:1.72;color:var(--gray)}
-.cbi::before{content:"→";color:var(--g);flex-shrink:0;margin-top:.08rem}
-.cbi:last-child{border-bottom:none}
-
-/* TIMELINE */
-.tl{display:flex;flex-direction:column;margin-top:2.5rem}
-.tli{display:grid;grid-template-columns:90px 1fr;gap:1.5rem;padding:1.3rem 0;border-bottom:1px solid var(--b);transition:padding-left .3s}
-.tli:hover{padding-left:.5rem}
-.tlmo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--g);line-height:1.2}
-.tlt{font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);margin-bottom:.28rem}
-.tld{font-size:.72rem;line-height:1.8;color:var(--gray)}
-
-/* DELIVRABLES */
-.dg{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--s);margin-top:2.5rem}
-.dc{background:var(--w);padding:1.8rem 1.6rem;border-top:2px solid transparent;transition:all .3s}
-.dc:hover{border-top-color:var(--g);background:var(--c)}
-.dci{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:rgba(139,105,20,.15);font-style:italic;line-height:1;margin-bottom:.75rem;font-weight:300}
-.dct{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-bottom:.4rem}
-.dcd{font-size:.68rem;line-height:1.8;color:var(--gray)}
-
-/* CLOSING */
-.closing{position:relative;overflow:hidden;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(5rem,10vw,8rem) 5vw}
-.cbg{position:absolute;inset:0}
-.cbg img{width:100%;height:100%;object-fit:cover;filter:brightness(.18);display:block}
-.cco{position:relative;z-index:1;color:#fff}
-.ctg{font-size:.5rem;letter-spacing:.42em;text-transform:uppercase;color:var(--g2);margin-bottom:1.8rem}
-.cttl{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,7vw,7.5rem);font-weight:300;line-height:.93;margin-bottom:2rem}
-.cttl em{font-style:italic;color:var(--g2)}
-.csub{font-size:.8rem;line-height:2;color:rgba(255,255,255,.45);max-width:460px;margin:0 auto 2.8rem}
-.cbtn{display:inline-block;padding:.9rem 2.5rem;background:rgba(250,250,246,.95);color:var(--ink);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:all .3s}
-.cbtn:hover{background:var(--g);color:#fff}
-.csign{font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:3.5rem}
-.csign strong{color:var(--g2)}
-footer{background:#0E0D0B;padding:1.4rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
-footer span{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.2)}
-
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.rv{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.rv.in{opacity:1;transform:none}
-.rv2{opacity:0;transform:translateX(-22px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.rv2.in{opacity:1;transform:none}
-.rv3{opacity:0;transform:scale(.97);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.rv3.in{opacity:1;transform:none}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .nl{display:none}.ham{display:flex}
-  .hero-content,.manifeste-inner,.chef-split,.sec-head,.ttwrap,.cb2,.pbody,.pvision,.presa{grid-template-columns:1fr}
-  .hero{height:auto;min-height:90vh}.hero-right{display:none}
-  .ci{height:65vw;min-height:240px}
-  .gal{grid-template-columns:1fr 1fr}
-  .gi.tall{grid-row:span 1;height:clamp(160px,42vw,260px)}
-  .strip{grid-template-columns:repeat(3,1fr)}
-  .phones{gap:1.2rem}.phone,.sph{width:200px}
-  .dg{grid-template-columns:1fr 1fr}.sg3{grid-template-columns:1fr}
-  .ttphwrap{display:none}.ttwrap{grid-template-columns:1fr}
-  .sec-head{grid-template-columns:1fr}
-  .pbody-img,.pv-r{height:180px}.pstats{grid-template-columns:1fr 1fr}
+:root {
+  --white: #FFFFFF;
+  --off: #FAFAF8;
+  --cream: #F5F0E8;
+  --warm: #EDE8DC;
+  --gold: #C8A96E;
+  --gold2: #A8843E;
+  --gold3: #E8D4A0;
+  --ink: #0A0A08;
+  --gray: #5A5650;
+  --light: #B8B4AC;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 40px 120px rgba(0,0,0,0.08);
 }
-@media(max-width:480px){
-  .gal{grid-template-columns:1fr}.gi.tall{height:clamp(160px,55vw,280px)}
-  .dg,.sg3{grid-template-columns:1fr}.strip{grid-template-columns:1fr 1fr}
-  .phone,.sph{width:170px}
+
+html { scroll-behavior: smooth; overflow-x: hidden }
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+.cursor-dot {
+  position: fixed;
+  width: 6px; height: 6px;
+  background: var(--ink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width 0.4s, height 0.4s, border-color 0.4s;
+}
+body:hover .cursor-ring { }
+a:hover ~ .cursor-ring,
+button:hover ~ .cursor-ring { width: 60px; height: 60px; }
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 4rem;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.4s;
+}
+nav.scrolled { padding: 1rem 4rem }
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 400; letter-spacing: 0.15em;
+  color: var(--ink);
+}
+.nav-brand span { font-style: italic; color: var(--gold2) }
+.nav-links { display: flex; gap: 3rem; list-style: none }
+.nav-links a {
+  font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gray); text-decoration: none; transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 1px; background: var(--gold); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.3s;
+}
+.nav-links a:hover { color: var(--ink) }
+.nav-links a:hover::after { transform: scaleX(1) }
+.nav-contact {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.6rem 1.5rem; border: 1px solid var(--ink);
+  color: var(--ink); text-decoration: none;
+  transition: all 0.3s;
+}
+.nav-contact:hover { background: var(--ink); color: var(--white) }
+.ham { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none }
+.ham span { display: block; width: 22px; height: 1px; background: var(--ink); transition: 0.3s }
+.mob { display: none; position: fixed; inset: 0; background: var(--white); z-index: 400; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem }
+.mob.open { display: flex }
+.mob a { font-size: 1.8rem; font-family: 'Playfair Display', serif; font-style: italic; color: var(--ink); text-decoration: none }
+
+/* ═══════════════════════════════════════════
+   HERO — CINEMATIC FULL SCREEN
+═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 8rem 4rem 4rem;
+  position: relative; overflow: hidden;
+  background: var(--white);
+}
+
+/* 3D floating orbs background */
+.hero-orbs {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); opacity: 0.12;
+  animation: floatOrb 12s ease-in-out infinite;
+}
+.orb1 { width: 600px; height: 600px; background: radial-gradient(circle, #C8A96E, transparent); top: -10%; left: -10%; animation-delay: 0s }
+.orb2 { width: 400px; height: 400px; background: radial-gradient(circle, #8B6914, transparent); top: 20%; right: -5%; animation-delay: -4s }
+.orb3 { width: 300px; height: 300px; background: radial-gradient(circle, #E8D4A0, transparent); bottom: 10%; left: 20%; animation-delay: -8s }
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1) }
+  33% { transform: translate(30px, -40px) scale(1.05) }
+  66% { transform: translate(-20px, 20px) scale(0.95) }
+}
+
+/* Grid overlay */
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+}
+
+.hero-eyebrow {
+  font-size: 0.55rem; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--gold2); margin-bottom: 2.5rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  opacity: 0; animation: heroFade 1s 0.3s forwards;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; width: 40px; height: 1px; background: var(--gold);
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4rem, 10vw, 11rem);
+  font-weight: 400; line-height: 0.92;
+  color: var(--ink); position: relative; z-index: 1;
+  opacity: 0; animation: heroSlide 1s 0.6s forwards;
+}
+.hero-title em { font-style: italic; color: var(--gold2); display: block }
+.hero-title .thin { font-weight: 300; font-size: 0.65em; letter-spacing: 0.05em }
+
+.hero-sub {
+  margin-top: 3rem;
+  font-size: 0.85rem; line-height: 2.1;
+  color: var(--gray); max-width: 520px;
+  font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1rem;
+  opacity: 0; animation: heroFade 1s 1s forwards;
+}
+
+.hero-cta-row {
+  margin-top: 4rem; display: flex; gap: 2rem; align-items: center;
+  opacity: 0; animation: heroFade 1s 1.3s forwards;
+}
+.cta-primary {
+  padding: 1rem 2.8rem; background: var(--ink); color: var(--white);
+  font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.cta-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold2); transform: translateX(-100%); transition: transform 0.4s;
+}
+.cta-primary:hover::before { transform: translateX(0) }
+.cta-primary span { position: relative; z-index: 1 }
+.cta-secondary {
+  font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gray); text-decoration: none; border-bottom: 1px solid transparent;
+  transition: all 0.3s; padding-bottom: 0.2rem;
+}
+.cta-secondary:hover { color: var(--ink); border-color: var(--ink) }
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  opacity: 0; animation: heroFade 1s 2s forwards;
+}
+.scroll-mouse {
+  width: 22px; height: 36px; border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 11px; display: flex; justify-content: center; padding-top: 6px;
+}
+.scroll-wheel {
+  width: 2px; height: 8px; background: var(--ink); border-radius: 1px;
+  animation: scrollWheel 2s infinite;
+}
+@keyframes scrollWheel {
+  0% { transform: translateY(0); opacity: 1 }
+  100% { transform: translateY(12px); opacity: 0 }
+}
+.scroll-txt {
+  font-size: 0.45rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--light);
+}
+
+@keyframes heroFade { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes heroSlide { from { opacity: 0; transform: translateY(40px) } to { opacity: 1; transform: translateY(0) } }
+
+/* ═══════════════════════════════════════════
+   NUMBERS / STATS STRIP
+═══════════════════════════════════════════ */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: var(--off);
+}
+.stat-item {
+  padding: 3rem 2rem; text-align: center;
+  border-right: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.stat-item:last-child { border-right: none }
+.stat-item:hover { background: var(--cream) }
+.stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; font-weight: 400; color: var(--ink); line-height: 1;
+  display: block;
+}
+.stat-n em { font-style: italic; color: var(--gold2) }
+.stat-l {
+  font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--light); margin-top: 0.5rem; display: block;
+}
+
+/* ═══════════════════════════════════════════
+   CONCEPT SECTION — EDITORIAL
+═══════════════════════════════════════════ */
+.concept {
+  padding: clamp(5rem, 10vw, 10rem) 4rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8rem; align-items: center;
+  background: var(--white);
+}
+.concept-left { position: relative }
+.concept-label {
+  font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold2); margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.concept-label::before { content: '01'; font-size: 0.7rem; opacity: 0.3; font-family: 'Playfair Display', serif }
+.concept-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 400; line-height: 1.05;
+}
+.concept-title em { font-style: italic; color: var(--gold2); display: block }
+.concept-quote {
+  margin-top: 2.5rem;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.3rem; font-style: italic; line-height: 1.7;
+  color: var(--gray); border-left: 2px solid var(--gold);
+  padding-left: 2rem;
+}
+.concept-right { display: flex; flex-direction: column; gap: 3rem }
+.concept-pillar {
+  padding: 2.5rem; border: 1px solid var(--border);
+  background: var(--off);
+  transition: all 0.4s; position: relative; overflow: hidden;
+}
+.concept-pillar::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--gold);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.4s;
+}
+.concept-pillar:hover { background: var(--cream); border-color: rgba(200,169,110,0.3) }
+.concept-pillar:hover::before { transform: scaleY(1) }
+.cp-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; color: rgba(0,0,0,0.06); line-height: 1;
+  font-weight: 700; margin-bottom: 0.8rem;
+}
+.cp-t { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.8rem }
+.cp-d { font-size: 0.82rem; line-height: 1.85; color: var(--gray) }
+
+/* ═══════════════════════════════════════════
+   VISUAL GALLERY — MASONRY STYLE
+═══════════════════════════════════════════ */
+.gallery-intro {
+  padding: clamp(4rem, 8vw, 8rem) 4rem 2rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.gallery-intro-left {}
+.section-label {
+  font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold2); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.section-label::before { content: ''; width: 30px; height: 1px; background: var(--gold) }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 4rem); font-weight: 400; line-height: 1.05;
+}
+.section-title em { font-style: italic; color: var(--gold2) }
+
+/* 3D hover gallery cards */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 320px 320px;
+  gap: 4px;
+  padding: 0 4rem clamp(4rem, 8vw, 8rem);
+  background: var(--white);
+}
+.gallery-card {
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.gallery-card:nth-child(1) { grid-column: 1; grid-row: 1 / 3 }
+.gallery-card:nth-child(2) { grid-column: 2; grid-row: 1 }
+.gallery-card:nth-child(3) { grid-column: 3; grid-row: 1 }
+.gallery-card:nth-child(4) { grid-column: 2; grid-row: 2 }
+.gallery-card:nth-child(5) { grid-column: 3; grid-row: 2 }
+
+.gallery-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(0.92) saturate(1.1);
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s;
+}
+.gallery-card:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.2) }
+
+.gallery-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 2rem;
+  opacity: 0; transition: opacity 0.4s;
+}
+.gallery-card:hover .gallery-card-overlay { opacity: 1 }
+.gc-type { font-size: 0.45rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 0.4rem }
+.gc-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; color: #fff; line-height: 1.2 }
+
+/* 3D card tilt effect via JS */
+.gallery-card:hover {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+/* ═══════════════════════════════════════════
+   EXPERIENCE SECTION — DARK INTERLUDE
+═══════════════════════════════════════════ */
+.experience {
+  background: var(--ink);
+  padding: clamp(5rem, 10vw, 10rem) 4rem;
+  position: relative; overflow: hidden;
+}
+.experience::before {
+  content: 'ART';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(12rem, 25vw, 30rem);
+  font-weight: 700; color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+  letter-spacing: -0.02em; white-space: nowrap;
+  pointer-events: none;
+}
+.exp-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8rem; align-items: center; position: relative; z-index: 1;
+}
+.exp-left {}
+.exp-eyebrow {
+  font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.exp-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--gold) }
+.exp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 400;
+  line-height: 1.05; color: #fff;
+}
+.exp-title em { font-style: italic; color: var(--gold3) }
+.exp-quote {
+  margin-top: 2.5rem;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.2rem; font-style: italic; line-height: 1.8;
+  color: rgba(255,255,255,0.55);
+}
+.exp-right { display: flex; flex-direction: column; gap: 2px }
+.exp-item {
+  padding: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; gap: 2rem; align-items: flex-start;
+  transition: background 0.3s;
+}
+.exp-item:hover { background: rgba(255,255,255,0.03) }
+.exp-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.7rem; color: var(--gold); opacity: 0.6;
+  flex-shrink: 0; margin-top: 0.1rem; letter-spacing: 0.1em;
+}
+.exp-t { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; margin-bottom: 0.5rem }
+.exp-d { font-size: 0.78rem; line-height: 1.8; color: rgba(255,255,255,0.45) }
+
+/* ═══════════════════════════════════════════
+   SITE WEB — PAGE MOCKUPS 3D
+═══════════════════════════════════════════ */
+.site-section {
+  padding: clamp(5rem, 10vw, 10rem) 4rem;
+  background: var(--off);
+}
+.site-section-head {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end; margin-bottom: 4rem;
+}
+.site-section-head p { font-size: 0.85rem; line-height: 2; color: var(--gray); margin-top: 3rem }
+
+/* 3D browser card */
+.browser-3d {
+  perspective: 1200px;
+  margin-bottom: 4px;
+}
+.browser-inner {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.04), 0 20px 60px rgba(0,0,0,0.08), 0 60px 120px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transform: rotateX(2deg) rotateY(-1deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s;
+}
+.browser-inner:hover {
+  transform: rotateX(0deg) rotateY(0deg) translateY(-4px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.04), 0 40px 100px rgba(0,0,0,0.12), 0 80px 160px rgba(0,0,0,0.06);
+}
+.bbar {
+  background: #f5f5f3; padding: 0.6rem 0.9rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.bdots { display: flex; gap: 0.32rem }
+.bd { width: 9px; height: 9px; border-radius: 50% }
+.bd.r { background: #ff5f57 } .bd.y { background: #febc2e } .bd.g { background: #28c840 }
+.burl {
+  flex: 1; background: rgba(0,0,0,0.06); border-radius: 4px;
+  padding: 0.24rem 0.8rem; font-size: 0.54rem; color: #888; font-family: monospace;
+}
+.plabel {
+  font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold2); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.7rem;
+}
+.plabel::before { content: ''; width: 18px; height: 1px; background: var(--gold); display: inline-block }
+
+/* PAGE: HOME */
+.page-hero-area { position: relative; height: 220px; overflow: hidden; background: var(--ink) }
+.page-hero-area img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); display: block }
+.page-hero-ov {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+}
+.page-hero-ov-tag { font-size: 0.4rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.8rem }
+.page-hero-ov-h {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem; font-weight: 400; color: #fff; font-style: italic; line-height: 1;
+}
+.page-body { display: grid; grid-template-columns: 55% 45% }
+.page-img-col { overflow: hidden; position: relative }
+.page-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.78) }
+.page-img-ov { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.8rem; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 50%) }
+.page-img-ov p { font-size: 0.42rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.3rem }
+.page-img-ov h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; font-style: italic; font-weight: 400; line-height: 1.15 }
+.page-content { background: var(--off); padding: 2rem; display: flex; flex-direction: column; gap: 1rem }
+.page-nav { display: flex; gap: 1rem; font-size: 0.4rem; letter-spacing: 0.15em; text-transform: uppercase; color: #bbb; padding-bottom: 0.7rem; border-bottom: 1px solid #eee; flex-wrap: wrap }
+.page-nav span { color: var(--gold2); font-weight: 500 }
+.page-heading { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; line-height: 1.1 }
+.page-heading em { font-style: italic; color: var(--gold2) }
+.page-desc { font-size: 0.58rem; line-height: 1.75; color: #999 }
+.page-thumbs { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px }
+.page-thumb { overflow: hidden; height: 58px }
+.page-thumb img { width: 100%; height: 100%; object-fit: cover; display: block }
+.page-btn { display: inline-block; padding: 0.5rem 1.2rem; background: var(--ink); color: #fff; font-size: 0.44rem; letter-spacing: 0.2em; text-transform: uppercase; align-self: flex-start }
+.page-stats-bar { display: grid; grid-template-columns: repeat(4,1fr); background: var(--cream) }
+.ps { padding: 1rem; text-align: center; border-right: 1px solid var(--border) }
+.ps:last-child { border-right: none }
+.ps-n { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold2); font-weight: 400 }
+.ps-l { font-size: 0.4rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-top: 0.1rem }
+
+/* PAGE: CONCEPT */
+.page-concept { display: grid; grid-template-columns: 1fr 1fr; min-height: 280px }
+.pc-left { background: var(--off); padding: 2rem; display: flex; flex-direction: column; gap: 1rem }
+.pc-right { overflow: hidden; position: relative }
+.pc-right img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.85) }
+.pc-right-ov { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 55%); display: flex; padding: 1.5rem }
+.concept-tl { display: flex; flex-direction: column; gap: 0.9rem }
+.ctl-i { display: grid; grid-template-columns: 58px 1fr; gap: 0.7rem; align-items: start }
+.ctl-yr { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--gold2); font-weight: 400; line-height: 1 }
+.ctl-ev { font-size: 0.58rem; line-height: 1.6; color: var(--gray) }
+.ctl-ev strong { color: var(--ink); display: block; font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.1rem }
+
+/* PAGE: GALERIE */
+.page-gal { background: #fafaf8; padding: 1.2rem }
+.gal-tabs { display: flex; gap: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.6rem }
+.gal-tab { font-size: 0.44rem; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa }
+.gal-tab.active { color: var(--gold2); border-bottom: 1.5px solid var(--gold); padding-bottom: 0.3rem }
+.gmini { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px }
+.gm { overflow: hidden; height: 70px }
+.gm img { width: 100%; height: 100%; object-fit: cover; display: block }
+.gmini3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; margin-top: 3px }
+.gm2 { overflow: hidden; height: 85px }
+.gm2 img { width: 100%; height: 100%; object-fit: cover; display: block }
+
+/* PAGE: RÉSERVATION */
+.page-resa { display: grid; grid-template-columns: 1fr 1fr; min-height: 280px }
+.pr-l { background: #fafaf8; padding: 1.8rem; display: flex; flex-direction: column; gap: 0.9rem }
+.pr-r { background: var(--cream); padding: 1.8rem; display: flex; flex-direction: column; gap: 0.75rem }
+.rtitle { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; line-height: 1.1 }
+.rtitle em { font-style: italic; color: var(--gold2) }
+.fg { display: flex; flex-direction: column; gap: 0.28rem }
+.fl { font-size: 0.44rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light) }
+.fi { background: var(--cream); border: 1px solid var(--border); padding: 0.48rem 0.7rem; font-size: 0.58rem; color: var(--gray); font-family: 'Montserrat', sans-serif; outline: none; width: 100%; -webkit-appearance: none; transition: border-color 0.25s }
+.fi:focus { border-color: var(--gold) }
+.fs { background: var(--cream); border: 1px solid var(--border); padding: 0.48rem 0.7rem; font-size: 0.58rem; color: var(--gray); font-family: 'Montserrat', sans-serif; -webkit-appearance: none; outline: none; width: 100% }
+.fsub { padding: 0.62rem; background: var(--ink); color: #fff; font-size: 0.5rem; letter-spacing: 0.22em; text-transform: uppercase; border: none; cursor: pointer; width: 100%; transition: background 0.3s; font-family: 'Montserrat', sans-serif }
+.fsub:hover { background: var(--gold2) }
+.evc { background: #fff; padding: 1rem; border-left: 2px solid var(--gold); margin-bottom: 0.6rem }
+.evdate { font-size: 0.42rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold2); margin-bottom: 0.28rem }
+.evname { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; margin-bottom: 0.22rem }
+.evdetail { font-size: 0.52rem; color: var(--light); line-height: 1.5 }
+.evspot { display: inline-block; padding: 0.16rem 0.55rem; background: rgba(200,169,110,0.12); font-size: 0.42rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold2); margin-top: 0.35rem }
+
+/* ═══════════════════════════════════════════
+   INSTAGRAM SECTION
+═══════════════════════════════════════════ */
+.insta-section {
+  padding: clamp(5rem, 10vw, 10rem) 4rem;
+  background: var(--white);
+}
+.insta-head {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end; margin-bottom: 4rem;
+}
+.insta-head p { font-size: 0.85rem; line-height: 2; color: var(--gray); margin-top: 3rem }
+
+/* Phone mockups */
+.phones-row { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap }
+.phone-3d {
+  width: 240px; flex-shrink: 0;
+  perspective: 1000px;
+}
+.phone-body {
+  background: #1a1a1a;
+  border-radius: 38px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 30px 80px rgba(0,0,0,0.25),
+    0 60px 120px rgba(0,0,0,0.12),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
+  transform: rotateY(-8deg) rotateX(3deg);
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s;
+}
+.phone-body:hover {
+  transform: rotateY(0deg) rotateX(0deg) translateY(-6px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 50px 120px rgba(0,0,0,0.3), 0 80px 160px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+.phone-screen { background: #fff; border-radius: 28px; overflow: hidden }
+.phone-label {
+  font-size: 0.44rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--light); text-align: center; margin-bottom: 0.8rem;
+}
+
+/* IG Profile */
+.igph { padding: 0.8rem; border-bottom: 1px solid #f0f0f0 }
+.igtop { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem }
+.igav { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); flex-shrink: 0 }
+.igav img { width: 100%; height: 100%; object-fit: cover; display: block }
+.ighandle { font-size: 0.62rem; font-weight: 600; color: #111; margin-bottom: 0.1rem }
+.igstats { display: flex; gap: 1rem }
+.igsn { font-size: 0.6rem; font-weight: 600; color: #111; text-align: center }
+.igsl { font-size: 0.44rem; color: #888; display: block; text-align: center }
+.igbtns { display: flex; gap: 0.4rem; padding: 0 0.8rem 0.6rem }
+.igbtn { flex: 1; padding: 0.3rem; background: #f0f0f0; border: none; border-radius: 5px; font-size: 0.48rem; font-weight: 600; cursor: pointer; text-align: center }
+.igbtn.m { background: #0095f6; color: #fff }
+.igbio { padding: 0 0.8rem 0.6rem; font-size: 0.48rem; line-height: 1.5; color: #333 }
+.igbio strong { display: block; font-size: 0.56rem; color: #111; font-weight: 600 }
+.igbio span { color: var(--gold2) }
+.ighls { display: flex; gap: 0.8rem; padding: 0.6rem 0.8rem; overflow-x: auto; border-bottom: 1px solid #f0f0f0 }
+.ighl { display: flex; flex-direction: column; align-items: center; gap: 0.28rem; flex-shrink: 0 }
+.ighl-ring { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(45deg, var(--gold), var(--gold3)); padding: 2px }
+.ighl-in { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 2px solid #fff }
+.ighl-in img { width: 100%; height: 100%; object-fit: cover; display: block }
+.ighl-lbl { font-size: 0.38rem; text-align: center; color: #333; max-width: 46px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.igfeed { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px }
+.igpost { aspect-ratio: 1; overflow: hidden }
+.igpost img { width: 100%; height: 100%; object-fit: cover; display: block }
+
+/* Post detail */
+.igphd { padding: 0.55rem 0.8rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #f0f0f0 }
+.igpav { width: 24px; height: 24px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0 }
+.igpav img { width: 100%; height: 100%; object-fit: cover; display: block }
+.igpnm { font-size: 0.54rem; font-weight: 600; color: #111; flex: 1 }
+.igpimg { height: 215px; overflow: hidden }
+.igpimg img { width: 100%; height: 100%; object-fit: cover; display: block }
+.igpact { padding: 0.5rem 0.8rem; display: flex; gap: 0.8rem; align-items: center; border-bottom: 1px solid #f0f0f0 }
+.igact { font-size: 0.76rem }
+.iglikes { font-size: 0.52rem; font-weight: 600; color: #111; padding: 0 0.8rem 0.22rem }
+.igcap { padding: 0 0.8rem 0.6rem; font-size: 0.48rem; line-height: 1.5; color: #333 }
+.igcap strong { color: #111; font-weight: 600 }
+.igtags { color: #3797f0 }
+
+/* Story with animation */
+.sph { width: 240px; flex-shrink: 0; perspective: 1000px }
+.spbody {
+  background: #1a1a1a; border-radius: 38px; padding: 12px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 30px 80px rgba(0,0,0,0.25);
+  transform: rotateY(8deg) rotateX(3deg);
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.spbody:hover { transform: rotateY(0deg) rotateX(0deg) translateY(-6px) }
+.ssc { background: #000; border-radius: 28px; overflow: hidden; position: relative; height: 430px; cursor: pointer }
+.sbg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block }
+.sbg.on { z-index: 2; opacity: 1 }
+.sbg.off { z-index: 1; opacity: 0 }
+.sui { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column }
+.sbars { display: flex; gap: 2.5px; padding: 0.6rem 0.7rem 0.28rem }
+.sbarw { flex: 1; height: 2px; background: rgba(255,255,255,0.28); border-radius: 1px; overflow: hidden }
+.sbarf { height: 100%; background: #fff; border-radius: 1px; width: 0 }
+.stop { display: flex; align-items: center; gap: 0.45rem; padding: 0.2rem 0.7rem }
+.sav { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); overflow: hidden; flex-shrink: 0 }
+.sav img { width: 100%; height: 100%; object-fit: cover; display: block }
+.snm { font-size: 0.5rem; color: #fff }
+.stime { font-size: 0.4rem; color: rgba(255,255,255,0.5); margin-left: 0.25rem }
+.sbody-s { flex: 1; display: flex; align-items: flex-end; padding: 0.9rem }
+.sbadge { display: inline-block; background: rgba(200,169,110,0.85); color: #fff; font-size: 0.4rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.16rem 0.55rem; border-radius: 3px; margin-bottom: 0.45rem }
+.stxt { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: #fff; line-height: 1.35 }
+.sbot { display: flex; align-items: center; gap: 0.4rem; padding: 0.48rem 0.7rem }
+.sinp { flex: 1; background: rgba(255,255,255,0.18); border-radius: 20px; padding: 0.25rem 0.62rem; font-size: 0.42rem; color: rgba(255,255,255,0.45) }
+
+/* ═══════════════════════════════════════════
+   VIDEO & DIRECTION SECTION
+═══════════════════════════════════════════ */
+.direction-section {
+  background: var(--cream);
+  padding: clamp(5rem, 10vw, 10rem) 4rem;
+}
+.dir-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; background: var(--warm); margin-top: 3rem }
+.dir-card {
+  background: var(--white); padding: 2.5rem 2rem;
+  border-top: 2px solid transparent;
+  transition: all 0.4s;
+}
+.dir-card:hover { border-top-color: var(--gold); background: var(--off) }
+.dir-icon { font-size: 1.5rem; margin-bottom: 1.5rem; opacity: 0.5 }
+.dir-n { font-family: 'Playfair Display', serif; font-size: 3rem; color: rgba(0,0,0,0.05); line-height: 1; margin-bottom: 0.8rem; font-weight: 700 }
+.dir-t { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.8rem }
+.dir-d { font-size: 0.78rem; line-height: 1.85; color: var(--gray) }
+.dir-detail { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem }
+.dir-detail-item { font-size: 0.68rem; color: var(--light); display: flex; align-items: center; gap: 0.5rem }
+.dir-detail-item::before { content: '—'; color: var(--gold); flex-shrink: 0 }
+
+/* ═══════════════════════════════════════════
+   DELIVRABLES
+═══════════════════════════════════════════ */
+.deliv-section {
+  padding: clamp(5rem, 10vw, 10rem) 4rem;
+  background: var(--off);
+}
+.deliv-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; background: var(--warm); margin-top: 3rem }
+.dc { background: var(--white); padding: 2rem 1.8rem; border-top: 2px solid transparent; transition: all 0.3s }
+.dc:hover { border-top-color: var(--gold); background: var(--off); transform: translateY(-2px) }
+.dci { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: rgba(0,0,0,0.06); font-style: italic; line-height: 1; margin-bottom: 0.75rem; font-weight: 700 }
+.dct { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.4rem }
+.dcd { font-size: 0.7rem; line-height: 1.8; color: var(--gray) }
+
+/* ═══════════════════════════════════════════
+   HIGHLIGHTS BIG
+═══════════════════════════════════════════ */
+.hlbig { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem }
+.hlitem { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; transition: transform 0.3s }
+.hlitem:hover { transform: scale(1.08) }
+.hlring { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(45deg, var(--gold2), var(--gold3)); padding: 2.5px }
+.hlinner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 2.5px solid var(--white) }
+.hlinner img { width: 100%; height: 100%; object-fit: cover; display: block }
+.hllbl { font-size: 0.44rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); text-align: center; max-width: 70px }
+
+/* ═══════════════════════════════════════════
+   TL & LAUNCH PLAN
+═══════════════════════════════════════════ */
+.launch-section { padding: clamp(5rem, 10vw, 10rem) 4rem; background: var(--white) }
+.tl { display: flex; flex-direction: column; margin-top: 2.5rem }
+.tli { display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); transition: padding-left 0.3s }
+.tli:hover { padding-left: 0.5rem }
+.tlmo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--gold2); line-height: 1.2 }
+.tlt { font-size: 0.62rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.3rem }
+.tld { font-size: 0.74rem; line-height: 1.8; color: var(--gray) }
+
+/* ═══════════════════════════════════════════
+   CLOSING
+═══════════════════════════════════════════ */
+.closing {
+  position: relative; overflow: hidden;
+  min-height: 80vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: clamp(5rem, 10vw, 8rem) 4rem;
+  background: var(--ink);
+}
+.closing::before {
+  content: '×'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20rem, 40vw, 50rem); font-weight: 700; color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+  pointer-events: none; line-height: 1;
+}
+.closing-eyebrow { font-size: 0.5rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem }
+.closing-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 8rem); font-weight: 400; line-height: 0.92;
+  color: #fff; margin-bottom: 2.5rem; position: relative; z-index: 1;
+}
+.closing-title em { font-style: italic; color: var(--gold3) }
+.closing-sub { font-size: 0.88rem; line-height: 2; color: rgba(255,255,255,0.45); max-width: 480px; margin: 0 auto 3.5rem; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1rem; position: relative; z-index: 1 }
+.closing-btn {
+  display: inline-block; padding: 1rem 3rem;
+  border: 1px solid rgba(255,255,255,0.3); color: #fff;
+  font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.4s; position: relative; z-index: 1;
+  backdrop-filter: blur(10px);
+}
+.closing-btn:hover { background: var(--gold2); border-color: var(--gold2) }
+.closing-sign { font-size: 0.48rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.18); margin-top: 4rem; position: relative; z-index: 1 }
+.closing-sign strong { color: var(--gold) }
+
+footer {
+  background: var(--ink); padding: 1.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+footer span { font-size: 0.48rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.18) }
+
+/* ═══════════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════════ */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1) }
+.rv.in { opacity: 1; transform: none }
+.rv2 { opacity: 0; transform: translateX(-24px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1) }
+.rv2.in { opacity: 1; transform: none }
+.rv3 { opacity: 0; transform: scale(0.97); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1) }
+.rv3.in { opacity: 1; transform: none }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1024px) {
+  nav { padding: 1.2rem 2rem }
+  .nav-links { display: none }
+  .ham { display: flex }
+  .hero { padding: 6rem 2rem 4rem }
+  .concept, .experience .exp-inner, .site-section-head, .insta-head, .launch-section .sec-head { grid-template-columns: 1fr; gap: 3rem }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto }
+  .gallery-card:nth-child(1) { grid-column: 1; grid-row: auto }
+  .gallery-grid { height: auto }
+  .gi { height: 200px }
+  .stats-strip { grid-template-columns: 1fr 1fr }
+  .deliv-grid { grid-template-columns: 1fr 1fr }
+  .dir-grid { grid-template-columns: 1fr }
+  .page-body, .page-concept, .page-resa { grid-template-columns: 1fr }
+  .page-img-col, .pc-right { height: 180px }
+  .insta-head, .site-section-head { grid-template-columns: 1fr }
+  .sec-head { grid-template-columns: 1fr }
+}
+@media(max-width:768px) {
+  nav { padding: 1rem 1.5rem }
+  .hero-title { font-size: 3rem }
+  .hero-cta-row { flex-direction: column; align-items: flex-start }
+  .gallery-grid { grid-template-columns: 1fr; padding: 0 1.5rem 4rem }
+  .gallery-card { height: 280px }
+  .concept, .exp-inner { padding: 3rem 1.5rem }
+  .sec, .site-section, .insta-section, .direction-section, .deliv-section, .launch-section { padding: 4rem 1.5rem }
+  .phones-row { flex-direction: column; align-items: center }
+  .deliv-grid { grid-template-columns: 1fr }
+  .stats-strip { grid-template-columns: 1fr 1fr }
+  .experience { padding: 4rem 1.5rem }
 }
 </style>
 </head>
 <body>
 
-<!-- Les images sont sur Unsplash (légères, pas de base64) -->
-<!-- Photos du chef : on utilise les mêmes Unsplash que la version précédente -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
+<!-- NAV -->
 <nav id="mainNav">
-  <div class="nb">SOFFRA <em>·</em> صُفرة</div>
-  <ul class="nl">
+  <div class="nav-brand">Art Culinaire <span>· Paris</span></div>
+  <ul class="nav-links">
     <li><a href="#concept">Concept</a></li>
     <li><a href="#site">Site Web</a></li>
     <li><a href="#instagram">Instagram</a></li>
-    <li><a href="#tiktok">TikTok</a></li>
-    <li><a href="#strategie">Stratégie</a></li>
-    <li><a href="#closing" class="ncta">Collaborer</a></li>
+    <li><a href="#direction">Direction</a></li>
+    <li><a href="#launch">Lancement</a></li>
+    <li><a href="#closing" class="nav-contact">Collaborer</a></li>
   </ul>
   <button class="ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mob" id="mob">
-  <a href="#concept"   id="m1">Concept</a>
-  <a href="#site"      id="m2">Site Web</a>
+  <a href="#concept" id="m1">Concept</a>
+  <a href="#site" id="m2">Site Web</a>
   <a href="#instagram" id="m3">Instagram</a>
-  <a href="#tiktok"    id="m4">TikTok</a>
-  <a href="#strategie" id="m5">Stratégie</a>
-  <a href="#closing"   id="m6">Collaborer</a>
+  <a href="#direction" id="m4">Direction</a>
+  <a href="#launch" id="m5">Lancement</a>
+  <a href="#closing" id="m6">Collaborer</a>
 </div>
 
-<!-- HERO -->
+<!-- ══════ HERO ══════ -->
 <section class="hero">
-  <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85&auto=format&fit=crop" alt="SOFFRA">
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
   </div>
-  <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-tag">Paris · 2026 · Art Culinaire Immersif</div>
-      <h1 class="hero-title">La table<br>comme<br><em>toile blanche.</em></h1>
-      <p class="hero-sub">Une expérience gastronomique unique où chaque buffet est une installation d'art vivante — pensé pour être vécu, mémorisé et partagé.</p>
-    </div>
-    <div class="hero-right">
-      <div class="hero-stats">
-        <div class="hstat"><div class="hstat-n">Bocuse</div><div class="hstat-l">D'Or · SIRHA 2025</div></div>
-        <div class="hstat"><div class="hstat-n">Paris</div><div class="hstat-l">& International</div></div>
-        <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">Marque équivalente en France</div></div>
-        <div class="hstat"><div class="hstat-n">∞</div><div class="hstat-l">Potentiel créatif</div></div>
-      </div>
-      <a href="#concept" class="hero-cta">Découvrir le projet →</a>
-    </div>
-  </div>
-  <div class="hero-scroll"><div class="hero-scroll-line"></div><div class="hero-scroll-txt">Défiler</div></div>
-</section>
+  <div class="hero-grid"></div>
 
-<!-- MANIFESTE -->
-<section class="manifeste" id="concept">
-  <div class="manifeste-inner">
-    <div>
-      <div class="manifeste-eyebrow">Le Concept</div>
-      <h2 class="manifeste-title rv">Quand la gastronomie<br>devient <em>sculpture</em>,<br>et la table, <em>galerie.</em></h2>
-      <blockquote class="manifeste-quote rv">"La nourriture n'est pas seulement ce qu'on mange.<br>C'est ce qu'on voit, ce qu'on ressent,<br>ce dont on se souvient."</blockquote>
-    </div>
-    <div>
-      <div class="mp rv"><div class="mp-n">I</div><div class="mp-t">Le Buffet comme Installation</div><div class="mp-d">Chaque buffet est une œuvre scénographiée. Fleurs, matières, hauteurs, couleurs — tout est composé avant d'être cuisiné.</div></div>
-      <div class="mp rv"><div class="mp-n">II</div><div class="mp-t">Le Chef comme Artiste</div><div class="mp-d">Candidat Bocuse d'Or · SIRHA 2025. Une vision gastronomique qui transforme chaque geste en décision artistique.</div></div>
-      <div class="mp rv"><div class="mp-n">III</div><div class="mp-t">L'Événement comme Performance</div><div class="mp-d">Dîners privés, pop-ups éphémères, buffets d'exception. Chaque moment est unique, limité, et conçu pour être partagé.</div></div>
-    </div>
+  <div class="hero-eyebrow">Creative Proposal — 2026</div>
+
+  <h1 class="hero-title">
+    <span class="thin">Art</span>
+    <em>&amp; Gastronomie</em>
+  </h1>
+
+  <p class="hero-sub">
+    Une fusion inédite entre art contemporain et expérience culinaire.<br>
+    La table comme toile blanche. La nourriture comme matière artistique.<br>
+    Chaque performance, unique et irrépétable.
+  </p>
+
+  <div class="hero-cta-row">
+    <a href="#concept" class="cta-primary"><span>Découvrir le projet</span></a>
+    <a href="#closing" class="cta-secondary">Collaborer avec nous →</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <div class="scroll-txt">Défiler</div>
   </div>
 </section>
 
-<!-- CHEF -->
-<section class="chef-split">
-  <div class="ci rv2">
-    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=85&auto=format&fit=crop" alt="Le Chef SOFFRA">
-    <div class="ci-badge">
-      <div class="ci-badge-top">SIRHA · Bocuse d'Or · Maroc 2025</div>
-      <div class="ci-badge-name">Le Chef derrière SOFFRA</div>
-    </div>
-  </div>
-  <div class="ct">
-    <div class="ey">Le Chef</div>
-    <h2 class="st rv">L'artiste qui<br><em>peint avec</em><br>la nourriture.</h2>
-    <blockquote class="cq rv">"Je ne cuisine pas. Je compose. La table est ma toile, les ingrédients sont mes couleurs. Chaque performance est unique et irrépétable."</blockquote>
-    <p class="cbio rv">Reconnu sur la scène gastronomique internationale, candidat Bocuse d'Or au SIRHA 2025, il révolutionne la gastronomie en transformant chaque service en installation d'art vivante. SOFFRA est l'espace où cette vision prend toute sa dimension.</p>
-    <div class="ctags rv">
-      <span class="ctag">Bocuse d'Or · SIRHA 2025</span>
-      <span class="ctag">Art culinaire immersif</span>
-      <span class="ctag">Installations artistiques</span>
-      <span class="ctag">Gastronomie halal premium</span>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<div class="gal">
-  <div class="gi tall"><img src="https://images.unsplash.com/photo-1465014925804-7b9ede58d0d7?w=700&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Portrait · Artiste</div><div class="gca">L'artiste au travail</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Still Life</div><div class="gca">La nature comme assiette</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Installation</div><div class="gca">La table comme œuvre</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Concept · Couleur</div><div class="gca">Le plateau comme tableau</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Buffet · Art</div><div class="gca">La table immersive</div></div></div>
-  <div class="gi tall"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Architecture culinaire</div><div class="gca">La couleur comme matière</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Buffet · Design</div><div class="gca">Même le pain devient art</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Floral · Art</div><div class="gca">La fleur comme pinceau</div></div></div>
-  <div class="gi"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&auto=format&fit=crop" alt=""><div class="gcap"><div class="gct">Fine Dining</div><div class="gca">L'expérience complète</div></div></div>
-</div>
-<div class="strip">
-  <div class="si"><img src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?w=400&q=75&auto=format&fit=crop" alt=""></div>
-  <div class="si"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400&q=75&auto=format&fit=crop" alt=""></div>
-  <div class="si"><img src="https://images.unsplash.com/photo-1496412705862-e0088f16f791?w=400&q=75&auto=format&fit=crop" alt=""></div>
-  <div class="si"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&q=75&auto=format&fit=crop" alt=""></div>
-  <div class="si"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=75&auto=format&fit=crop" alt=""></div>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item rv"><span class="stat-n">Bocuse <em>d'Or</em></span><span class="stat-l">SIRHA · Paris 2025</span></div>
+  <div class="stat-item rv"><span class="stat-n">100<em>%</em></span><span class="stat-l">Art & Gastronomie Halal</span></div>
+  <div class="stat-item rv"><span class="stat-n">0</span><span class="stat-l">Concept Équivalent au Monde</span></div>
+  <div class="stat-item rv"><span class="stat-n"><em>∞</em></span><span class="stat-l">Potentiel Créatif</span></div>
 </div>
 
-<!-- SITE WEB -->
-<section class="sec sc" id="site">
-  <div class="sec-head rv">
-    <div><div class="ey">Digital — Site Web</div><h2 class="st">Le site SOFFRA<br><em>page par page</em></h2></div>
-    <p>Un site immersif pensé comme une galerie d'art en ligne. Chaque page raconte une partie de l'histoire de SOFFRA. Design haut de gamme, 100% responsive mobile.</p>
+<!-- ══════ CONCEPT ══════ -->
+<section class="concept" id="concept">
+  <div class="concept-left">
+    <div class="concept-label">La Vision</div>
+    <h2 class="concept-title rv">
+      La table<br>
+      <em>comme toile</em><br>
+      blanche.
+    </h2>
+    <blockquote class="concept-quote rv">
+      "La nourriture n'est pas seulement ce qu'on mange. C'est ce qu'on voit, ce qu'on ressent, ce dont on se souvient longtemps après."
+    </blockquote>
+  </div>
+  <div class="concept-right">
+    <div class="concept-pillar rv">
+      <div class="cp-n">I</div>
+      <div class="cp-t">Le Buffet comme Installation</div>
+      <div class="cp-d">Chaque buffet est une œuvre scénographiée. Fleurs, matières, hauteurs, couleurs — tout est composé avant d'être cuisiné. La table disparaît sous l'art.</div>
+    </div>
+    <div class="concept-pillar rv">
+      <div class="cp-n">II</div>
+      <div class="cp-t">Le Chef comme Artiste</div>
+      <div class="cp-d">Candidat Bocuse d'Or · SIRHA 2025. Sa vision transforme chaque geste culinaire en décision artistique délibérée. Il peint avec la nourriture.</div>
+    </div>
+    <div class="concept-pillar rv">
+      <div class="cp-n">III</div>
+      <div class="cp-t">L'Événement comme Performance</div>
+      <div class="cp-d">Dîners privés, pop-ups éphémères, buffets d'exception. Chaque moment est limité, exclusif, et conçu pour marquer les mémoires durablement.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ GALLERY ══════ -->
+<div class="gallery-intro rv">
+  <div>
+    <div class="section-label">L'Inspiration Visuelle</div>
+    <h2 class="section-title">Ce que nous allons<br><em>créer ensemble</em></h2>
+  </div>
+  <p style="font-size:0.82rem;line-height:2;color:var(--gray);max-width:380px">Ces images définissent l'univers esthétique du projet — la nourriture comme peinture, la table comme galerie, chaque détail comme une intention artistique.</p>
+</div>
+
+<div class="gallery-grid">
+  <div class="gallery-card rv3">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=85&auto=format&fit=crop" alt="">
+    <div class="gallery-card-overlay"><div class="gc-type">Fine Dining · Art</div><div class="gc-title">La table comme galerie</div></div>
+  </div>
+  <div class="gallery-card rv3">
+    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700&q=80&auto=format&fit=crop" alt="">
+    <div class="gallery-card-overlay"><div class="gc-type">Still Life · Macro</div><div class="gc-title">La nature magnifiée</div></div>
+  </div>
+  <div class="gallery-card rv3">
+    <img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=700&q=80&auto=format&fit=crop" alt="">
+    <div class="gallery-card-overlay"><div class="gc-type">Installation · Floral</div><div class="gc-title">La fleur comme pinceau</div></div>
+  </div>
+  <div class="gallery-card rv3">
+    <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=700&q=80&auto=format&fit=crop" alt="">
+    <div class="gallery-card-overlay"><div class="gc-type">Ambiance · Lumière</div><div class="gc-title">L'art de la mise en place</div></div>
+  </div>
+  <div class="gallery-card rv3">
+    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=700&q=80&auto=format&fit=crop" alt="">
+    <div class="gallery-card-overlay"><div class="gc-type">Buffet · Scénographie</div><div class="gc-title">L'architecture culinaire</div></div>
+  </div>
+</div>
+
+<!-- ══════ EXPERIENCE ══════ -->
+<section class="experience">
+  <div class="exp-inner">
+    <div class="exp-left">
+      <div class="exp-eyebrow">L'Expérience</div>
+      <h2 class="exp-title rv">Ce que les<br>invités <em>ressentent</em><br>en arrivant.</h2>
+      <blockquote class="exp-quote rv">
+        "Ils entrent dans une salle. Ils s'arrêtent. Ils ne parlent plus. Devant eux, la table est une peinture vivante qu'on va manger."
+      </blockquote>
+    </div>
+    <div class="exp-right">
+      <div class="exp-item rv"><div class="exp-num">01</div><div><div class="exp-t">Le Silence de l'Arrivée</div><div class="exp-d">La première émotion est visuelle. Avant même de s'asseoir, l'invité comprend qu'il est dans quelque chose d'unique — une galerie qui disparaîtra dans quelques heures.</div></div></div>
+      <div class="exp-item rv"><div class="exp-num">02</div><div><div class="exp-t">La Performance en Direct</div><div class="exp-d">Le chef crée devant eux. Ses gestes sont ceux d'un peintre. La nourriture devient couleur, texture, composition. L'art se fait en temps réel.</div></div></div>
+      <div class="exp-item rv"><div class="exp-num">03</div><div><div class="exp-t">L'Émotion du Partage</div><div class="exp-d">Ils photographient, ils montrent, ils partagent. L'expérience devient contenu organique. Chaque invité devient ambassadeur sans le savoir.</div></div></div>
+      <div class="exp-item rv"><div class="exp-num">04</div><div><div class="exp-t">Le Souvenir Indélébile</div><div class="exp-d">Ils repartent avec une image dans la tête qu'ils n'oublieront pas. Ce que les grands restaurants ne font pas, SOFFRA le fait — marquer.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SITE WEB ══════ -->
+<section class="site-section" id="site">
+  <div class="site-section-head rv">
+    <div>
+      <div class="section-label">Digital — Site Web</div>
+      <h2 class="section-title">Le site web<br><em>page par page</em></h2>
+    </div>
+    <p>Un site immersif pensé comme une galerie d'art en ligne. Chaque page raconte une partie de l'histoire. Design blanc, minimal, luxueux. 100% responsive mobile.</p>
   </div>
 
+  <!-- PAGE 01 -->
   <div class="plabel">Page 01 — Accueil</div>
-  <div class="browser rv3">
-    <div class="bbar"><div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div><div class="url">www.soffra.fr</div></div>
-    <div class="phero"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1000&q=80&auto=format&fit=crop" alt=""><div class="phero-ov"><div class="phero-tag">SOFFRA · صُفرة · Paris 2026</div><div class="phero-h">La table<br>comme toile blanche.</div></div></div>
-    <div class="pstats">
-      <div class="ps"><div class="ps-n">Art</div><div class="ps-l">Culinaire immersif</div></div>
-      <div class="ps"><div class="ps-n">Halal</div><div class="ps-l">Gastronomie premium</div></div>
-      <div class="ps"><div class="ps-n">Paris</div><div class="ps-l">& International</div></div>
-      <div class="ps"><div class="ps-n">Bocuse</div><div class="ps-l">D'Or · SIRHA 2025</div></div>
-    </div>
-    <div class="pbody">
-      <div class="pbody-img"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=600&q=80&auto=format&fit=crop" alt=""><div class="pbody-ov"><p>Notre concept</p><h3>L'art de la<br>table vivante.</h3></div></div>
-      <div class="pbody-c">
-        <div class="pnav"><span>Accueil</span> · Notre Vision · Galerie · Événements · Réserver · Contact</div>
-        <div class="ptitle">Quand la gastronomie<br><em>devient œuvre d'art</em></div>
-        <div class="pdesc">SOFFRA transforme chaque buffet en installation artistique. Chaque plat est une sculpture. Chaque événement est unique et irrépétable.</div>
-        <div class="pthumbs">
-          <div class="pthumb"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="pthumb"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="pthumb"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="pthumb"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=75&auto=format&fit=crop" alt=""></div>
+  <div class="browser-3d rv3">
+    <div class="browser-inner">
+      <div class="bbar"><div class="bdots"><div class="bd r"></div><div class="bd y"></div><div class="bd g"></div></div><div class="burl">www.[votre-projet].com</div></div>
+      <div class="page-hero-area">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop" alt="">
+        <div class="page-hero-ov">
+          <div class="page-hero-ov-tag">Art Culinaire Immersif · Paris 2026</div>
+          <div class="page-hero-ov-h">La table<br>comme toile blanche.</div>
         </div>
-        <div class="pbtn">Découvrir les événements →</div>
+      </div>
+      <div class="page-stats-bar">
+        <div class="ps"><div class="ps-n">Art</div><div class="ps-l">Culinaire Immersif</div></div>
+        <div class="ps"><div class="ps-n">Halal</div><div class="ps-l">Gastronomie Premium</div></div>
+        <div class="ps"><div class="ps-n">Paris</div><div class="ps-l">& International</div></div>
+        <div class="ps"><div class="ps-n">Bocuse</div><div class="ps-l">D'Or · SIRHA 2025</div></div>
+      </div>
+      <div class="page-body">
+        <div class="page-img-col">
+          <img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=600&q=80&auto=format&fit=crop" alt="">
+          <div class="page-img-ov"><p>Notre concept</p><h3>L'art de la<br>table vivante.</h3></div>
+        </div>
+        <div class="page-content">
+          <div class="page-nav"><span>Accueil</span> · Concept · Galerie · Expérience · Réserver · Contact</div>
+          <div class="page-heading">Quand la gastronomie<br><em>devient œuvre d'art</em></div>
+          <div class="page-desc">Chaque buffet est une installation. Chaque plat est une sculpture. Chaque événement est unique et irrépétable — au croisement de la gastronomie halal de luxe et de l'art contemporain.</div>
+          <div class="page-thumbs">
+            <div class="page-thumb"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="page-thumb"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="page-thumb"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="page-thumb"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          </div>
+          <div class="page-btn">Découvrir les événements →</div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- PAGE 02 -->
   <div class="plabel" style="margin-top:4px">Page 02 — Notre Vision</div>
-  <div class="browser rv3">
-    <div class="bbar"><div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div><div class="url">www.soffra.fr/notre-vision</div></div>
-    <div class="pvision">
-      <div class="pv-l">
-        <div style="font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g)">Notre Vision</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;font-style:italic;line-height:1.2">SOFFRA est né d'une<br>évidence artistique.</div>
-        <div style="font-size:.6rem;line-height:1.75;color:var(--gray)">SOFFRA naît de la rencontre entre une vision gastronomique d'exception et un art culinaire révolutionnaire. La table devient toile blanche. La nourriture devient matière artistique. Chaque événement devient performance.</div>
-        <div class="htl">
-          <div class="htl-i"><div class="hyr">Vision</div><div><div class="hev"><strong>La table comme galerie</strong>Chaque buffet est une installation scénographiée pensée comme une œuvre d'art complète</div></div></div>
-          <div class="htl-i"><div class="hyr">Mission</div><div><div class="hev"><strong>L'expérience unique</strong>Créer des moments gastronomiques irrépétables qui marquent les mémoires</div></div></div>
-          <div class="htl-i"><div class="hyr">Ambition</div><div><div class="hev"><strong>Paris & International</strong>Lancer à Paris en 2026 puis Dubai, Londres, Casablanca</div></div></div>
-          <div class="htl-i"><div class="hyr">2026</div><div><div class="hev"><strong>SOFFRA prend vie</strong>Dîners immersifs, buffets artistiques, pop-ups éphémères</div></div></div>
+  <div class="browser-3d rv3">
+    <div class="browser-inner">
+      <div class="bbar"><div class="bdots"><div class="bd r"></div><div class="bd y"></div><div class="bd g"></div></div><div class="burl">www.[votre-projet].com/concept</div></div>
+      <div class="page-concept">
+        <div class="pc-left">
+          <div style="font-size:0.48rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold2)">Notre Vision</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;font-style:italic;line-height:1.2;margin:.5rem 0">L'art et la nourriture,<br>une seule et même chose.</div>
+          <div style="font-size:0.6rem;line-height:1.75;color:var(--gray);margin-bottom:1rem">Ce projet naît de la rencontre entre une vision gastronomique d'exception et un art culinaire révolutionnaire. La table devient toile blanche. La nourriture devient matière artistique. Chaque événement devient performance unique.</div>
+          <div class="concept-tl">
+            <div class="ctl-i"><div class="ctl-yr">Vision</div><div><div class="ctl-ev"><strong>La table comme galerie</strong>Chaque buffet est une installation scénographiée pensée comme une œuvre d'art complète</div></div></div>
+            <div class="ctl-i"><div class="ctl-yr">Mission</div><div><div class="ctl-ev"><strong>L'expérience unique</strong>Créer des moments gastronomiques irrépétables qui marquent les mémoires durablement</div></div></div>
+            <div class="ctl-i"><div class="ctl-yr">Ambition</div><div><div class="ctl-ev"><strong>Paris & International</strong>Lancer à Paris en 2026, puis Dubai, Londres, Casablanca</div></div></div>
+          </div>
+        </div>
+        <div class="pc-right">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=700&q=80&auto=format&fit=crop" alt="Le Chef">
+          <div class="pc-right-ov"><div style="font-size:.44rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65)">Le Chef · Bocuse d'Or · SIRHA 2025</div></div>
         </div>
       </div>
-      <div class="pv-r">
-        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=700&q=80&auto=format&fit=crop" alt="Le Chef SOFFRA">
-        <div class="pv-r-ov"><div style="font-size:.44rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6)">Le Chef · Bocuse d'Or · SIRHA 2025</div></div>
-      </div>
     </div>
   </div>
 
+  <!-- PAGE 03 -->
   <div class="plabel" style="margin-top:4px">Page 03 — Galerie</div>
-  <div class="browser rv3">
-    <div class="bbar"><div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div><div class="url">www.soffra.fr/galerie</div></div>
-    <div class="pgal">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;font-style:italic;margin-bottom:.8rem">Galerie — <em style="color:#8B6914">Nos Créations</em></div>
-      <div class="gtabs"><span class="gtab active">Tout</span><span class="gtab">Installations</span><span class="gtab">Buffets</span><span class="gtab">Portraits</span><span class="gtab">Détails</span></div>
-      <div class="gmini">
-        <div class="gm"><img src="https://images.unsplash.com/photo-1465014925804-7b9ede58d0d7?w=200&q=75&auto=format&fit=crop" alt=""></div>
-        <div class="gm"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=200&q=75&auto=format&fit=crop" alt=""></div>
-        <div class="gm"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=75&auto=format&fit=crop" alt=""></div>
-        <div class="gm"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=200&q=75&auto=format&fit=crop" alt=""></div>
-      </div>
-      <div class="gmini3">
-        <div class="gm2"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=75&auto=format&fit=crop" alt=""></div>
-        <div class="gm2"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=75&auto=format&fit=crop" alt=""></div>
-        <div class="gm2"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=75&auto=format&fit=crop" alt=""></div>
+  <div class="browser-3d rv3">
+    <div class="browser-inner">
+      <div class="bbar"><div class="bdots"><div class="bd r"></div><div class="bd y"></div><div class="bd g"></div></div><div class="burl">www.[votre-projet].com/galerie</div></div>
+      <div class="page-gal">
+        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;font-style:italic;margin-bottom:.8rem">Galerie — <em style="color:var(--gold2)">Nos Créations</em></div>
+        <div class="gal-tabs"><span class="gal-tab active">Tout</span><span class="gal-tab">Installations</span><span class="gal-tab">Buffets</span><span class="gal-tab">Portraits</span><span class="gal-tab">Détails</span></div>
+        <div class="gmini">
+          <div class="gm"><img src="https://images.unsplash.com/photo-1465014925804-7b9ede58d0d7?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          <div class="gm"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          <div class="gm"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          <div class="gm"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
+        <div class="gmini3">
+          <div class="gm2"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          <div class="gm2"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          <div class="gm2"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="plabel" style="margin-top:4px">Page 04 — Réserver</div>
-  <div class="browser rv3">
-    <div class="bbar"><div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div><div class="url">www.soffra.fr/reserver</div></div>
-    <div class="presa">
-      <div class="presa-l">
-        <div class="rtitle">Réserver<br><em>votre expérience</em></div>
-        <div style="font-size:.6rem;line-height:1.75;color:var(--gray)">Chaque événement SOFFRA est limité pour garantir une expérience exclusive et personnalisée.</div>
-        <div class="fg"><label class="fl">Nom et Prénom</label><input class="fi" type="text" placeholder="Votre nom complet"></div>
-        <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="votre@email.com"></div>
-        <div class="fg"><label class="fl">Type d'expérience</label><select class="fs"><option>Dîner immersif SOFFRA</option><option>Buffet artistique privé</option><option>Pop-up éphémère</option><option>Événement d'entreprise</option></select></div>
-        <div class="fg"><label class="fl">Nombre d'invités</label><input class="fi" type="number" placeholder="Ex: 20"></div>
-        <button class="fsub">Envoyer ma demande →</button>
-      </div>
-      <div class="presa-r">
-        <div style="font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g);margin-bottom:.8rem">Prochaines Dates</div>
-        <div class="evc"><div class="evdate">Juin 2026 · Paris</div><div class="evname">Dîner Immersif SOFFRA — Été</div><div class="evdetail">Table de 24 personnes · Scénographie florale exclusive</div><div class="evspot">12 places restantes</div></div>
-        <div class="evc"><div class="evdate">Septembre 2026 · Paris</div><div class="evname">Buffet Artistique — Rentrée</div><div class="evdetail">Événement 80 personnes · Installation monumentale</div><div class="evspot">Liste d'attente ouverte</div></div>
-        <div class="evc"><div class="evdate">Novembre 2026 · Dubai</div><div class="evname">SOFFRA Première Internationale</div><div class="evdetail">Collaboration venue de luxe · Date à confirmer</div><div class="evspot">Pré-inscription</div></div>
+  <!-- PAGE 04 -->
+  <div class="plabel" style="margin-top:4px">Page 04 — Réservation</div>
+  <div class="browser-3d rv3">
+    <div class="browser-inner">
+      <div class="bbar"><div class="bdots"><div class="bd r"></div><div class="bd y"></div><div class="bd g"></div></div><div class="burl">www.[votre-projet].com/reserver</div></div>
+      <div class="page-resa">
+        <div class="pr-l">
+          <div class="rtitle">Réserver<br><em>votre expérience</em></div>
+          <div style="font-size:0.6rem;line-height:1.75;color:var(--gray)">Chaque événement est limité à un nombre restreint d'invités pour garantir une expérience exclusive et personnalisée.</div>
+          <div class="fg"><label class="fl">Nom et Prénom</label><input class="fi" type="text" placeholder="Votre nom complet"></div>
+          <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="votre@email.com"></div>
+          <div class="fg"><label class="fl">Type d'expérience</label><select class="fs"><option>Dîner immersif</option><option>Buffet artistique privé</option><option>Pop-up éphémère</option><option>Événement d'entreprise</option></select></div>
+          <div class="fg"><label class="fl">Nombre d'invités</label><input class="fi" type="number" placeholder="Ex: 20"></div>
+          <button class="fsub">Envoyer ma demande →</button>
+        </div>
+        <div class="pr-r">
+          <div style="font-size:0.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2);margin-bottom:.8rem">Prochaines Dates</div>
+          <div class="evc"><div class="evdate">Juin 2026 · Paris</div><div class="evname">Dîner Immersif — Édition Été</div><div class="evdetail">Table de 24 personnes · Scénographie florale exclusive</div><div class="evspot">12 places restantes</div></div>
+          <div class="evc"><div class="evdate">Septembre 2026 · Paris</div><div class="evname">Buffet Artistique — Rentrée</div><div class="evdetail">80 personnes · Installation monumentale</div><div class="evspot">Liste d'attente ouverte</div></div>
+          <div class="evc"><div class="evdate">Novembre 2026 · Dubai</div><div class="evname">Première Internationale</div><div class="evdetail">Collaboration venue de luxe · Date à confirmer</div><div class="evspot">Pré-inscription</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INSTAGRAM -->
-<section class="sec" id="instagram">
-  <div class="sec-head rv">
-    <div><div class="ey">Social Media — Instagram</div><h2 class="st">Le compte<br>Instagram <em>SOFFRA</em></h2></div>
-    <p>Un feed pensé comme une galerie d'art permanente. Profil complet, publications, stories animées et highlights — tout dans une cohérence visuelle absolue.</p>
+<!-- ══════ INSTAGRAM ══════ -->
+<section class="insta-section" id="instagram">
+  <div class="insta-head rv">
+    <div>
+      <div class="section-label">Social Media — Instagram</div>
+      <h2 class="section-title">Le compte<br><em>Instagram</em></h2>
+    </div>
+    <p>Un feed pensé comme une galerie d'art permanente. Profil complet, publications, stories animées et highlights — tout dans une cohérence visuelle absolue. Fond blanc, contenu qui tranche.</p>
   </div>
-  <div class="phones">
-    <!-- PROFIL -->
+
+  <div class="phones-row">
+    <!-- PROFIL 3D -->
     <div>
-      <div class="ph-lbl">Profil — Vue Complète</div>
-      <div class="phone"><div class="psc">
-        <div class="igph">
-          <div class="igtop">
-            <div class="igav"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=100&q=80&auto=format&fit=crop" alt="SOFFRA"></div>
-            <div class="iginfo">
-              <div class="ighandle">@soffra.paris</div>
-              <div class="igstats">
-                <div><div class="igsn">89</div><span class="igsl">posts</span></div>
-                <div><div class="igsn">24.3K</div><span class="igsl">abonnés</span></div>
-                <div><div class="igsn">312</div><span class="igsl">abonn.</span></div>
+      <div class="phone-label">Profil — Vue Complète</div>
+      <div class="phone-3d">
+        <div class="phone-body"><div class="phone-screen">
+          <div class="igph">
+            <div class="igtop">
+              <div class="igav"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=100&q=80&auto=format&fit=crop" alt=""></div>
+              <div class="iginfo">
+                <div class="ighandle">@[votre.projet]</div>
+                <div class="igstats">
+                  <div><div class="igsn">89</div><span class="igsl">posts</span></div>
+                  <div><div class="igsn">24.3K</div><span class="igsl">abonnés</span></div>
+                  <div><div class="igsn">312</div><span class="igsl">abonn.</span></div>
+                </div>
               </div>
             </div>
+            <div class="igbio">
+              <strong>Art Culinaire Immersif · Paris</strong>
+              La table comme toile blanche.<br>
+              Bocuse d'Or · SIRHA 2025 ✦<br>
+              <span>www.[votre-projet].com</span>
+            </div>
+            <div class="igbtns"><button class="igbtn m">Suivre</button><button class="igbtn">Message</button></div>
           </div>
-          <div class="igbio">
-            <strong>SOFFRA · صُفرة · Paris</strong>
-            Art Culinaire Immersif<br>
-            La table comme toile blanche. ✦<br>
-            <span>www.soffra.fr</span>
+          <div class="ighls">
+            <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Événements</div></div>
+            <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Le Chef</div></div>
+            <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Install.</div></div>
+            <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Art</div></div>
+            <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Presse</div></div>
           </div>
-          <div class="igbtns"><button class="igbtn m">Suivre</button><button class="igbtn">Message</button></div>
-        </div>
-        <div class="ighls">
-          <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Événements</div></div>
-          <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Le Chef</div></div>
-          <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Install.</div></div>
-          <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Art</div></div>
-          <div class="ighl"><div class="ighl-ring"><div class="ighl-in"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=80&q=75&auto=format&fit=crop" alt=""></div></div><div class="ighl-lbl">Buffets</div></div>
-        </div>
-        <div class="igfeed">
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=200&q=75&auto=format&fit=crop" alt=""></div>
-          <div class="igpost"><img src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?w=200&q=75&auto=format&fit=crop" alt=""></div>
-        </div>
-      </div></div>
+          <div class="igfeed">
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=200&q=75&auto=format&fit=crop" alt=""></div>
+            <div class="igpost"><img src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?w=200&q=75&auto=format&fit=crop" alt=""></div>
+          </div>
+        </div></div>
+      </div>
     </div>
 
-    <!-- POST DÉTAIL -->
+    <!-- POST DÉTAIL 3D -->
     <div>
-      <div class="ph-lbl">Publication — Détail</div>
-      <div class="phone"><div class="psc">
-        <div class="igphd">
-          <div class="igpav"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=60&q=75&auto=format&fit=crop" alt=""></div>
-          <span class="igpnm">soffra.paris</span>
-          <span style="font-size:.7rem;color:#888">···</span>
-        </div>
-        <div class="igpimg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop" alt="SOFFRA"></div>
-        <div class="igpact">
-          <span class="igact">♡</span><span class="igact">💬</span><span class="igact">↗</span>
-          <span style="margin-left:auto;font-size:.76rem">🔖</span>
-        </div>
-        <div class="iglikes">4 218 j'aime</div>
-        <div class="igcap">
-          <strong>soffra.paris</strong> La table n'est pas un meuble. C'est une toile blanche. Chaque geste est une décision artistique. ✦<br>
-          <span class="igtags">#SOFFRA #ArtCulinaire #ImmersiveDining #FoodArt #HalalLuxury #BocuseDor #Paris #TableArt</span>
-        </div>
-        <div style="padding:0 .8rem .6rem;font-size:.44rem;color:#aaa">Voir les 89 commentaires</div>
-      </div></div>
+      <div class="phone-label">Publication — Vue Détail</div>
+      <div class="phone-3d" style="transform-style:preserve-3d">
+        <div class="phone-body"><div class="phone-screen">
+          <div class="igphd">
+            <div class="igpav"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=60&q=75&auto=format&fit=crop" alt=""></div>
+            <span class="igpnm">[votre.projet]</span>
+            <span style="font-size:.7rem;color:#888">···</span>
+          </div>
+          <div class="igpimg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop" alt=""></div>
+          <div class="igpact">
+            <span class="igact">♡</span><span class="igact">💬</span><span class="igact">↗</span>
+            <span style="margin-left:auto;font-size:.76rem">🔖</span>
+          </div>
+          <div class="iglikes">4 218 j'aime</div>
+          <div class="igcap">
+            <strong>[votre.projet]</strong> La table n'est pas un meuble. C'est une toile blanche. Bocuse d'Or · SIRHA 2025. Chaque geste est une décision artistique. ✦<br>
+            <span class="igtags">#ArtCulinaire #ImmersiveDining #FoodArt #HalalLuxury #BocuseDor #Paris #TableArt</span>
+          </div>
+          <div style="padding:0 .8rem .6rem;font-size:.44rem;color:#aaa">Voir les 89 commentaires</div>
+        </div></div>
+      </div>
     </div>
 
-    <!-- STORIES ANIMÉES -->
+    <!-- STORIES 3D ANIMÉES -->
     <div>
-      <div class="ph-lbl">Stories — Cliquer pour avancer ▶</div>
+      <div class="phone-label">Stories — Cliquer pour avancer ▶</div>
       <div class="sph">
-        <div class="ssc" id="sc">
-          <img id="s0" class="sbg on"  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop" alt="">
-          <img id="s1" class="sbg off" src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=500&q=80&auto=format&fit=crop" alt="">
-          <img id="s2" class="sbg off" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=80&auto=format&fit=crop" alt="">
-          <img id="s3" class="sbg off" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=500&q=80&auto=format&fit=crop" alt="">
-          <img id="s4" class="sbg off" src="https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80&auto=format&fit=crop" alt="">
-          <div class="sui">
-            <div class="sbars">
-              <div class="sbarw"><div class="sbarf" id="b0"></div></div>
-              <div class="sbarw"><div class="sbarf" id="b1"></div></div>
-              <div class="sbarw"><div class="sbarf" id="b2"></div></div>
-              <div class="sbarw"><div class="sbarf" id="b3"></div></div>
-              <div class="sbarw"><div class="sbarf" id="b4"></div></div>
-            </div>
-            <div class="stop">
-              <div class="sav"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=60&q=75&auto=format&fit=crop" alt=""></div>
-              <span class="snm">soffra.paris</span>
-              <span class="stime">maintenant</span>
-            </div>
-            <div class="sbody">
-              <div>
-                <div class="sbadge" id="sbadge">Événement · Juin 2026</div>
-                <div class="stxt" id="stxt">"La table devient<br>toile. Le chef<br>devient peintre."</div>
+        <div class="spbody">
+          <div class="ssc" id="sc">
+            <img id="s0" class="sbg on"  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop" alt="">
+            <img id="s1" class="sbg off" src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=500&q=80&auto=format&fit=crop" alt="">
+            <img id="s2" class="sbg off" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=80&auto=format&fit=crop" alt="">
+            <img id="s3" class="sbg off" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=500&q=80&auto=format&fit=crop" alt="">
+            <img id="s4" class="sbg off" src="https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80&auto=format&fit=crop" alt="">
+            <div class="sui">
+              <div class="sbars">
+                <div class="sbarw"><div class="sbarf" id="b0"></div></div>
+                <div class="sbarw"><div class="sbarf" id="b1"></div></div>
+                <div class="sbarw"><div class="sbarf" id="b2"></div></div>
+                <div class="sbarw"><div class="sbarf" id="b3"></div></div>
+                <div class="sbarw"><div class="sbarf" id="b4"></div></div>
               </div>
-            </div>
-            <div class="sbot">
-              <div class="sinp">Répondre à la story…</div>
-              <span style="font-size:.65rem;color:rgba(255,255,255,.75)">↗ ❤</span>
+              <div class="stop">
+                <div class="sav"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=60&q=75&auto=format&fit=crop" alt=""></div>
+                <span class="snm">[votre.projet]</span>
+                <span class="stime">maintenant</span>
+              </div>
+              <div class="sbody-s">
+                <div>
+                  <div class="sbadge" id="sbadge">Événement · Juin 2026</div>
+                  <div class="stxt" id="stxt">"La table devient<br>toile. Le chef<br>devient peintre."</div>
+                </div>
+              </div>
+              <div class="sbot">
+                <div class="sinp">Répondre à la story…</div>
+                <span style="font-size:.65rem;color:rgba(255,255,255,.75)">↗ ❤</span>
+              </div>
             </div>
           </div>
         </div>
@@ -685,8 +1204,8 @@ footer span{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:
 
   <!-- HIGHLIGHTS -->
   <div style="margin-top:4rem" class="rv">
-    <div class="ey">Highlights — 8 Archives de SOFFRA</div>
-    <p class="sdesc" style="margin-bottom:2rem">Visibles en permanence sur le profil. Chaque icône est une porte d'entrée dans un univers précis de la marque.</p>
+    <div class="section-label">Highlights — Archives Permanentes</div>
+    <p class="sdesc" style="margin-bottom:2rem">8 catégories permanentes sur le profil — chaque icône dorée est une porte d'entrée dans un univers précis de la marque.</p>
     <div class="hlbig">
       <div class="hlitem"><div class="hlring"><div class="hlinner"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=75&auto=format&fit=crop" alt=""></div></div><div class="hllbl">Événements</div></div>
       <div class="hlitem"><div class="hlring"><div class="hlinner"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=120&q=75&auto=format&fit=crop" alt=""></div></div><div class="hllbl">Le Chef</div></div>
@@ -698,147 +1217,161 @@ footer span{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:
       <div class="hlitem"><div class="hlring"><div class="hlinner"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=120&q=75&auto=format&fit=crop" alt=""></div></div><div class="hllbl">Réservations</div></div>
     </div>
   </div>
+</section>
 
-  <div style="margin-top:4rem" class="rv">
-    <div class="ey">Stratégie Éditoriale</div>
-    <div class="sg3">
-      <div class="sg"><div class="sgt">Planning Hebdomadaire</div>
-        <div class="sgi"><strong>Lundi</strong>Reel cinématique — installation ou making-of</div>
-        <div class="sgi"><strong>Mercredi</strong>Photo éditoriale — plat, détail macro ou still life</div>
-        <div class="sgi"><strong>Vendredi</strong>Carrousel — storytelling complet d'un événement</div>
-        <div class="sgi"><strong>Chaque jour</strong>Stories coulisses, process, teasers</div>
+<!-- ══════ DIRECTION ARTISTIQUE ══════ -->
+<section class="direction-section" id="direction">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:3rem" class="rv sec-head">
+    <div>
+      <div class="section-label">Direction Artistique</div>
+      <h2 class="section-title">Photo · Vidéo<br><em>&amp; Motion</em></h2>
+    </div>
+    <p>Une direction artistique complète — du cadrage à la lumière, du rythme de montage aux mouvements de caméra. Tout est pensé pour créer un univers visuel cohérent et puissant.</p>
+  </div>
+  <div class="dir-grid">
+    <div class="dir-card rv">
+      <div class="dir-n">Ph</div>
+      <div class="dir-t">Photographie</div>
+      <div class="dir-d">Fond blanc pur. Objets qui tranchent — textures alimentaires, couleurs vives, formes organiques. L'aliment comme sujet sculptural.</div>
+      <div class="dir-detail">
+        <div class="dir-detail-item">Macro texture — 100mm, f/2.8</div>
+        <div class="dir-detail-item">Vue aérienne — overhead, symétrie</div>
+        <div class="dir-detail-item">Portrait chef — lumière sculptante</div>
+        <div class="dir-detail-item">Still life — composition minimaliste</div>
       </div>
-      <div class="sg" style="background:var(--c)"><div class="sgt">Mix des Formats</div>
-        <div class="sgi"><strong>Reels 30–60s</strong>Montage cinématique, musique dramatique</div>
-        <div class="sgi"><strong>Photo éditoriale</strong>Still life, portrait, vue aérienne installation</div>
-        <div class="sgi"><strong>Carrousels</strong>10 slides — narration d'un événement complet</div>
-        <div class="sgi"><strong>Stories</strong>Éphémère, authentique, coulisses et teasers</div>
+    </div>
+    <div class="dir-card rv">
+      <div class="dir-n">Vi</div>
+      <div class="dir-t">Vidéographie</div>
+      <div class="dir-d">Rythme cinématique — Chef's Table slow motion. Ralentis 240fps sur les textures, les gestes, les liquides. Montage au rythme de la musique.</div>
+      <div class="dir-detail">
+        <div class="dir-detail-item">Slow motion 240fps — gestes chef</div>
+        <div class="dir-detail-item">Time-lapse — installation 0→100%</div>
+        <div class="dir-detail-item">Steadicam — révélation progressive</div>
+        <div class="dir-detail-item">Macro vidéo — textures comestibles</div>
       </div>
-      <div class="sg"><div class="sgt">Hashtags Stratégiques</div>
-        <div class="sgi"><strong>Marque</strong>#SOFFRA #SOFFRAparis #ArtCulinaire</div>
-        <div class="sgi"><strong>Niche</strong>#ImmersiveDining #FoodArt #HalalLuxury</div>
-        <div class="sgi"><strong>Reach</strong>#Paris #LuxuryFood #BocuseDor #TableArt</div>
-        <div class="sgi"><strong>Communauté</strong>#صفرة #مطبخ_فني #باريس</div>
+    </div>
+    <div class="dir-card rv">
+      <div class="dir-n">Mo</div>
+      <div class="dir-t">Motion & Animation</div>
+      <div class="dir-d">Transitions fluides entre sections, particules dorées, typographie animée. Le site respire. Chaque scroll révèle quelque chose de nouveau.</div>
+      <div class="dir-detail">
+        <div class="dir-detail-item">Scroll-triggered reveals</div>
+        <div class="dir-detail-item">Parallax sur les images hero</div>
+        <div class="dir-detail-item">Typo cinétique — mots qui émergent</div>
+        <div class="dir-detail-item">Curseur personnalisé doré</div>
+      </div>
+    </div>
+    <div class="dir-card rv">
+      <div class="dir-n">Re</div>
+      <div class="dir-t">Reels TikTok / Instagram</div>
+      <div class="dir-d">6 formats viraux définis. Time-lapse d'installation, avant/après, gestes du chef, réactions d'invités, macro ASMR, behind the scenes.</div>
+      <div class="dir-detail">
+        <div class="dir-detail-item">Time-lapse 0→100% — ultra viral</div>
+        <div class="dir-detail-item">Avant/Après — cut brutal</div>
+        <div class="dir-detail-item">Chef painting — satisfying content</div>
+        <div class="dir-detail-item">Réactions invités — émotion pure</div>
+      </div>
+    </div>
+    <div class="dir-card rv">
+      <div class="dir-n">Lu</div>
+      <div class="dir-t">Lumière</div>
+      <div class="dir-d">Lumière naturelle diffuse pour la photographie. Éclairage scénique contrasté pour les événements. Golden hour simulée pour les reels.</div>
+      <div class="dir-detail">
+        <div class="dir-detail-item">Key light latérale — ombres douces</div>
+        <div class="dir-detail-item">Contre-jour translucide</div>
+        <div class="dir-detail-item">Point de lumière — dorure naturelle</div>
+        <div class="dir-detail-item">Zéro lumière parasite</div>
+      </div>
+    </div>
+    <div class="dir-card rv">
+      <div class="dir-n">Id</div>
+      <div class="dir-t">Identité Visuelle</div>
+      <div class="dir-d">Blanc dominant. Or comme accentuation unique. Typographie mixte serif/sans-serif. Pas de couleurs parasites. Tout respire le luxe et la clarté.</div>
+      <div class="dir-detail">
+        <div class="dir-detail-item">Palette : Blanc · Or · Noir encre</div>
+        <div class="dir-detail-item">Typo : Playfair Display + Montserrat</div>
+        <div class="dir-detail-item">Grain subtil sur les visuels</div>
+        <div class="dir-detail-item">Espacement généreux — air luxueux</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TIKTOK -->
-<section class="sec sc" id="tiktok">
-  <div class="sec-head rv">
-    <div><div class="ey">Social Media — TikTok</div><h2 class="st">Stratégie <em>TikTok</em><br>SOFFRA</h2></div>
-    <p>TikTok est le moteur de viralité le plus puissant pour SOFFRA. Les contenus food art et chef en action génèrent des millions de vues organiques sans publicité.</p>
+<!-- ══════ DELIVRABLES ══════ -->
+<section class="deliv-section">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:.5rem" class="rv sec-head">
+    <div>
+      <div class="section-label">Production — HAMOUNI Studio</div>
+      <h2 class="section-title">Ce que nous<br><em>livrons</em></h2>
+    </div>
+    <p>Direction artistique complète, production photo et vidéo, identité visuelle, stratégie digitale — tout ce qu'il faut pour lancer ce projet au niveau international dès le premier événement.</p>
   </div>
-  <div class="ttwrap rv">
-    <div class="ttlist">
-      <div class="tti"><div class="ttn">01</div><div><div class="ttt">Le Time-lapse d'Installation</div><div class="ttd">Filmer l'installation complète de 0 à 100% en time-lapse. Format ultra-viral. Musique dramatique. 30–45 secondes. Objectif : 1M+ vues organiques.</div></div></div>
-      <div class="tti"><div class="ttn">02</div><div><div class="ttt">Le Chef qui peint avec la nourriture</div><div class="ttd">Close-up des mains en création. Format "satisfying". Hook dès la première seconde. 15–30s. Contenu le plus addictif du secteur food.</div></div></div>
-      <div class="tti"><div class="ttn">03</div><div><div class="ttt">Avant / Après — La Révélation</div><div class="ttd">Table vide → installation complète en cut. Format "transformation". Génère des sauvegardes massives. 500K à 5M vues potentiels.</div></div></div>
-      <div class="tti"><div class="ttn">04</div><div><div class="ttt">Les Réactions des Invités</div><div class="ttd">Visages et réactions en découvrant l'installation. L'émotion authentique est le contenu le plus partagé sur TikTok.</div></div></div>
-      <div class="tti"><div class="ttn">05</div><div><div class="ttt">Bocuse d'Or — Behind the Scenes</div><div class="ttd">Le chef au SIRHA 2025 — process, préparation, coulisses. L'excellence mondiale au service de SOFFRA. Contenu unique et exclusif.</div></div></div>
-      <div class="tti"><div class="ttn">06</div><div><div class="ttt">Macro Cinématique</div><div class="ttd">Gros plans ultra-HD sur textures et sculptures végétales. ASMR culinaire visuel. Ces vidéos cumulent des millions de vues dans la niche food art.</div></div></div>
-    </div>
-    <div class="ttphwrap">
-      <div class="ttp"><div class="ttsc">
-        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop" alt="">
-        <div class="ttcap">@soffra.paris ✦<br>Bocuse d'Or SIRHA 2025 — Quand la gastronomie devient performance d'art<br><span class="ttht">#SOFFRA #ArtCulinaire #BocuseDor #FoodArt</span></div>
-        <div class="ttside">
-          <div class="ttact"><div style="width:28px;height:28px;border-radius:50%;border:1.5px solid #fff;overflow:hidden"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=60&q=75&auto=format&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block" alt=""></div></div>
-          <div class="ttact"><div class="tticon">❤</div><div class="ttlab">214K</div></div>
-          <div class="ttact"><div class="tticon">💬</div><div class="ttlab">4.2K</div></div>
-          <div class="ttact"><div class="tticon">↗</div><div class="ttlab">89K</div></div>
-          <div class="ttact"><div class="tticon">⊕</div><div class="ttlab">Son</div></div>
-        </div>
-      </div></div>
-      <div class="ttm">
-        <div class="tm"><div class="tmn">10K+</div><div class="tml">Abonnés · 3 mois</div></div>
-        <div class="tm"><div class="tmn">500K</div><div class="tml">Vues moy.</div></div>
-        <div class="tm"><div class="tmn">1M+</div><div class="tml">Viral potentiel</div></div>
-        <div class="tm"><div class="tmn">5×</div><div class="tml">Posts / semaine</div></div>
-      </div>
-    </div>
+  <div class="deliv-grid rv">
+    <div class="dc"><div class="dci">DA</div><div class="dct">Direction Artistique</div><div class="dcd">Moodboard, palette, concept visuel avant chaque shooting ou événement. La vision avant l'image.</div></div>
+    <div class="dc"><div class="dci">Ph</div><div class="dct">Photographie</div><div class="dcd">Images haute définition — installation, macro, portraits chef, ambiance événement.</div></div>
+    <div class="dc"><div class="dci">Vi</div><div class="dct">Films & Reels</div><div class="dcd">Brand film, teaser, behind the scenes. Montage, étalonnage, musique — clé en main.</div></div>
+    <div class="dc"><div class="dci">SM</div><div class="dct">Stratégie Digitale</div><div class="dcd">Calendrier Instagram & TikTok, captions, hashtags, stories, highlights — cohérence totale.</div></div>
+    <div class="dc"><div class="dci">Pr</div><div class="dct">Dossier de Presse</div><div class="dcd">PDF bilingue FR/EN luxury editorial. Kit médias haute résolution pour journalistes.</div></div>
+    <div class="dc"><div class="dci">We</div><div class="dct">Site Web</div><div class="dcd">Site immersif multi-pages — galerie, événements, réservation, presse, contact.</div></div>
+    <div class="dc"><div class="dci">Id</div><div class="dct">Identité Visuelle</div><div class="dcd">Logo, charte graphique, typographie, couleurs, templates pour tous les supports.</div></div>
+    <div class="dc"><div class="dci">Ev</div><div class="dct">Couverture Événements</div><div class="dcd">Présence photo/vidéo à chaque événement. Livraison rapide pour publication immédiate.</div></div>
   </div>
 </section>
 
-<!-- STRATÉGIE -->
-<section class="sec" id="strategie">
-  <div class="sec-head rv">
-    <div><div class="ey">Stratégie de Lancement</div><h2 class="st">Comment SOFFRA<br><em>se lance</em></h2></div>
-    <p>Un plan en 6 mois pensé pour créer l'anticipation, la désirabilité et la viralité dès le premier jour d'existence de la marque.</p>
+<!-- ══════ LAUNCH PLAN ══════ -->
+<section class="launch-section" id="launch">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end" class="rv sec-head">
+    <div>
+      <div class="section-label">Stratégie de Lancement</div>
+      <h2 class="section-title">6 mois pour<br><em>changer quelque chose.</em></h2>
+    </div>
+    <p>Un plan de lancement précis, pensé pour créer l'anticipation, la désirabilité et la viralité dès le premier jour d'existence du projet.</p>
   </div>
   <div class="tl rv">
-    <div class="tli"><div class="tlmo">Mois 1–2</div><div><div class="tlt">Fondations & Teasing</div><div class="tld">Création des comptes Instagram et TikTok de SOFFRA, site web, identité visuelle finalisée. Premier shooting photo/vidéo. Teasing mystérieux — aucune révélation, juste de l'intrigue. Le compte à rebours commence.</div></div></div>
-    <div class="tli"><div class="tlmo">Mois 3</div><div><div class="tlt">Lancement Officiel</div><div class="tld">Révélation de SOFFRA avec un post cinématique. Communiqué de presse aux médias lifestyle et gastronomiques. Premier événement privé pour presse et influenceurs sélectionnés. Contenu massif sur tous les réseaux simultanément.</div></div></div>
-    <div class="tli"><div class="tlmo">Mois 4–5</div><div><div class="tlt">Premiers Événements Publics</div><div class="tld">2 événements SOFFRA ouverts au public — capacité limitée, liste d'attente. Feed qui prend vie avec de vraies images. TikTok en mode viral avec time-lapses et réactions d'invités.</div></div></div>
-    <div class="tli"><div class="tlmo">Mois 6</div><div><div class="tlt">Consolidation & Expansion</div><div class="tld">Bilan stratégique, ajustements. Prospection partenariats marques de luxe. Première édition SOFFRA internationale — Dubai, Londres ou Casablanca. SOFFRA devient une marque de référence mondiale.</div></div></div>
-  </div>
-
-  <div style="margin-top:4rem" class="rv">
-    <div class="ey">Communication — Les 2 canaux</div>
-    <div class="cb2">
-      <div class="cbc">
-        <div class="cbh">@soffra.paris · Instagram</div>
-        <div class="cbs">Le compte officiel de la marque</div>
-        <div class="cbi">Feed editorial cohérent — une image par post choisie avec précision</div>
-        <div class="cbi">Reels cinématiques — installations, making-of, before/after</div>
-        <div class="cbi">Stories quotidiennes — coulisses, process, teasers des prochains événements</div>
-        <div class="cbi">Highlights permanents — archives de chaque univers de la marque</div>
-        <div class="cbi">Collaborations avec des comptes lifestyle, gastronomie et luxe</div>
-        <div class="cbi">Relations presse — pitches aux journalistes et médias ciblés</div>
-      </div>
-      <div class="cbc" style="background:var(--c)">
-        <div class="cbh">@soffra.paris · TikTok</div>
-        <div class="cbs">La viralité organique de SOFFRA</div>
-        <div class="cbi">Time-lapses d'installation — le format le plus viral du secteur food art</div>
-        <div class="cbi">Gros plans cinématiques — mains du chef, textures, sculptures végétales</div>
-        <div class="cbi">Avant/Après — table vide vers installation complète en cut brutal</div>
-        <div class="cbi">Réactions d'invités — l'émotion authentique en direct</div>
-        <div class="cbi">Behind the scenes Bocuse d'Or — l'excellence mondiale en backstage</div>
-        <div class="cbi">Duets avec créateurs food — amplification communautaire virale</div>
-      </div>
-    </div>
+    <div class="tli"><div class="tlmo">Mois 1–2</div><div><div class="tlt">Fondations & Teasing Mystérieux</div><div class="tld">Création des comptes Instagram et TikTok, site web, identité visuelle finalisée. Premier shooting photo/vidéo. Teasing mystérieux — aucune révélation, juste de l'intrigue. Le compte à rebours commence silencieusement.</div></div></div>
+    <div class="tli"><div class="tlmo">Mois 3</div><div><div class="tlt">Lancement Officiel — The Big Reveal</div><div class="tld">Révélation du projet avec un post cinématique unique. Communiqué de presse aux médias lifestyle et gastronomiques. Premier événement privé pour presse et influenceurs sélectionnés. Contenu massif sur tous les réseaux simultanément.</div></div></div>
+    <div class="tli"><div class="tlmo">Mois 4–5</div><div><div class="tlt">Premiers Événements Publics</div><div class="tld">2 événements ouverts au public — capacité limitée, liste d'attente. Feed qui prend vie avec de vraies images. TikTok en mode viral — time-lapses, réactions d'invités, before/after d'installation.</div></div></div>
+    <div class="tli"><div class="tlmo">Mois 6</div><div><div class="tlt">Consolidation & Expansion Internationale</div><div class="tld">Bilan stratégique, ajustements. Prospection partenariats marques de luxe. Première édition internationale — Dubai, Londres ou Casablanca. Le projet devient une marque de référence mondiale.</div></div></div>
   </div>
 </section>
 
-<!-- DELIVRABLES -->
-<section class="sec sc">
-  <div class="sec-head rv">
-    <div><div class="ey">Production — HAMOUNI Studio</div><h2 class="st">Ce que nous<br><em>créons pour SOFFRA</em></h2></div>
-    <p>Direction artistique, production photo et vidéo, identité visuelle, stratégie digitale complète — tout ce qu'il faut pour lancer SOFFRA au niveau international.</p>
-  </div>
-  <div class="dg rv">
-    <div class="dc"><div class="dci">DA</div><div class="dct">Direction Artistique</div><div class="dcd">Moodboard, palette, concept visuel avant chaque shooting ou événement.</div></div>
-    <div class="dc"><div class="dci">Ph</div><div class="dct">Photographie</div><div class="dcd">Images haute définition — installation, macro, portraits, ambiance événement.</div></div>
-    <div class="dc"><div class="dci">Vi</div><div class="dct">Films & Reels</div><div class="dcd">Brand film, teaser, behind the scenes. Montage, étalonnage, musique.</div></div>
-    <div class="dc"><div class="dci">SM</div><div class="dct">Stratégie Digitale</div><div class="dcd">Calendrier Instagram & TikTok, captions, hashtags, stories, highlights.</div></div>
-    <div class="dc"><div class="dci">Pr</div><div class="dct">Dossier de Presse</div><div class="dcd">PDF bilingue FR/EN luxury editorial. Kit médias haute résolution.</div></div>
-    <div class="dc"><div class="dci">We</div><div class="dct">Site Web</div><div class="dcd">Site immersif multi-pages — galerie, événements, réservation, presse.</div></div>
-    <div class="dc"><div class="dci">Id</div><div class="dct">Identité Visuelle</div><div class="dcd">Logo, charte graphique, typographie, couleurs, templates.</div></div>
-    <div class="dc"><div class="dci">Ev</div><div class="dct">Couverture Événements</div><div class="dcd">Présence photo/vidéo à chaque événement SOFFRA. Livraison rapide.</div></div>
-  </div>
-</section>
-
-<!-- CLOSING -->
+<!-- ══════ CLOSING ══════ -->
 <section class="closing" id="closing">
-  <div class="cbg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80&auto=format&fit=crop" alt="SOFFRA"></div>
-  <div class="cco">
-    <div class="ctg">HAMOUNI Studio — Proposition Créative 2026</div>
-    <h2 class="cttl rv">SOFFRA est prêt<br>à <em>changer</em> quelque chose.</h2>
-    <p class="csub rv">La table comme toile blanche. La nourriture comme matière artistique. SOFFRA n'est pas un événement — c'est une nouvelle façon de vivre la gastronomie.</p>
-    <a href="mailto:contact@hamounistudio.com" class="cbtn">Lançons SOFFRA ensemble →</a>
-    <div class="csign">Présenté par <strong>HAMOUNI Studio</strong> — Ayoub Hamouni · Paris, 2026</div>
-  </div>
+  <div class="closing-eyebrow rv">HAMOUNI Studio · Creative Proposal · 2026</div>
+  <h2 class="closing-title rv">
+    Créons quelque chose<br>
+    qui n'<em>existe pas encore.</em>
+  </h2>
+  <p class="closing-sub rv">
+    La table comme toile blanche. La nourriture comme matière artistique.<br>
+    Ce projet n'est pas un événement — c'est une nouvelle façon de vivre la gastronomie.
+  </p>
+  <a href="mailto:contact@hamounistudio.com" class="closing-btn rv">Lançons ce projet ensemble →</a>
+  <div class="closing-sign rv">Présenté par <strong>HAMOUNI Studio</strong> — Ayoub Hamouni · Paris, 2026</div>
 </section>
 
 <footer>
   <span>© 2026 HAMOUNI Studio</span>
-  <span>SOFFRA · صُفرة · Art Culinaire Immersif · Paris</span>
-  <span>Proposition Créative Confidentielle</span>
+  <span>Creative Proposal — Art Culinaire Immersif · Paris</span>
+  <span>Confidentiel</span>
 </footer>
 
 <script>
-// MENU
+// ── CUSTOM CURSOR ──
+var dot = document.getElementById('cursorDot');
+var ring = document.getElementById('cursorRing');
+var mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  if (dot) { dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// ── MENU ──
 var hamBtn = document.getElementById('hamBtn');
 var mob = document.getElementById('mob');
 if (hamBtn && mob) {
@@ -849,7 +1382,13 @@ if (hamBtn && mob) {
   });
 }
 
-// SCROLL REVEAL - sans IntersectionObserver pour compatibilité maximale
+// ── NAV SCROLL ──
+var nav = document.getElementById('mainNav');
+window.addEventListener('scroll', function() {
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 80);
+}, false);
+
+// ── SCROLL REVEAL ──
 function checkReveal() {
   var els = document.querySelectorAll('.rv,.rv2,.rv3');
   var wh = window.innerHeight;
@@ -859,29 +1398,36 @@ function checkReveal() {
   }
 }
 window.addEventListener('scroll', checkReveal, false);
-window.addEventListener('resize', checkReveal, false);
 setTimeout(checkReveal, 300);
 
-// STORIES
+// ── 3D CARD TILT ──
+var cards = document.querySelectorAll('.gallery-card');
+cards.forEach(function(card) {
+  card.addEventListener('mousemove', function(e) {
+    var rect = card.getBoundingClientRect();
+    var x = (e.clientX - rect.left) / rect.width - 0.5;
+    var y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = 'perspective(800px) rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 8) + 'deg) scale(1.02)';
+  });
+  card.addEventListener('mouseleave', function() {
+    card.style.transform = '';
+  });
+});
+
+// ── STORIES ──
 var STORIES = [
   {badge:'Événement · Juin 2026', txt:'"La table devient<br>toile. Le chef<br>devient peintre."'},
   {badge:'Installation · Art Culinaire', txt:'"Chaque fleur est<br>choisie comme<br>un pinceau."'},
-  {badge:'Bocuse d\'Or · SIRHA 2025', txt:'"L\'excellence<br>mondiale au<br>service de l\'art."'},
+  {badge:'Bocuse d\'Or · SIRHA 2025', txt:'"L\'excellence mondiale<br>au service<br>de l\'art."'},
   {badge:'Le Chef en Action', txt:'"Chaque geste est<br>une décision<br>artistique."'},
-  {badge:'SOFFRA · صُفرة', txt:'"La table n\'est pas<br>un meuble. C\'est<br>une toile blanche."'}
+  {badge:'Art Culinaire · Paris', txt:'"La table n\'est pas<br>un meuble.<br>C\'est une toile."'}
 ];
 var cur = 0, D = 3500, sT = null, fT = null;
-
-function clearT() {
-  if (sT) { clearTimeout(sT); sT = null; }
-  if (fT) { clearInterval(fT); fT = null; }
-}
-
+function clearT() { if (sT) { clearTimeout(sT); sT = null; } if (fT) { clearInterval(fT); fT = null; } }
 function setStory(idx) {
   var i, img, bar;
   for (i = 0; i < 5; i++) {
-    img = document.getElementById('s'+i);
-    bar = document.getElementById('b'+i);
+    img = document.getElementById('s'+i); bar = document.getElementById('b'+i);
     if (img) img.className = 'sbg '+(i===idx?'on':'off');
     if (bar) bar.style.width = i < idx ? '100%' : '0';
   }
@@ -889,26 +1435,31 @@ function setStory(idx) {
   if (cb) {
     cb.style.width = '0';
     var step = 0, steps = Math.ceil(D/50);
-    fT = setInterval(function() {
-      step++;
-      cb.style.width = Math.min(100,(step/steps)*100)+'%';
-      if (step >= steps) { clearInterval(fT); fT = null; }
-    }, 50);
+    fT = setInterval(function() { step++; cb.style.width = Math.min(100,(step/steps)*100)+'%'; if (step >= steps) { clearInterval(fT); fT = null; } }, 50);
   }
-  var bd = document.getElementById('sbadge');
-  var tx = document.getElementById('stxt');
+  var bd = document.getElementById('sbadge'); var tx = document.getElementById('stxt');
   if (bd) bd.textContent = STORIES[idx].badge;
   if (tx) tx.innerHTML = STORIES[idx].txt;
   sT = setTimeout(function() { cur=(cur+1)%5; setStory(cur); }, D);
 }
-
 var sc = document.getElementById('sc');
-if (sc) {
-  sc.addEventListener('click', function() {
-    clearT(); cur=(cur+1)%5; setStory(cur);
-  });
+if (sc) sc.addEventListener('click', function() { clearT(); cur=(cur+1)%5; setStory(cur); });
+setTimeout(function() { setStory(0); }, 1800);
+
+// ── STATS COUNTER ANIMATION ──
+function animateCounters() {
+  // triggered once on scroll - visual only, stats are already written
 }
-setTimeout(function() { setStory(0); }, 1500);
+
+// ── PARALLAX HERO ORBS ──
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY;
+  var orbs = document.querySelectorAll('.orb');
+  orbs.forEach(function(orb, i) {
+    var speed = 0.1 + i * 0.05;
+    orb.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
+  });
+}, {passive: true});
 </script>
 </body>
 </html>
