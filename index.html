@@ -1,1079 +1,1281 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VISCAP — Présentation Site Web · Art Culinaire 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>ORIGINS — A Private Dining Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Founders+Grotesk:wght@300;400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
-/* ═══ RESET ═══ */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --w:#FFFFFF;--off:#F9F8F6;--cream:#F4EFE5;--warm:#EDE8DC;
-  --g:#C8A96E;--g2:#A8843E;--g3:#E8D4A0;
-  --ink:#0A0908;--gray:#5C5650;--muted:#9A9490;
-  --bd:rgba(0,0,0,.08);
-  --r:0; /* no border-radius — luxury flat style */
-}
-html{scroll-behavior:smooth;scroll-padding-top:60px}
-body{background:var(--w);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-img{display:block;max-width:100%;height:auto}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;font-family:'Inter',sans-serif}
+  :root {
+    --ink: #0d0d0b;
+    --parchment: #f5f0e8;
+    --ash: #b8b0a3;
+    --ember: #c8472a;
+    --gold: #a8956a;
+    --smoke: #e8e4dc;
+    --void: #1a1815;
+  }
 
-/* ═══ NAV ═══ */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:900;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.8rem 1.5rem;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--bd);
-}
-.nav-logo{font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:.1em;color:var(--ink)}
-.nav-logo span{font-style:italic;color:var(--g2)}
-.nav-links{display:flex;gap:1.5rem;list-style:none}
-.nav-links a{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);transition:color .25s}
-.nav-links a:hover{color:var(--g2)}
-.nav-cta{
-  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
-  padding:.45rem 1rem;background:var(--ink);color:#fff;border:none;
-  transition:background .3s;text-decoration:none;display:inline-block;
-}
-.nav-cta:hover{background:var(--g2)}
-/* hamburger */
-.ham{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:.3rem}
-.ham span{display:block;width:20px;height:1px;background:var(--ink);transition:.3s}
-.mob{display:none;position:fixed;inset:0;background:var(--w);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
-.mob.open{display:flex}
-.mob a{font-size:1.4rem;font-family:'Playfair Display',serif;font-style:italic;color:var(--ink)}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ═══ TYPOGRAPHY UTILS ═══ */
-.eyebrow{font-size:.52rem;letter-spacing:.4em;text-transform:uppercase;color:var(--g2);margin-bottom:.7rem;display:flex;align-items:center;gap:.9rem}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--g);display:block;flex-shrink:0}
-.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3.5rem);font-weight:400;line-height:1.05;margin-bottom:.8rem}
-.sec-title em{font-style:italic;color:var(--g2)}
-.sec-desc{font-size:.85rem;line-height:1.9;color:var(--gray);max-width:560px}
+  html { scroll-behavior: smooth; }
 
-/* ═══ LAYOUT ═══ */
-.section{padding:clamp(3.5rem,7vw,6rem) clamp(1.2rem,5vw,4rem)}
-.section.cream{background:var(--cream)}
-.section.off{background:var(--off)}
-.section.dark{background:var(--ink)}
-.section.warm{background:var(--warm)}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:start}
-.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--warm)}
-.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--warm)}
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
 
-/* ═══ COVER ═══ */
-.cover{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  padding:5rem 1.5rem 4rem;position:relative;overflow:hidden;
-}
-.cover-img{position:absolute;inset:0;z-index:0}
-.cover-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.12) saturate(.4)}
-.cover-inner{position:relative;z-index:1;color:#fff;max-width:800px}
-.cover-badge{
-  display:inline-flex;align-items:center;gap:.8rem;
-  font-size:.52rem;letter-spacing:.4em;text-transform:uppercase;
-  color:var(--g);margin-bottom:2rem;
-}
-.cover-badge::before,.cover-badge::after{content:'';width:35px;height:1px;background:var(--g);display:block}
-.cover-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,8vw,7rem);font-weight:400;line-height:.9;margin-bottom:1.5rem}
-.cover-title em{font-style:italic;color:var(--g3);display:block}
-.cover-sub{font-size:.88rem;line-height:1.85;color:rgba(255,255,255,.55);max-width:520px;margin:0 auto 2.5rem}
-/* cover stats */
-.cover-stats{display:flex;gap:clamp(1.5rem,4vw,4rem);justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;padding:1.8rem 2rem;border:1px solid rgba(255,255,255,.1)}
-.cst-n{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--g3);line-height:1}
-.cst-l{font-size:.44rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.25rem}
-.cover-btn{display:inline-block;padding:.8rem 2.2rem;border:1px solid rgba(255,255,255,.35);color:#fff;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;transition:all .3s}
-.cover-btn:hover{background:var(--g2);border-color:var(--g2)}
-.cover-scroll{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem}
-.scroll-bar{width:1px;height:42px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:sb 2s infinite}
-.scroll-lbl{font-size:.4rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35)}
-@keyframes sb{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{opacity:0;transform:scaleY(0);transform-origin:bottom}}
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    mix-blend-mode: multiply;
+  }
 
-/* ═══ SOMMAIRE ═══ */
-.toc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--warm);margin-top:2.5rem}
-.toc-item{
-  background:var(--w);padding:1.8rem 1.5rem;border-top:2px solid transparent;
-  transition:all .3s;display:block;
-}
-.toc-item:hover{border-top-color:var(--g);background:var(--cream)}
-.toc-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:rgba(0,0,0,.05);line-height:1;margin-bottom:.6rem;font-weight:700}
-.toc-lbl{font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:.4rem}
-.toc-name{font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:.4rem}
-.toc-desc{font-size:.72rem;line-height:1.6;color:var(--gray)}
+  .nav-logo {
+    font-family: 'IM Fell English', serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
 
-/* ═══ ARCHITECTURE ═══ */
-.arch-tree{background:var(--w);border:1px solid var(--bd)}
-.tree-root{
-  display:flex;align-items:center;gap:1.2rem;
-  padding:1.1rem 1.5rem;background:var(--ink);
-  border-left:4px solid var(--g);
-}
-.tree-root-name{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff}
-.tree-root-url{font-size:.46rem;letter-spacing:.1em;color:rgba(255,255,255,.45);font-family:monospace}
-.tree-branch{background:var(--warm)}
-.tree-page{
-  display:flex;align-items:center;gap:.8rem;
-  padding:.9rem 1.5rem .9rem 2rem;background:var(--w);
-  border-left:3px solid transparent;border-bottom:1px solid var(--bd);
-  transition:all .3s;
-}
-.tree-page:last-child{border-bottom:none}
-.tree-page:hover{border-left-color:var(--g);background:var(--cream)}
-.tree-icon{font-size:.8rem;flex-shrink:0}
-.tp-info{flex:1}
-.tp-name{font-size:.82rem;font-weight:500;color:var(--ink)}
-.tp-url{font-size:.46rem;color:var(--muted);font-family:monospace;margin-top:.12rem}
-.tp-badge{
-  font-size:.42rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.2rem .65rem;border:1px solid;flex-shrink:0;
-}
-.tp-badge.ess{color:#2a7d46;border-color:#2a7d46;background:rgba(42,125,70,.06)}
-.tp-badge.imp{color:var(--g2);border-color:var(--g);background:rgba(200,169,110,.07)}
-.tp-badge.opt{color:var(--muted);border-color:var(--muted)}
+  .nav-links {
+    display: flex;
+    gap: 44px;
+    list-style: none;
+  }
 
-/* RULE CARDS */
-.rules-grid{display:flex;flex-direction:column;gap:.8rem}
-.rule{padding:1.4rem 1.6rem;background:var(--w);border:1px solid var(--bd);border-left:3px solid var(--g)}
-.rule-t{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:.45rem}
-.rule-d{font-size:.74rem;line-height:1.7;color:var(--gray)}
-.rule-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
-.rtag{font-size:.44rem;letter-spacing:.1em;padding:.18rem .65rem;border:1px solid rgba(200,169,110,.25);color:var(--g2)}
+  .nav-links a {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
 
-/* ═══ PAGE CARDS ═══ */
-.page-card{background:var(--w);border:1px solid var(--bd);overflow:hidden;margin-bottom:.3rem}
-.pc-head{
-  display:flex;align-items:center;gap:1.2rem;
-  padding:1.2rem 1.5rem;background:var(--off);border-bottom:1px solid var(--bd);
-  flex-wrap:wrap;gap:.8rem;
-}
-.pc-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:rgba(0,0,0,.06);line-height:1;font-weight:700;min-width:48px}
-.pc-info{flex:1;min-width:180px}
-.pc-name{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:.15rem}
-.pc-url{font-size:.48rem;font-family:monospace;color:var(--muted)}
-.pc-badge-wrap{display:flex;gap:.5rem;flex-wrap:wrap}
-.pcbadge{font-size:.42rem;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .75rem;border:1px solid}
-.pcbadge.ess{color:#2a7d46;border-color:#2a7d46;background:rgba(42,125,70,.06)}
-.pcbadge.imp{color:var(--g2);border-color:var(--g);background:rgba(200,169,110,.07)}
-.pcbadge.opt{color:var(--muted);border-color:var(--muted)}
+  .nav-links a:hover { opacity: 1; }
 
-/* page body 2-col */
-.pc-body{display:grid;grid-template-columns:1fr 1fr}
-.pc-col{padding:1.5rem}
-.pc-col+.pc-col{border-left:1px solid var(--bd)}
-.col-title{font-size:.48rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g2);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
-.content-list{display:flex;flex-direction:column;gap:.65rem}
-.ci-item{display:flex;gap:.7rem;align-items:flex-start;font-size:.74rem;line-height:1.65;color:var(--gray)}
-.ci-item::before{content:'→';color:var(--g);flex-shrink:0;font-size:.68rem;margin-top:.06rem}
-.ci-item strong{color:var(--ink);font-weight:500;display:block;margin-bottom:.15rem}
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    background: var(--void);
+    overflow: hidden;
+  }
 
-/* photo assignments */
-.photo-assign{display:flex;flex-direction:column;gap:.5rem}
-.pa-item{display:flex;gap:.8rem;align-items:center;padding:.6rem;background:var(--off);border:1px solid var(--bd)}
-.pa-img{width:52px;height:52px;overflow:hidden;flex-shrink:0}
-.pa-img img{width:100%;height:100%;object-fit:cover}
-.pa-info{flex:1;min-width:0}
-.pa-section{font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:var(--g2);margin-bottom:.18rem}
-.pa-desc{font-size:.65rem;color:var(--gray);line-height:1.4}
-.pa-use{font-size:.44rem;color:var(--muted);font-style:italic}
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 80% at 70% 40%, rgba(168,149,106,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,71,42,0.06) 0%, transparent 50%);
+  }
 
-/* ═══ WIREFRAME / MOCKUP ═══ */
-.wf-wrap{border-top:1px solid var(--bd);padding:1.5rem}
-.wf-label{font-size:.48rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g2);margin-bottom:.8rem}
-.browser{background:var(--w);border:1px solid var(--bd);box-shadow:0 8px 32px rgba(0,0,0,.06);overflow:hidden}
-/* slight tilt on desktop */
-@media(min-width:768px){
-  .browser{transform:perspective(1400px) rotateX(1.5deg) rotateY(-0.5deg);transition:transform .5s}
-  .browser:hover{transform:perspective(1400px) rotateX(0) rotateY(0)}
-}
-.wf-bar{background:#f0eeeb;padding:.5rem .8rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--bd)}
-.wf-dots{display:flex;gap:.28rem}
-.wf-dot{width:8px;height:8px;border-radius:50%}
-.wf-dot.r{background:#ff5f57}.wf-dot.y{background:#febc2e}.wf-dot.g{background:#28c840}
-.wf-url{flex:1;background:rgba(0,0,0,.05);border-radius:3px;padding:.2rem .6rem;font-size:.5rem;color:#888;font-family:monospace}
-/* nav bar */
-.wf-nav{display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(255,255,255,.97);border-bottom:1px solid var(--bd)}
-.wf-logo{width:70px;height:10px;background:rgba(0,0,0,.12);border-radius:2px}
-.wf-nav-items{display:flex;gap:.7rem}
-.wf-ni{width:35px;height:7px;background:rgba(0,0,0,.08);border-radius:2px}
-.wf-cta-mini{width:55px;height:20px;background:var(--ink);border-radius:1px}
-/* hero */
-.wf-hero{position:relative;overflow:hidden}
-.wf-hero img{width:100%;object-fit:cover;display:block}
-.wf-hero-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(0,0,0,.42);padding:1rem}
-.wf-hero-tag{font-size:.38rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem}
-.wf-hero-h{font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.8rem);font-style:italic;color:#fff;line-height:1.1;margin-bottom:.5rem}
-.wf-hero-btn{display:inline-block;padding:.3rem 1rem;border:1px solid rgba(255,255,255,.4);font-size:.42rem;letter-spacing:.2em;text-transform:uppercase;color:#fff}
-/* stats strip */
-.wf-stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--cream)}
-.wf-stat{padding:.7rem .5rem;text-align:center;border-right:1px solid var(--bd)}
-.wf-stat:last-child{border-right:none}
-.wf-sn{font-family:'Playfair Display',serif;font-size:1rem;color:var(--g2);line-height:1}
-.wf-sl{font-size:.36rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.1rem}
-/* 2-col body */
-.wf-2col{display:grid;grid-template-columns:55% 45%}
-.wf-img-col{overflow:hidden}
-.wf-img-col img{width:100%;height:100%;object-fit:cover}
-.wf-text-col{background:var(--off);padding:1rem;display:flex;flex-direction:column;gap:.65rem}
-.wf-eyebrow{font-size:.38rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g2)}
-.wf-th{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400;line-height:1.15}
-.wf-th em{font-style:italic;color:var(--g2)}
-.wf-p{font-size:.55rem;line-height:1.6;color:var(--gray)}
-.wf-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
-.wf-thumb{height:42px;overflow:hidden}
-.wf-thumb img{width:100%;height:100%;object-fit:cover}
-.wf-btn{display:inline-block;padding:.38rem .9rem;background:var(--ink);color:#fff;font-size:.4rem;letter-spacing:.18em;text-transform:uppercase;align-self:flex-start}
-/* gallery strip */
-.wf-gal-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:.8rem;background:var(--off)}
-.wf-gal-item{overflow:hidden;position:relative}
-.wf-gal-item img{width:100%;height:100%;object-fit:cover;display:block}
-.wf-gal-item .wf-gal-ov{position:absolute;inset:0;display:flex;align-items:flex-end;padding:.4rem;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 50%);opacity:0;transition:opacity .3s}
-.wf-gal-item:hover .wf-gal-ov{opacity:1}
-.wf-gal-lbl{font-size:.36rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.85)}
-/* photo caption */
-.wf-cap{font-size:.4rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:.4rem .8rem;background:var(--off);border-top:1px solid var(--bd)}
-/* form */
-.wf-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.3rem}
-.wf-input{background:var(--cream);border:1px solid var(--bd);padding:.42rem .6rem;font-size:.52rem;color:var(--gray);font-family:'Inter',sans-serif;outline:none;-webkit-appearance:none;width:100%}
-.wf-select{background:var(--cream);border:1px solid var(--bd);padding:.42rem .6rem;font-size:.52rem;color:var(--gray);font-family:'Inter',sans-serif;-webkit-appearance:none;outline:none;width:100%}
-.wf-submit{background:var(--ink);color:#fff;border:none;padding:.55rem;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;width:100%;grid-column:1/-1;font-family:'Inter',sans-serif;transition:background .3s}
-.wf-submit:hover{background:var(--g2)}
-.wf-full{grid-column:1/-1}
-/* events */
-.wf-event{background:#fff;padding:.7rem .9rem;border-left:2px solid var(--g);margin-bottom:.35rem}
-.wf-evd{font-size:.4rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);margin-bottom:.2rem}
-.wf-evn{font-size:.65rem;font-weight:500;color:var(--ink);margin-bottom:.12rem}
-.wf-evinfo{font-size:.5rem;color:var(--muted)}
-.wf-evbadge{display:inline-block;background:rgba(200,169,110,.12);color:var(--g2);font-size:.4rem;letter-spacing:.12em;text-transform:uppercase;padding:.14rem .5rem;margin-top:.2rem}
-/* filters */
-.wf-filters{display:flex;gap:.8rem;padding:.8rem 1rem;border-bottom:1px solid var(--bd);overflow-x:auto;-webkit-overflow-scrolling:touch}
-.wf-filter{font-size:.44rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding-bottom:.25rem;flex-shrink:0}
-.wf-filter.active{color:var(--g2);border-bottom:1.5px solid var(--g)}
-/* masonry */
-.wf-masonry{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:2px;padding:0}
-.wf-m-item{overflow:hidden;position:relative}
-.wf-m-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
-.wf-m-item:hover img{transform:scale(1.05)}
-.wf-m-cap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:.7rem;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 50%);opacity:0;transition:opacity .3s}
-.wf-m-item:hover .wf-m-cap{opacity:1}
-.wf-m-type{font-size:.36rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:.15rem}
-.wf-m-name{font-family:'Playfair Display',serif;font-size:.75rem;font-style:italic;color:#fff}
-/* tall in masonry */
-.wf-m-item.tall{grid-row:span 2}
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(168,149,106,0.3), transparent);
+  }
 
-/* timeline */
-.tl{display:flex;flex-direction:column}
-.tl-item{display:grid;grid-template-columns:72px 1fr;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--bd);transition:padding-left .3s}
-.tl-item:hover{padding-left:.4rem}
-.tl-yr{font-family:'Playfair Display',serif;font-size:1rem;color:var(--g2);font-weight:400;line-height:1.2;padding-top:.1rem}
-.tl-title{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:.25rem;font-weight:500}
-.tl-desc{font-size:.74rem;line-height:1.75;color:var(--gray)}
+  .hero-eyebrow {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.3s forwards;
+  }
 
-/* ═══ CHARTE ═══ */
-.colors{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}
-.swatch-item{flex:0 0 auto;width:80px}
-.swatch-color{height:52px;border-radius:2px;border:1px solid var(--bd);margin-bottom:.4rem}
-.swatch-name{font-size:.5rem;font-weight:500;color:var(--ink);margin-bottom:.12rem}
-.swatch-hex{font-size:.44rem;color:var(--muted);font-family:monospace}
-.swatch-use{font-size:.42rem;color:var(--muted)}
+  .hero-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(80px, 14vw, 180px);
+    line-height: 0.9;
+    color: var(--parchment);
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1.4s ease 0.5s forwards;
+  }
 
-.typo-row{display:flex;flex-direction:column;gap:.4rem;margin-top:1.5rem}
-.typo-card{padding:1.5rem;border:1px solid var(--bd);background:var(--w)}
-.typo-tag{font-size:.46rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:.7rem}
-.typo-demo{margin-bottom:.4rem}
-.typo-note{font-size:.6rem;color:var(--muted);line-height:1.6}
+  .hero-title em {
+    display: block;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.55em;
+    letter-spacing: 0.05em;
+    margin-top: 12px;
+  }
 
-.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--warm);margin-top:1.5rem}
-.do-box{background:var(--w);padding:1.5rem}
-.do-box.dont{background:#fdf5f5}
-.do-header{font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-.do-header.yes{color:#2a7d46}
-.do-header.no{color:#b03030}
-.do-list{display:flex;flex-direction:column;gap:.6rem}
-.doi{display:flex;gap:.6rem;font-size:.72rem;line-height:1.6;color:var(--gray)}
-.doi::before{content:'✓';color:#2a7d46;font-weight:700;flex-shrink:0}
-.donti{display:flex;gap:.6rem;font-size:.72rem;line-height:1.6;color:var(--gray)}
-.donti::before{content:'✗';color:#b03030;font-weight:700;flex-shrink:0}
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ash);
+    margin-top: 48px;
+    max-width: 400px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 1.4s ease 0.9s forwards;
+  }
 
-/* photo categories */
-.photo-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--warm);margin-top:1.5rem}
-.photo-cat{background:var(--w);padding:1.2rem}
-.photo-cat-title{font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
-.photo-cat-item{display:flex;gap:.55rem;align-items:center;margin-bottom:.5rem;padding:.4rem}
-.photo-cat-item:hover{background:var(--off)}
-.pci-img{width:38px;height:38px;overflow:hidden;flex-shrink:0}
-.pci-img img{width:100%;height:100%;object-fit:cover}
-.pci-name{font-size:.56rem;line-height:1.35;color:var(--gray)}
+  .hero-scroll {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ash);
+    writing-mode: vertical-rl;
+    opacity: 0;
+    animation: fadeUp 1.4s ease 1.2s forwards;
+  }
 
-/* ═══ CLOSING ═══ */
-.closing{
-  min-height:55vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  padding:5rem 1.5rem;background:var(--ink);position:relative;overflow:hidden;
-}
-.closing::before{
-  content:'SITE';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-family:'Playfair Display',serif;font-size:clamp(10rem,30vw,25rem);
-  font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.03);
-  pointer-events:none;white-space:nowrap;letter-spacing:-.02em;
-}
-.closing-tag{font-size:.5rem;letter-spacing:.4em;text-transform:uppercase;color:var(--g);margin-bottom:1.5rem;position:relative;z-index:1}
-.closing-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,5.5rem);font-weight:400;color:#fff;line-height:.95;margin-bottom:1.8rem;position:relative;z-index:1}
-.closing-title em{font-style:italic;color:var(--g3)}
-.closing-sub{font-size:.84rem;line-height:1.9;color:rgba(255,255,255,.4);max-width:440px;margin:0 auto 2.5rem;position:relative;z-index:1}
-.closing-btn{display:inline-block;padding:.85rem 2.5rem;border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;transition:all .4s;position:relative;z-index:1}
-.closing-btn:hover{background:var(--g2);border-color:var(--g2)}
-.closing-sign{font-size:.46rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-top:3.5rem;position:relative;z-index:1}
-.closing-sign strong{color:var(--g)}
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 60px;
+    background: var(--gold);
+    margin: 16px auto 0;
+  }
 
-footer{background:var(--ink);padding:1.1rem clamp(1.2rem,5vw,4rem);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;border-top:1px solid rgba(255,255,255,.06)}
-footer span{font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.18)}
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 140px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 
-/* ═══ REVEAL ═══ */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-.rv.in{opacity:1;transform:none}
-.rv2{opacity:0;transform:translateX(-18px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-.rv2.in{opacity:1;transform:none}
+  .section-full {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:900px){
-  .nav-links{display:none}
-  .ham{display:flex}
-  .two-col{grid-template-columns:1fr;gap:2rem}
-  .three-col{grid-template-columns:1fr}
-  .four-col{grid-template-columns:1fr 1fr}
-  .toc-grid{grid-template-columns:1fr 1fr}
-  .pc-body{grid-template-columns:1fr}
-  .pc-col+.pc-col{border-left:none;border-top:1px solid var(--bd)}
-  .wf-2col{grid-template-columns:1fr}
-  .wf-img-col{height:180px}
-  .wf-stats{grid-template-columns:1fr 1fr}
-  .wf-stat:nth-child(2){border-right:none}
-  .photo-cats{grid-template-columns:1fr 1fr}
-  .do-dont{grid-template-columns:1fr}
-  .wf-masonry{grid-template-columns:1fr 1fr}
-  .wf-m-item.tall{grid-row:auto}
-  .wf-form-grid{grid-template-columns:1fr}
-  .wf-submit{grid-column:1}
-  .wf-full{grid-column:1}
-}
-@media(max-width:560px){
-  .toc-grid{grid-template-columns:1fr}
-  .photo-cats{grid-template-columns:1fr}
-  .four-col{grid-template-columns:1fr}
-  .wf-thumbs{grid-template-columns:repeat(3,1fr)}
-  .colors{gap:.6rem}
-  .swatch-item{width:70px}
-  .wf-masonry{grid-template-columns:1fr 1fr}
-  .wf-stats{grid-template-columns:1fr 1fr}
-}
+  .label {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  h3 {
+    font-family: 'IM Fell English', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  p.lead {
+    font-size: 22px;
+    line-height: 1.65;
+    color: var(--ink);
+    opacity: 0.8;
+    max-width: 680px;
+    margin-top: 40px;
+  }
+
+  p.body {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+    opacity: 0.7;
+    max-width: 560px;
+  }
+
+  /* ─── INTRO ─── */
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: start;
+  }
+
+  .intro-left { padding-top: 20px; }
+
+  .intro-right {
+    padding-top: 160px;
+  }
+
+  .intro-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--ink);
+    border-left: 1px solid var(--gold);
+    padding-left: 40px;
+    margin-bottom: 48px;
+  }
+
+  /* ─── DARK SECTION ─── */
+  .dark-section {
+    background: var(--void);
+    color: var(--parchment);
+    padding: 160px 60px;
+  }
+
+  .dark-section .label { color: var(--gold); }
+  .dark-section .label::before { background: var(--gold); }
+  .dark-section p.body { color: var(--parchment); opacity: 0.6; }
+
+  /* ─── VISION GRID ─── */
+  .vision-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 80px;
+  }
+
+  .vision-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(168,149,106,0.15);
+    padding: 56px 40px;
+    transition: background 0.4s, border-color 0.4s;
+  }
+
+  .vision-card:hover {
+    background: rgba(168,149,106,0.06);
+    border-color: rgba(168,149,106,0.35);
+  }
+
+  .vision-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 32px;
+  }
+
+  .vision-card h3 { color: var(--parchment); font-size: 22px; margin-bottom: 16px; }
+  .vision-card p { font-size: 15px; line-height: 1.75; color: rgba(245,240,232,0.55); }
+
+  /* ─── ARTISTIC DIRECTION ─── */
+  .art-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 100px;
+    margin-top: 80px;
+    align-items: start;
+  }
+
+  .art-block {
+    border-top: 1px solid rgba(13,13,11,0.15);
+    padding-top: 40px;
+    margin-bottom: 48px;
+  }
+
+  .art-block h3 {
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .art-block p {
+    font-size: 16px;
+    line-height: 1.75;
+    opacity: 0.65;
+  }
+
+  .materials-list {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .materials-list li {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(13,13,11,0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--ink);
+    opacity: 0.7;
+  }
+
+  .materials-list li::before {
+    content: '—';
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  /* ─── IMAGE PLACEHOLDER ─── */
+  .img-placeholder {
+    background: var(--smoke);
+    border: 1px solid rgba(13,13,11,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ash);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px dashed rgba(13,13,11,0.15);
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .experience-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 80px;
+    border: 1px solid rgba(13,13,11,0.1);
+  }
+
+  .exp-phase {
+    padding: 60px 48px;
+    border-right: 1px solid rgba(13,13,11,0.1);
+    position: relative;
+  }
+
+  .exp-phase:last-child { border-right: none; }
+
+  .exp-phase-label {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .exp-phase h3 { font-size: 26px; margin-bottom: 20px; }
+  .exp-phase p { font-size: 16px; line-height: 1.8; opacity: 0.65; }
+
+  .exp-phase-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    color: var(--ink);
+    opacity: 0.04;
+    position: absolute;
+    bottom: -20px;
+    right: 20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ─── INSTAGRAM ─── */
+  .ig-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 3px;
+    margin-top: 60px;
+  }
+
+  .ig-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 8px;
+    transition: transform 0.3s;
+    cursor: default;
+  }
+
+  .ig-cell:hover { transform: scale(0.97); }
+
+  .ig-dark { background: var(--void); color: rgba(245,240,232,0.4); }
+  .ig-ash { background: var(--smoke); color: rgba(13,13,11,0.35); }
+  .ig-gold { background: rgba(168,149,106,0.15); color: var(--gold); }
+  .ig-ember { background: rgba(200,71,42,0.08); color: var(--ember); }
+
+  /* ─── STORIES ─── */
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .story-card {
+    aspect-ratio: 9/16;
+    background: var(--void);
+    border-radius: 12px;
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(168,149,106,0.15), transparent 70%);
+  }
+
+  .story-cat {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .story-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--parchment);
+    line-height: 1.3;
+  }
+
+  /* ─── HIGHLIGHTS ─── */
+  .highlights-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 60px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .highlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .highlight-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--gold);
+    text-align: center;
+    padding: 8px;
+  }
+
+  .highlight-label {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.5;
+    text-align: center;
+  }
+
+  /* ─── WEBSITE ─── */
+  .website-pages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 80px;
+  }
+
+  .page-card {
+    background: var(--smoke);
+    padding: 56px 44px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: default;
+  }
+
+  .page-card:hover {
+    background: #fff;
+    border-color: rgba(168,149,106,0.3);
+  }
+
+  .page-num {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .page-card h3 { font-size: 24px; margin-bottom: 16px; }
+  .page-card p { font-size: 14px; line-height: 1.75; opacity: 0.6; margin-bottom: 20px; }
+
+  .page-copy {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink);
+    opacity: 0.75;
+    line-height: 1.6;
+    border-top: 1px solid rgba(13,13,11,0.1);
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+
+  /* ─── SHOOTING ─── */
+  .shooting-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 80px;
+  }
+
+  .shooting-block {
+    border-top: 1px solid rgba(13,13,11,0.12);
+    padding-top: 40px;
+  }
+
+  .shooting-block h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .scene-list {
+    list-style: none;
+    margin-top: 20px;
+  }
+
+  .scene-list li {
+    font-size: 15px;
+    line-height: 1;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(13,13,11,0.07);
+    display: flex;
+    gap: 16px;
+    opacity: 0.7;
+  }
+
+  .scene-list li span {
+    color: var(--gold);
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    min-width: 24px;
+    padding-top: 2px;
+  }
+
+  /* ─── SIGNATURE ─── */
+  .signature-section {
+    background: var(--ink);
+    padding: 180px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .signature-section::before {
+    content: 'ORIGINS';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'IM Fell English', serif;
+    font-size: 30vw;
+    color: rgba(245,240,232,0.02);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .sig-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(40px, 7vw, 90px);
+    color: var(--parchment);
+    line-height: 1.1;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .sig-title em { color: var(--gold); }
+
+  .sig-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ash);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .sig-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 60px auto;
+  }
+
+  .sig-pillars {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    position: relative;
+  }
+
+  .sig-pillar {
+    text-align: center;
+  }
+
+  .sig-pillar-word {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .sig-pillar-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(245,240,232,0.4);
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    padding: 120px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: end;
+  }
+
+  .contact-info h2 { font-size: clamp(36px, 5vw, 64px); }
+  .contact-info p { font-size: 16px; line-height: 1.75; opacity: 0.6; margin-top: 32px; max-width: 400px; }
+
+  .contact-detail {
+    border-top: 1px solid rgba(13,13,11,0.1);
+    padding-top: 32px;
+    margin-bottom: 0;
+  }
+
+  .contact-detail-label {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .contact-detail-value {
+    font-size: 18px;
+    opacity: 0.8;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--void);
+    padding: 48px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(168,149,106,0.15);
+  }
+
+  footer .logo {
+    font-family: 'IM Fell English', serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--parchment);
+  }
+
+  footer p {
+    font-family: 'Founders Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(13,13,11,0.12), transparent);
+    margin: 0 60px;
+    width: calc(100% - 120px);
+  }
+
+  .divider-dark {
+    background: linear-gradient(to right, transparent, rgba(168,149,106,0.2), transparent);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 24px 32px; }
+    .nav-links { display: none; }
+    section { padding: 100px 32px; }
+    .hero { padding: 0 32px 64px; }
+    .intro { grid-template-columns: 1fr; gap: 60px; }
+    .intro-right { padding-top: 0; }
+    .vision-grid { grid-template-columns: 1fr; }
+    .art-grid { grid-template-columns: 1fr; gap: 60px; }
+    .experience-timeline { grid-template-columns: 1fr; }
+    .exp-phase { border-right: none; border-bottom: 1px solid rgba(13,13,11,0.1); }
+    .ig-grid { grid-template-columns: repeat(3, 1fr); }
+    .stories-grid { grid-template-columns: repeat(2, 1fr); }
+    .website-pages { grid-template-columns: 1fr; }
+    .shooting-grid { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; }
+    .sig-pillars { flex-direction: column; gap: 40px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">VISCAP <span>Studio</span></div>
+  <div class="nav-logo">Origins</div>
   <ul class="nav-links">
-    <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#accueil">Accueil</a></li>
-    <li><a href="#histoire">Notre Histoire</a></li>
-    <li><a href="#experience">Expérience</a></li>
-    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#concept">Concept</a></li>
+    <li><a href="#direction">Direction</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#digital">Digital</a></li>
+    <li><a href="#website">Website</a></li>
+    <li><a href="#shooting">Shooting</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#charte">Charte</a></li>
   </ul>
-  <button class="ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob" id="mob">
-  <a href="#architecture" id="m1">Architecture</a>
-  <a href="#accueil"      id="m2">Accueil</a>
-  <a href="#histoire"     id="m3">Notre Histoire</a>
-  <a href="#experience"   id="m4">Expérience</a>
-  <a href="#galerie"      id="m5">Galerie</a>
-  <a href="#contact"      id="m6">Contact</a>
-  <a href="#charte"       id="m7">Charte</a>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-eyebrow">Private Dining Experience &nbsp;·&nbsp; 2025</div>
+  <h1 class="hero-title">
+    Origins
+    <em>A Creative Concept</em>
+  </h1>
+  <p class="hero-tagline">
+    "The table becomes a territory of expression."
+  </p>
+  <div class="hero-scroll">Scroll</div>
 </div>
 
-<!-- ══════ COVER ══════ -->
-<section class="cover">
-  <div class="cover-img">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop" alt="Cover">
-  </div>
-  <div class="cover-inner">
-    <div class="cover-badge">VISCAP Studio · Client Presentation · 2026</div>
-    <h1 class="cover-title">
-      Site Internet
-      <em>Art Culinaire</em>
-    </h1>
-    <p class="cover-sub">Structure complète, contenu de chaque page, utilisation des images et règles de cohérence visuelle — pour que toute l'équipe travaille dans la même direction.</p>
-    <div class="cover-stats">
-      <div><div class="cst-n">5</div><div class="cst-l">Pages principales</div></div>
-      <div><div class="cst-n">18</div><div class="cst-l">Photos assignées</div></div>
-      <div><div class="cst-n">1</div><div class="cst-l">Direction visuelle</div></div>
-      <div><div class="cst-n">100%</div><div class="cst-l">Mobile First</div></div>
+<!-- CONCEPT INTRODUCTION -->
+<section id="concept">
+  <div class="intro fade-in">
+    <div class="intro-left">
+      <div class="label">001 — Introduction</div>
+      <h2>Not a restaurant.<br><em>A moment.</em></h2>
+      <p class="lead">
+        Origins exists at the intersection of gastronomy, material culture, and performance. It is not a service. It is an event of the senses — singular, unrepeatable, and designed to dissolve the boundary between eating and art.
+      </p>
     </div>
-    <a href="#architecture" class="cover-btn">Commencer la présentation →</a>
-  </div>
-  <div class="cover-scroll"><div class="scroll-bar"></div><div class="scroll-lbl">Défiler</div></div>
-</section>
-
-<!-- ══════ SOMMAIRE ══════ -->
-<section class="section cream">
-  <div class="eyebrow">Sommaire</div>
-  <h2 class="sec-title rv">Ce que contient<br>cette <em>présentation</em></h2>
-  <div class="toc-grid">
-    <a href="#architecture" class="toc-item rv"><div class="toc-num">01</div><div class="toc-lbl">Structure</div><div class="toc-name">Architecture du Site</div><div class="toc-desc">Arborescence, URLs, priorités et règles techniques de la plateforme.</div></a>
-    <a href="#accueil"      class="toc-item rv"><div class="toc-num">02</div><div class="toc-lbl">Page</div><div class="toc-name">Accueil</div><div class="toc-desc">Hero immersif, concept, galerie preview, prochains événements.</div></a>
-    <a href="#histoire"     class="toc-item rv"><div class="toc-num">03</div><div class="toc-lbl">Page</div><div class="toc-name">Notre Histoire</div><div class="toc-desc">La vision, le chef, la timeline de la marque et les valeurs fondatrices.</div></a>
-    <a href="#experience"   class="toc-item rv"><div class="toc-num">04</div><div class="toc-lbl">Page</div><div class="toc-name">L'Expérience</div><div class="toc-desc">Types d'événements, ce que les invités vivent, prochaines dates.</div></a>
-    <a href="#galerie"      class="toc-item rv"><div class="toc-num">05</div><div class="toc-lbl">Page</div><div class="toc-name">Galerie</div><div class="toc-desc">Portfolio complet avec filtres, toutes les 18 photos classifiées.</div></a>
-    <a href="#contact"      class="toc-item rv"><div class="toc-num">06</div><div class="toc-lbl">Page</div><div class="toc-name">Réserver / Contact</div><div class="toc-desc">Formulaire de réservation, dates disponibles, contact direct et FAQ.</div></a>
-  </div>
-</section>
-
-<!-- ══════ 01 — ARCHITECTURE ══════ -->
-<section class="section" id="architecture">
-  <div class="eyebrow">01 — Structure</div>
-  <h2 class="sec-title rv">Architecture<br>du <em>site</em></h2>
-  <p class="sec-desc rv">L'arborescence complète — chaque page, son URL exacte, sa priorité et son rôle dans le parcours utilisateur. À utiliser comme référence tout au long du projet.</p>
-
-  <div class="two-col" style="margin-top:2.5rem">
-    <div class="rv2">
-      <div class="arch-tree">
-        <div class="tree-root">
-          <div>
-            <div class="tree-root-name">www.[votre-domaine].com</div>
-            <div class="tree-root-url">/ — Racine du site</div>
-          </div>
-        </div>
-        <div class="tree-branch">
-          <div class="tree-page">
-            <div class="tree-icon">🏠</div>
-            <div class="tp-info"><div class="tp-name">Accueil</div><div class="tp-url">/</div></div>
-            <div class="tp-badge ess">Essentielle</div>
-          </div>
-          <div class="tree-page">
-            <div class="tree-icon">📖</div>
-            <div class="tp-info"><div class="tp-name">Notre Histoire</div><div class="tp-url">/notre-histoire</div></div>
-            <div class="tp-badge ess">Essentielle</div>
-          </div>
-          <div class="tree-page">
-            <div class="tree-icon">✨</div>
-            <div class="tp-info"><div class="tp-name">L'Expérience</div><div class="tp-url">/experience</div></div>
-            <div class="tp-badge ess">Essentielle</div>
-          </div>
-          <div class="tree-page">
-            <div class="tree-icon">🖼️</div>
-            <div class="tp-info"><div class="tp-name">Galerie</div><div class="tp-url">/galerie</div></div>
-            <div class="tp-badge imp">Importante</div>
-          </div>
-          <div class="tree-page">
-            <div class="tree-icon">📅</div>
-            <div class="tp-info"><div class="tp-name">Réserver / Contact</div><div class="tp-url">/reserver</div></div>
-            <div class="tp-badge ess">Essentielle</div>
-          </div>
-          <div class="tree-page" style="opacity:.55">
-            <div class="tree-icon">📰</div>
-            <div class="tp-info"><div class="tp-name">Presse (Phase 2)</div><div class="tp-url">/presse</div></div>
-            <div class="tp-badge opt">Phase 2</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rules-grid rv">
-      <div class="rule">
-        <div class="rule-t">🖥️ Technologie recommandée</div>
-        <div class="rule-d">Site statique ou Webflow pour un contrôle visuel total et une performance maximale. Hébergement Cloudflare Pages ou Netlify — gratuit et rapide.</div>
-        <div class="rule-tags"><span class="rtag">Webflow</span><span class="rtag">Framer</span><span class="rtag">HTML custom</span></div>
-      </div>
-      <div class="rule">
-        <div class="rule-t">📱 Mobile First — Obligatoire</div>
-        <div class="rule-d">70%+ des visites viennent d'Instagram/TikTok via smartphone. Chaque section est conçue d'abord sur mobile, puis adaptée desktop. Tester sur iPhone avant tout.</div>
-      </div>
-      <div class="rule">
-        <div class="rule-t">⚡ Performance images</div>
-        <div class="rule-d">Toutes les images converties en WebP. Maximum 200KB par image. Lazy loading activé sur toute la galerie. Objectif : site chargé en moins de 2 secondes.</div>
-        <div class="rule-tags"><span class="rtag">WebP uniquement</span><span class="rtag">Max 200KB</span><span class="rtag">Lazy loading</span></div>
-      </div>
-      <div class="rule">
-        <div class="rule-t">🧭 Navigation toujours visible</div>
-        <div class="rule-d">Menu fixe en haut de page à tout moment. Sur mobile : hamburger menu. Bouton "Réserver" toujours accessible en haut à droite — c'est la priorité absolue.</div>
-      </div>
-      <div class="rule">
-        <div class="rule-t">🌐 Langue et accessibilité</div>
-        <div class="rule-d">Français en priorité. Anglais en phase 2 (avant Dubai/Londres). Alt text sur toutes les images. Contrastes suffisants pour lisibilité.</div>
-      </div>
+    <div class="intro-right">
+      <p class="intro-quote">
+        "Each experience is conceived as a living installation — where what you taste, see, smell, and touch forms a single, coherent language."
+      </p>
+      <p class="body">
+        Origins is conceived for those who believe that luxury is not the abundance of things, but the precision of an experience. Every element — the table, the light, the first gesture of a hand — is choreographed with the same intentionality as a work of art.
+      </p>
+      <br><br>
+      <p class="body">
+        It does not replicate. It does not repeat. Each Origins experience is created for a specific moment, a specific place, and a specific audience — then released into memory.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- ══════ 02 — ACCUEIL ══════ -->
-<section class="section cream" id="accueil">
-  <div class="eyebrow">02 — Page</div>
-  <h2 class="sec-title rv">Page<br>d'<em>Accueil</em></h2>
-  <p class="sec-desc rv">La première impression. En 3 secondes, le visiteur comprend qu'il n'est pas sur un site de restaurant ordinaire — mais face à une expérience artistique unique.</p>
+<div class="divider"></div>
 
-  <div class="page-card rv" style="margin-top:2.5rem">
-    <div class="pc-head">
-      <div class="pc-num">01</div>
-      <div class="pc-info">
-        <div class="pc-name">Accueil — Homepage</div>
-        <div class="pc-url">www.[votre-domaine].com/</div>
+<!-- VISION & POSITIONING -->
+<div class="dark-section" id="vision">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div class="label fade-in">002 — Vision & Positioning</div>
+    <h2 class="fade-in" style="color:var(--parchment); max-width:800px;">Where gastronomy<br>becomes <em>territory.</em></h2>
+    
+    <p class="lead fade-in" style="color:var(--ash); margin-bottom:0;">
+      Origins does not position itself in the restaurant industry, the catering market, or the events sector. It occupies an entirely different space — one defined not by category, but by intention.
+    </p>
+
+    <div class="vision-grid fade-in">
+      <div class="vision-card">
+        <div class="vision-num">I</div>
+        <h3>Rare by Design</h3>
+        <p>Origins never produces the same experience twice. Scarcity is not a strategy — it is a principle. Each commission is a unique act of creation, limited to a single occasion.</p>
       </div>
-      <div class="pc-badge-wrap">
-        <div class="pcbadge ess">Essentielle</div>
-        <div class="pcbadge imp">Page de conversion</div>
+      <div class="vision-card">
+        <div class="vision-num">II</div>
+        <h3>Art as Method</h3>
+        <p>The approach is that of an artist, not a caterer. Food, space, light, and gesture are all treated as compositional elements in an immersive installation.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-num">III</div>
+        <h3>Silence as Luxury</h3>
+        <p>Origins communicates with restraint. No noise, no spectacle for its own sake. The experience speaks through what is present — and what is deliberately left absent.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-num">IV</div>
+        <h3>The Private Sphere</h3>
+        <p>Origins operates exclusively in the private sector. No public bookings, no open tables. Every experience begins with a conversation, and ends with an invitation.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-num">V</div>
+        <h3>International Ambition</h3>
+        <p>Conceived in Europe, Origins is designed to travel. The concept adapts to any space — a Moroccan riad, a Parisian hôtel particulier, a Venetian palazzo.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-num">VI</div>
+        <h3>A Living Legacy</h3>
+        <p>Every Origins experience is documented as a work — photographed, archived, never replicated. The guest leaves not with a memory of a dinner, but a memory of an artwork.</p>
       </div>
     </div>
-    <div class="pc-body">
-      <div class="pc-col">
-        <div class="col-title">Structure section par section</div>
-        <div class="content-list">
-          <div class="ci-item"><div><strong>Section 1 — Hero plein écran</strong>Grande photo ou vidéo 100vh. Titre centré en Playfair Display italic. Sous-titre court. Bouton "Découvrir" en bas.</div></div>
-          <div class="ci-item"><div><strong>Section 2 — Barre de stats (4 colonnes)</strong>Art · Halal · Paris · Bocuse d'Or. Fond crème, chiffres en doré, texte uppercase petit.</div></div>
-          <div class="ci-item"><div><strong>Section 3 — Le Concept (2 colonnes)</strong>Grande photo à gauche. Texte d'introduction à droite + 4 vignettes photos en bas. Bouton CTA noir.</div></div>
-          <div class="ci-item"><div><strong>Section 4 — Galerie Preview (grille 3×3)</strong>9 photos sélectionnées. Survol révèle overlay avec titre. Lien "Voir toute la galerie" en bas.</div></div>
-          <div class="ci-item"><div><strong>Section 5 — Prochain Événement</strong>Date · Lieu · Description courte · Places restantes · Bouton Réserver. 1 seul événement en vedette.</div></div>
-          <div class="ci-item"><div><strong>Footer</strong>Logo · Navigation · Instagram/TikTok · Email de contact. Fond noir, typographie blanche petite.</div></div>
-        </div>
+  </div>
+</div>
+
+<!-- ARTISTIC DIRECTION -->
+<section id="direction">
+  <div class="label fade-in">003 — Artistic Direction</div>
+  <h2 class="fade-in">The visual <em>vocabulary</em><br>of Origins</h2>
+
+  <div class="art-grid fade-in">
+    <div>
+      <div class="art-block">
+        <h3>Visual Universe</h3>
+        <p>Origins draws from the aesthetic vocabulary of still life painting, Japanese wabi-sabi, and contemporary art installation. The visual world is defined by raw textures against perfect white surfaces, extreme macro photography of natural matter, and the contrast between the organic and the geometric. Color is used sparingly — the palette belongs to nature: oxidized iron, chalk, wet stone, bone, charred wood, deep wine.</p>
       </div>
-      <div class="pc-col">
-        <div class="col-title">Photos assignées — Accueil</div>
-        <div class="photo-assign">
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 1 — Hero principal</div><div class="pa-desc">Photo d'ambiance gastronomique — plein écran</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 3 — Concept (gauche)</div><div class="pa-desc">Installation culinaire artistique principale</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 4 — Galerie preview 1</div><div class="pa-desc">Still life macro — ambiance luxury</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 4 — Galerie preview 2</div><div class="pa-desc">Ambiance lumière — composition colorée</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 4 — Galerie preview 3</div><div class="pa-desc">Macro végétal — texture artistique</div></div></div>
-        </div>
+      <div class="art-block">
+        <h3>Lighting & Atmosphere</h3>
+        <p>All light is directional and considered. Hard single-source light that carves shadow and texture. No ambient fill. Candles used architecturally — as vertical elements, as a field of warmth in darkness. The visual atmosphere references Caravaggio's chiaroscuro transposed into contemporary space.</p>
+      </div>
+      <div class="art-block">
+        <h3>Cinematic Language</h3>
+        <p>Slow. Deliberate. No handheld urgency. A cinema of contemplation — close-ups of hands, of surfaces, of steam rising in silence. The camera moves like memory: slowly, without cuts, letting the texture of time enter the frame.</p>
       </div>
     </div>
+    <div>
+      <div class="art-block">
+        <h3>Materials & Elements</h3>
+        <ul class="materials-list">
+          <li>Raw stone and mineral surfaces</li>
+          <li>Fire — flame, smoke, ember, ash</li>
+          <li>Unglazed ceramic, oxidized metal</li>
+          <li>Human hands — the gesture of making</li>
+          <li>Living botanical elements</li>
+          <li>Water — still, condensation, ice</li>
+          <li>Aged wood and rough linen</li>
+          <li>Colored glass and natural resin</li>
+          <li>Wax — candle, seal, patina</li>
+          <li>Extreme close-up of organic matter</li>
+        </ul>
+      </div>
 
-    <!-- WIREFRAME ACCUEIL -->
-    <div class="wf-wrap">
-      <div class="wf-label">Maquette fil de fer — Page Accueil</div>
-      <div class="browser">
-        <div class="wf-bar"><div class="wf-dots"><div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div></div><div class="wf-url">www.[votre-domaine].com</div></div>
-        <div class="wf-nav"><div class="wf-logo"></div><div class="wf-nav-items"><div class="wf-ni"></div><div class="wf-ni"></div><div class="wf-ni"></div><div class="wf-ni"></div></div><div class="wf-cta-mini"></div></div>
-        <!-- Hero -->
-        <div class="wf-hero" style="height:clamp(180px,30vw,260px)">
-          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=75&auto=format&fit=crop" alt="" style="height:clamp(180px,30vw,260px);width:100%;object-fit:cover;filter:brightness(.5)">
-          <div class="wf-hero-ov">
-            <div class="wf-hero-tag">Art Culinaire Immersif · Paris 2026</div>
-            <div class="wf-hero-h">La table comme<br><em>toile blanche.</em></div>
-            <div class="wf-hero-btn">Découvrir →</div>
-          </div>
-        </div>
-        <!-- Stats -->
-        <div class="wf-stats">
-          <div class="wf-stat"><div class="wf-sn">Art</div><div class="wf-sl">Culinaire</div></div>
-          <div class="wf-stat"><div class="wf-sn">Halal</div><div class="wf-sl">Premium</div></div>
-          <div class="wf-stat"><div class="wf-sn">Paris</div><div class="wf-sl">& Intl</div></div>
-          <div class="wf-stat"><div class="wf-sn">Bocuse</div><div class="wf-sl">D'Or 2025</div></div>
-        </div>
-        <!-- Concept 2-col -->
-        <div class="wf-2col">
-          <div class="wf-img-col" style="height:clamp(130px,20vw,200px)">
-            <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&q=75&auto=format&fit=crop" alt="" style="height:clamp(130px,20vw,200px);width:100%;object-fit:cover;filter:brightness(.82)">
-          </div>
-          <div class="wf-text-col">
-            <div class="wf-eyebrow">Notre Concept</div>
-            <div class="wf-th">Quand la gastronomie<br><em>devient œuvre d'art</em></div>
-            <div class="wf-p">Chaque buffet est une installation. Chaque plat est une sculpture. Chaque événement, unique et irrépétable.</div>
-            <div class="wf-thumbs">
-              <div class="wf-thumb"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=100&q=65" alt=""></div>
-              <div class="wf-thumb"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=100&q=65" alt=""></div>
-              <div class="wf-thumb"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=100&q=65" alt=""></div>
-              <div class="wf-thumb"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=100&q=65" alt=""></div>
-            </div>
-            <div class="wf-btn">Découvrir les événements →</div>
-          </div>
-        </div>
-        <!-- Gallery 3×3 preview -->
-        <div class="wf-gal-strip">
-          <div class="wf-gal-item" style="height:clamp(60px,9vw,90px)"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=250&q=65" alt=""><div class="wf-gal-ov"><span class="wf-gal-lbl">Installation florale</span></div></div>
-          <div class="wf-gal-item" style="height:clamp(60px,9vw,90px)"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=250&q=65" alt=""><div class="wf-gal-ov"><span class="wf-gal-lbl">Le Chef en action</span></div></div>
-          <div class="wf-gal-item" style="height:clamp(60px,9vw,90px)"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=250&q=65" alt=""><div class="wf-gal-ov"><span class="wf-gal-lbl">Buffet artistique</span></div></div>
-        </div>
-        <div class="wf-cap">Section 4 — Galerie preview · Survol = overlay doré avec titre</div>
+      <!-- VISUAL REFERENCE PLACEHOLDER -->
+      <div class="img-placeholder" style="height:360px; margin-top:40px;">
+        Visual Reference<br>Insert curated image
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════ 03 — NOTRE HISTOIRE ══════ -->
-<section class="section" id="histoire">
-  <div class="eyebrow">03 — Page</div>
-  <h2 class="sec-title rv">Notre<br><em>Histoire</em></h2>
-  <p class="sec-desc rv">La page émotionnelle du site. Elle raconte d'où vient ce projet, qui est le chef, et pourquoi cette vision est unique. Le visiteur doit être touché avant d'avoir faim.</p>
+<div class="divider"></div>
 
-  <div class="page-card rv" style="margin-top:2.5rem">
-    <div class="pc-head">
-      <div class="pc-num">02</div>
-      <div class="pc-info">
-        <div class="pc-name">Notre Histoire — À propos</div>
-        <div class="pc-url">www.[votre-domaine].com/notre-histoire</div>
-      </div>
-      <div class="pc-badge-wrap"><div class="pcbadge ess">Essentielle</div><div class="pcbadge imp">Page émotionnelle</div></div>
-    </div>
-    <div class="pc-body">
-      <div class="pc-col">
-        <div class="col-title">Structure section par section</div>
-        <div class="content-list">
-          <div class="ci-item"><div><strong>Section 1 — Hero 60vh</strong>Photo du chef en action (Bocuse d'Or). Titre "Notre Histoire" en overlay bas. Pas de texte superflu.</div></div>
-          <div class="ci-item"><div><strong>Section 2 — La Vision (2 colonnes)</strong>Texte de vision à gauche avec timeline verticale. Portrait officiel du chef à droite.</div></div>
-          <div class="ci-item"><div><strong>Section 3 — Le Chef (plein largeur)</strong>Grand portrait 100vw avec texte superposé en bas. Badge Bocuse d'Or en overlay. Citation personnelle.</div></div>
-          <div class="ci-item"><div><strong>Section 4 — La Rencontre</strong>Comment la collaboration est née. Texte narratif 2 colonnes. Ambiance intime.</div></div>
-          <div class="ci-item"><div><strong>Section 5 — Les 3 Valeurs</strong>Art / Gastronomie / Performance. 3 colonnes avec icônes minimalistes et texte court.</div></div>
-          <div class="ci-item"><div><strong>CTA de transition</strong>Bouton vers la page Expérience. Invitation douce à passer à l'étape suivante.</div></div>
-        </div>
-      </div>
-      <div class="pc-col">
-        <div class="col-title">Photos assignées — Notre Histoire</div>
-        <div class="photo-assign">
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 1 — Hero de page</div><div class="pa-desc">Chef Dyali en action — Bocuse d'Or SIRHA 2025</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 2 — Portrait (colonne droite)</div><div class="pa-desc">Portrait officiel du chef — Placer object-position: top</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 3 — Le Chef (plein largeur)</div><div class="pa-desc">Chef en ambiance neon — fond sombre dramatique</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 4 — La Rencontre</div><div class="pa-desc">Performance artistique culinaire — ambiance</div></div></div>
-        </div>
-      </div>
-    </div>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="label fade-in">004 — The Experience</div>
+  <h2 class="fade-in">Before, during,<br><em>after.</em></h2>
+  <p class="lead fade-in">The Origins experience is not measured in courses. It is measured in states of consciousness.</p>
 
-    <div class="wf-wrap">
-      <div class="wf-label">Maquette fil de fer — Notre Histoire</div>
-      <div class="browser">
-        <div class="wf-bar"><div class="wf-dots"><div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div></div><div class="wf-url">www.[votre-domaine].com/notre-histoire</div></div>
-        <div class="wf-nav"><div class="wf-logo"></div><div class="wf-nav-items"><div class="wf-ni"></div><div class="wf-ni"></div><div class="wf-ni"></div></div><div class="wf-cta-mini"></div></div>
-        <!-- Hero histoire -->
-        <div class="wf-hero" style="height:clamp(140px,22vw,200px)">
-          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=75&auto=format&fit=crop" alt="" style="height:clamp(140px,22vw,200px);width:100%;object-fit:cover;object-position:top;filter:brightness(.45)">
-          <div class="wf-hero-ov">
-            <div class="wf-hero-tag">Notre Histoire</div>
-            <div class="wf-hero-h">Deux univers.<br>Une évidence.</div>
-          </div>
-        </div>
-        <!-- Vision 2-col -->
-        <div class="wf-2col">
-          <div class="wf-text-col">
-            <div class="wf-eyebrow">La Vision</div>
-            <div class="wf-th" style="font-size:1rem">L'art et la nourriture,<br><em>une seule chose.</em></div>
-            <div class="wf-p">SOFFRA naît de la rencontre entre une vision gastronomique d'exception et un art culinaire révolutionnaire.</div>
-            <!-- mini timeline -->
-            <div style="margin-top:.5rem;display:flex;flex-direction:column;gap:.35rem">
-              <div style="display:flex;gap:.6rem;align-items:center"><div style="font-size:.5rem;color:var(--g2);font-family:'Playfair Display',serif;width:28px;flex-shrink:0">2018</div><div style="font-size:.5rem;color:var(--gray)">Naissance de la marque halal</div></div>
-              <div style="display:flex;gap:.6rem;align-items:center"><div style="font-size:.5rem;color:var(--g2);font-family:'Playfair Display',serif;width:28px;flex-shrink:0">2022</div><div style="font-size:.5rem;color:var(--gray)">Premières installations artistiques</div></div>
-              <div style="display:flex;gap:.6rem;align-items:center"><div style="font-size:.5rem;color:var(--g2);font-family:'Playfair Display',serif;width:28px;flex-shrink:0">2025</div><div style="font-size:.5rem;color:var(--gray)">Bocuse d'Or SIRHA — Paris</div></div>
-              <div style="display:flex;gap:.6rem;align-items:center"><div style="font-size:.5rem;color:var(--g2);font-family:'Playfair Display',serif;width:28px;flex-shrink:0">2026</div><div style="font-size:.5rem;color:var(--gray)">Lancement officiel du projet</div></div>
-            </div>
-          </div>
-          <div class="wf-img-col" style="height:clamp(160px,24vw,220px)">
-            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&q=75&auto=format&fit=crop" alt="" style="height:clamp(160px,24vw,220px);width:100%;object-fit:cover;object-position:top">
-          </div>
-        </div>
-        <!-- Chef plein largeur -->
-        <div style="position:relative;height:clamp(100px,16vw,160px);overflow:hidden">
-          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=75&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.5)">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 50%)">
-            <div style="font-size:.38rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g);margin-bottom:.2rem">Bocuse d'Or · SIRHA 2025</div>
-            <div style="font-family:'Playfair Display',serif;font-size:clamp(.8rem,2vw,1.1rem);font-style:italic;color:#fff">"Je ne cuisine pas. Je compose."</div>
-          </div>
-        </div>
-        <!-- 3 valeurs -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--warm);margin:2px 0">
-          <div style="background:var(--w);padding:1rem;text-align:center"><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:rgba(0,0,0,.06);margin-bottom:.4rem;font-weight:700">I</div><div style="font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:500">Art</div><div style="font-size:.52rem;color:var(--gray);margin-top:.3rem">Chaque geste est une décision artistique.</div></div>
-          <div style="background:var(--cream);padding:1rem;text-align:center"><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:rgba(0,0,0,.06);margin-bottom:.4rem;font-weight:700">II</div><div style="font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:500">Gastronomie</div><div style="font-size:.52rem;color:var(--gray);margin-top:.3rem">Halal premium, produits d'exception.</div></div>
-          <div style="background:var(--w);padding:1rem;text-align:center"><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:rgba(0,0,0,.06);margin-bottom:.4rem;font-weight:700">III</div><div style="font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:500">Performance</div><div style="font-size:.52rem;color:var(--gray);margin-top:.3rem">Chaque événement est unique.</div></div>
-        </div>
-      </div>
+  <div class="experience-timeline fade-in">
+    <div class="exp-phase">
+      <div class="exp-phase-label">Before — The Invitation</div>
+      <h3>Anticipation as<br>first act</h3>
+      <p>The guest receives not a confirmation, but an object. A handwritten card. A sealed envelope. A scent. The experience has already begun — in the space between invitation and arrival. Anticipation is designed, not accidental.</p>
+      <div class="exp-phase-num">1</div>
+    </div>
+    <div class="exp-phase">
+      <div class="exp-phase-label">During — The Immersion</div>
+      <h3>Time moves<br>differently</h3>
+      <p>Upon arrival, the guest enters a space that has been entirely conceived for them — and only for them. The table is a landscape. The food arrives not as courses but as gestures. Every element is a proposition, never an obligation. The guest is simultaneously audience and protagonist.</p>
+      <div class="exp-phase-num">2</div>
+    </div>
+    <div class="exp-phase">
+      <div class="exp-phase-label">After — The Residue</div>
+      <h3>What remains<br>in the body</h3>
+      <p>Origins does not end when the last plate is removed. The experience continues in the guest long after — in the memory of a texture, a smell encountered at the table, a conversation born in that particular light. The mark is not visible. It is felt.</p>
+      <div class="exp-phase-num">3</div>
     </div>
   </div>
 </section>
 
-<!-- ══════ 04 — EXPÉRIENCE ══════ -->
-<section class="section cream" id="experience">
-  <div class="eyebrow">04 — Page</div>
-  <h2 class="sec-title rv">L'<em>Expérience</em></h2>
-  <p class="sec-desc rv">La page qui décrit concrètement ce que vivent les invités — les 3 formats d'événements, les étapes de l'expérience, et comment réserver. C'est la page de conversion.</p>
+<!-- INSTAGRAM STRATEGY -->
+<div class="dark-section" id="digital">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div class="label fade-in">005 — Instagram Strategy</div>
+    <h2 class="fade-in" style="color:var(--parchment);">The feed as<br><em>silent film.</em></h2>
+    <p class="lead fade-in" style="color:var(--ash); margin-bottom:0; max-width:640px;">
+      Origins does not perform on social media. It curates a window — refined, rare, and unmistakably itself. The feed is an artwork in its own right.
+    </p>
 
-  <div class="page-card rv" style="margin-top:2.5rem">
-    <div class="pc-head">
-      <div class="pc-num">03</div>
-      <div class="pc-info">
-        <div class="pc-name">L'Expérience — Types d'événements</div>
-        <div class="pc-url">www.[votre-domaine].com/experience</div>
-      </div>
-      <div class="pc-badge-wrap"><div class="pcbadge ess">Essentielle</div><div class="pcbadge imp">Conversion</div></div>
-    </div>
-    <div class="pc-body">
-      <div class="pc-col">
-        <div class="col-title">Structure section par section</div>
-        <div class="content-list">
-          <div class="ci-item"><div><strong>Section 1 — Citation hero (fond sombre)</strong>"Ils entrent. Ils s'arrêtent. Ils ne parlent plus." — Centré, fond noir, typographie serif blanche. Ambiance poétique.</div></div>
-          <div class="ci-item"><div><strong>Section 2 — Les 3 formats (3 colonnes)</strong>Dîner Immersif (max 24 pers.) / Buffet Artistique (20-200 pers.) / Événement Privé (sur mesure). Chaque format : photo, nom, capacité, prix indicatif, bouton CTA.</div></div>
-          <div class="ci-item"><div><strong>Section 3 — Les 4 étapes de l'expérience</strong>Arrivée → Performance → Dégustation → Souvenir. Timeline horizontale avec photos illustratives.</div></div>
-          <div class="ci-item"><div><strong>Section 4 — Prochaines dates</strong>3 événements disponibles avec places restantes. Bouton réserver sur chaque carte.</div></div>
-          <div class="ci-item"><div><strong>Section 5 — FAQ rapide (accordéon)</strong>5 questions : Halal certifié? / Durée? / Tenue? / Photos permises? / Délai de réponse?</div></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:80px;" class="fade-in">
+      <div>
+        <div class="art-block" style="border-color:rgba(168,149,106,0.2);">
+          <h3 style="color:var(--parchment); font-size:18px;">Feed Architecture</h3>
+          <p>A strict 3-column rhythm alternates between three visual registers: the extreme close-up (texture, matter, detail), the wide environmental shot (table, space, atmosphere), and the process — hands working, steam rising, a gesture mid-way. No caption is more than two sentences. No hashtag visible in the grid.</p>
+        </div>
+        <div class="art-block" style="border-color:rgba(168,149,106,0.2);">
+          <h3 style="color:var(--parchment); font-size:18px;">Tone & Voice</h3>
+          <p>Spare. Poetic. Never explanatory. The caption completes the image — it does not describe it. Origins writes in the present tense, from the interior. One sentence. Sometimes a fragment. Often a silence.</p>
+        </div>
+        <div class="art-block" style="border-color:rgba(168,149,106,0.2);">
+          <h3 style="color:var(--parchment); font-size:18px;">Reels</h3>
+          <p>Shot in slow motion or real time with no acceleration. Ambient sound only — never music unless the experience itself contained music. Duration: 15 to 40 seconds. One idea per reel. The camera never rushes.</p>
         </div>
       </div>
-      <div class="pc-col">
-        <div class="col-title">Photos assignées — Expérience</div>
-        <div class="photo-assign">
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Format 1 — Buffet Artistique</div><div class="pa-desc">Installation table grande salle</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Format 2 — Dîner Immersif</div><div class="pa-desc">Table intimiste avec composition végétale</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Format 3 — Événement Privé</div><div class="pa-desc">Scénographie sur mesure</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 3 — Étape 2 (Performance)</div><div class="pa-desc">Chef en train de créer l'installation</div></div></div>
-          <div class="pa-item"><div class="pa-img"><img src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?w=80&q=70&auto=format&fit=crop" alt=""></div><div class="pa-info"><div class="pa-section">Section 3 — Étape 3 (Dégustation)</div><div class="pa-desc">Ambiance table de dégustation</div></div></div>
-        </div>
-      </div>
-    </div>
+      <div>
+        <h3 style="color:var(--parchment); font-size:18px; margin-bottom:24px;">Feed Pattern — Visual Rhythm</h3>
+        <div class="ig-grid">
+          <div class="ig-cell ig-dark">Close<br>up</div>
+          <div class="ig-cell ig-ash">Space</div>
+          <div class="ig-cell ig-dark">Detail</div>
+          <div class="ig-cell ig-gold">Process</div>
+          <div class="ig-cell ig-dark">Table</div>
+          <div class="ig-cell ig-ash">Matter</div>
+          <div class="ig-cell ig-dark">Gesture</div>
+          <div class="ig-cell ig-ember">Event</div>
+          <div class="ig-cell ig-dark">Still</div>
 
-    <div class="wf-wrap">
-      <div class="wf-label">Maquette fil de fer — L'Expérience</div>
-      <div class="browser">
-        <div class="wf-bar"><div class="wf-dots"><div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div></div><div class="wf-url">www.[votre-domaine].com/experience</div></div>
-        <div class="wf-nav"><div class="wf-logo"></div><div class="wf-nav-items"><div class="wf-ni"></div><div class="wf-ni"></div><div class="wf-ni"></div></div><div class="wf-cta-mini"></div></div>
-        <!-- Citation dark -->
-        <div style="background:var(--ink);padding:2rem;text-align:center">
-          <div style="font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.5rem);font-style:italic;color:#fff;line-height:1.4;max-width:420px;margin:0 auto">"Ils entrent. Ils s'arrêtent.<br>Ils ne parlent plus."</div>
-          <div style="font-size:.42rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:.8rem">L'expérience</div>
+          <div class="ig-cell ig-ash">Still</div>
+          <div class="ig-cell ig-dark">Hands</div>
+          <div class="ig-cell ig-gold">Reel</div>
+          <div class="ig-cell ig-dark">Light</div>
+          <div class="ig-cell ig-ash">Floral</div>
+          <div class="ig-cell ig-dark">Texture</div>
+          <div class="ig-cell ig-ash">Wide</div>
+          <div class="ig-cell ig-dark">Close<br>up</div>
+          <div class="ig-cell ig-gold">Cite</div>
+
+          <div class="ig-cell ig-dark">Fire</div>
+          <div class="ig-cell ig-ash">Detail</div>
+          <div class="ig-cell ig-dark">Reel</div>
+          <div class="ig-cell ig-gold">Process</div>
+          <div class="ig-cell ig-dark">Table</div>
+          <div class="ig-cell ig-ember">Night</div>
+          <div class="ig-cell ig-dark">Still</div>
+          <div class="ig-cell ig-ash">Space</div>
+          <div class="ig-cell ig-dark">Hands</div>
         </div>
-        <!-- 3 formats -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--warm);padding:2px">
-          <div style="background:var(--w)">
-            <div style="height:clamp(65px,10vw,100px);overflow:hidden"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&q=70&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.82)"></div>
-            <div style="padding:.8rem"><div style="font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:.3rem">Buffet Artistique</div><div style="font-size:.5rem;color:var(--gray);line-height:1.5;margin-bottom:.4rem">20 à 200 personnes · Sur devis</div><div style="display:inline-block;padding:.25rem .7rem;background:var(--ink);color:#fff;font-size:.4rem;letter-spacing:.18em;text-transform:uppercase">Demander →</div></div>
-          </div>
-          <div style="background:var(--cream)">
-            <div style="height:clamp(65px,10vw,100px);overflow:hidden"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=300&q=70&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.82)"></div>
-            <div style="padding:.8rem"><div style="font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:.3rem">Dîner Immersif</div><div style="font-size:.5rem;color:var(--gray);line-height:1.5;margin-bottom:.4rem">Maximum 24 personnes</div><div style="display:inline-block;padding:.25rem .7rem;background:var(--ink);color:#fff;font-size:.4rem;letter-spacing:.18em;text-transform:uppercase">Réserver →</div></div>
-          </div>
-          <div style="background:var(--w)">
-            <div style="height:clamp(65px,10vw,100px);overflow:hidden"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=300&q=70&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.82)"></div>
-            <div style="padding:.8rem"><div style="font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:.3rem">Événement Privé</div><div style="font-size:.5rem;color:var(--gray);line-height:1.5;margin-bottom:.4rem">Mariage · Entreprise · Sur mesure</div><div style="display:inline-block;padding:.25rem .7rem;background:var(--ink);color:#fff;font-size:.4rem;letter-spacing:.18em;text-transform:uppercase">Contacter →</div></div>
-          </div>
-        </div>
-        <!-- Prochaines dates -->
-        <div style="padding:.8rem 1rem;background:var(--off)">
-          <div style="font-size:.44rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g2);margin-bottom:.6rem">Prochaines Dates</div>
-          <div class="wf-event"><div class="wf-evd">Juin 2026 · Paris</div><div class="wf-evn">Dîner Immersif — Édition Été</div><div class="wf-evinfo">Table de 24 personnes · Scénographie florale</div><div class="wf-evbadge">12 places restantes</div></div>
-          <div class="wf-event"><div class="wf-evd">Septembre 2026 · Paris</div><div class="wf-evn">Buffet Artistique — Rentrée</div><div class="wf-evinfo">80 personnes · Installation monumentale</div><div class="wf-evbadge">Liste d'attente</div></div>
-        </div>
+        <p style="font-family:'Founders Grotesk',sans-serif; font-size:10px; letter-spacing:0.2em; color:rgba(245,240,232,0.3); margin-top:16px; text-transform:uppercase;">Visual rhythm — 3-column feed schema</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORIES & HIGHLIGHTS -->
+<section>
+  <div class="label fade-in">006 — Stories & Highlights</div>
+  <h2 class="fade-in">Behind the <em>surface.</em></h2>
+
+  <div class="stories-grid fade-in">
+    <div class="story-card">
+      <div class="story-cat">Stories</div>
+      <div class="story-title">The day of an experience — from mise en place to the last candle</div>
+    </div>
+    <div class="story-card">
+      <div class="story-cat">Stories</div>
+      <div class="story-title">A single ingredient. Where it came from. What it becomes.</div>
+    </div>
+    <div class="story-card">
+      <div class="story-cat">Stories</div>
+      <div class="story-title">The empty table — before everything, the space breathes</div>
+    </div>
+    <div class="story-card">
+      <div class="story-cat">Stories</div>
+      <div class="story-title">Guest perspective — what the experience felt like, in their words</div>
+    </div>
+    <div class="story-card">
+      <div class="story-cat">Stories</div>
+      <div class="story-title">A quote. A sentence. Stillness in motion.</div>
+    </div>
+  </div>
+
+  <div class="highlights-row fade-in">
+    <div class="highlight">
+      <div class="highlight-circle">Origins</div>
+      <div class="highlight-label">Concept</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">Experiences</div>
+      <div class="highlight-label">Archive</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">Process</div>
+      <div class="highlight-label">Behind</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">Matter</div>
+      <div class="highlight-label">Materials</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">Words</div>
+      <div class="highlight-label">Voice</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">Private</div>
+      <div class="highlight-label">Booking</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-circle">Press</div>
+      <div class="highlight-label">Features</div>
     </div>
   </div>
 </section>
 
-<!-- ══════ 05 — GALERIE ══════ -->
-<section class="section" id="galerie">
-  <div class="eyebrow">05 — Page</div>
-  <h2 class="sec-title rv"><em>Galerie</em></h2>
-  <p class="sec-desc rv">Le portfolio complet. Chaque photo est assignée à une catégorie. La grille masonry crée une dynamique visuelle proche d'une vraie galerie d'art contemporain.</p>
+<div class="divider"></div>
 
-  <div class="page-card rv" style="margin-top:2.5rem">
-    <div class="pc-head">
-      <div class="pc-num">04</div>
-      <div class="pc-info">
-        <div class="pc-name">Galerie — Portfolio Complet</div>
-        <div class="pc-url">www.[votre-domaine].com/galerie</div>
-      </div>
-      <div class="pc-badge-wrap"><div class="pcbadge imp">Importante</div><div class="pcbadge imp">18 photos assignées</div></div>
-    </div>
-    <div class="pc-body">
-      <div class="pc-col">
-        <div class="col-title">Structure & fonctionnalités</div>
-        <div class="content-list">
-          <div class="ci-item"><div><strong>Section 1 — Filtres de catégories</strong>Onglets horizontaux : Tout / Installations / Buffets / Le Chef / Détails & Macro. Onglet actif = souligné doré. Filtre dynamique sans rechargement.</div></div>
-          <div class="ci-item"><div><strong>Section 2 — Grille Masonry</strong>Pas de lignes régulières — photos en hauteurs variées comme dans une galerie d'art. Survol = overlay sombre avec titre et catégorie de la photo en doré.</div></div>
-          <div class="ci-item"><div><strong>Section 3 — Photo en vedette (plein largeur)</strong>La meilleure photo du projet en format 100vw. Titre et catégorie superposés en bas gauche.</div></div>
-          <div class="ci-item"><div><strong>Section 4 — Vidéos (si disponibles)</strong>Embed de 2-3 Reels Instagram ou vidéos Vimeo. Format 9:16 vertical pour les reels. Miniature statique si la vidéo n'est pas encore prête.</div></div>
-          <div class="ci-item"><div><strong>Section 5 — Behind the Scenes</strong>Photos de coulisses distinctes des photos de présentation — plus intimistes, process visible.</div></div>
-        </div>
-      </div>
-      <div class="pc-col">
-        <div class="col-title">Les 18 photos — Maquette galerie</div>
-        <div class="wf-masonry" style="gap:2px">
-          <div class="wf-m-item tall" style="height:200px"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=70&auto=format&fit=crop" alt="" style="height:200px;width:100%;object-fit:cover"><div class="wf-m-cap"><div class="wf-m-type">Performance</div><div class="wf-m-name">Art culinaire live</div></div></div>
-          <div class="wf-m-item" style="height:97px"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=200&q=70&auto=format&fit=crop" alt="" style="height:97px;width:100%;object-fit:cover"><div class="wf-m-cap"><div class="wf-m-type">Buffet</div><div class="wf-m-name">Installation table</div></div></div>
-          <div class="wf-m-item" style="height:97px"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=70&auto=format&fit=crop" alt="" style="height:97px;width:100%;object-fit:cover;object-position:top"><div class="wf-m-cap"><div class="wf-m-type">Chef</div><div class="wf-m-name">Bocuse d'Or 2025</div></div></div>
-          <div class="wf-m-item" style="height:97px"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=200&q=70&auto=format&fit=crop" alt="" style="height:97px;width:100%;object-fit:cover"><div class="wf-m-cap"><div class="wf-m-type">Floral</div><div class="wf-m-name">Composition florale</div></div></div>
-          <div class="wf-m-item" style="height:97px"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=200&q=70&auto=format&fit=crop" alt="" style="height:97px;width:100%;object-fit:cover"><div class="wf-m-cap"><div class="wf-m-type">Buffet</div><div class="wf-m-name">Pain et textures</div></div></div>
-          <div class="wf-m-item" style="height:97px"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=200&q=70&auto=format&fit=crop" alt="" style="height:97px;width:100%;object-fit:cover"><div class="wf-m-cap"><div class="wf-m-type">Ambiance</div><div class="wf-m-name">Lumière dorée</div></div></div>
-        </div>
-      </div>
-    </div>
+<!-- WEBSITE STRUCTURE -->
+<section id="website">
+  <div class="label fade-in">007 — Website Structure</div>
+  <h2 class="fade-in">A digital space<br><em>as still as stone.</em></h2>
+  <p class="lead fade-in">The Origins website does not sell. It reveals — slowly, deliberately, as the experience itself does.</p>
 
-    <!-- Catégorisation complète des photos -->
-    <div class="wf-wrap">
-      <div class="wf-label">Classification officielle — Les 18 photos de la galerie</div>
-      <div class="photo-cats">
-        <div class="photo-cat">
-          <div class="photo-cat-title">📸 Le Chef (4 photos)</div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=60&q=70&auto=format&fit=crop&fp-y=0.2" alt=""></div><div class="pci-name">Chef Bocuse d'Or — action SIRHA 2025</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Portrait officiel chef</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Chef ambiance neon bleu</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Chef performance artistique</div></div>
-        </div>
-        <div class="photo-cat">
-          <div class="photo-cat-title">🌸 Installations (4 photos)</div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Table fleurs rouges protéa</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Table artichaut — Idan Gilony</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Table heliconia rouge</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Composition florale verte</div></div>
-        </div>
-        <div class="photo-cat">
-          <div class="photo-cat-title">🍞 Buffets & Art (5 photos)</div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Pain sur socles colorés</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Plateau bleu Yves Klein</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Still life — composition 1</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Buffet vue aérienne</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Composition culinaire</div></div>
-        </div>
-        <div class="photo-cat">
-          <div class="photo-cat-title">🔍 Macro & Détails (5 photos)</div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Macro végétal — texture</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1496412705862-e0088f16f791?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Détail fruit — éclairage</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Détail viande — ambiance</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1464093515883-ec948246accb?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Macro poisson — texture</div></div>
-          <div class="photo-cat-item"><div class="pci-img"><img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=60&q=70&auto=format&fit=crop" alt=""></div><div class="pci-name">Détail végétal — couleur</div></div>
-        </div>
-      </div>
+  <div class="website-pages fade-in">
+    <div class="page-card">
+      <div class="page-num">Page 01</div>
+      <h3>Home</h3>
+      <p>Full-screen opening — a single visual, no text for the first three seconds. Then: ORIGINS appears in fade. One sentence below. A slow scroll invitation. No menu visible until the cursor moves.</p>
+      <div class="page-copy">"There are meals you eat.<br>And then there are Origins."</div>
+    </div>
+    <div class="page-card">
+      <div class="page-num">Page 02</div>
+      <h3>Concept</h3>
+      <p>Long-form text, wide margins, generous white space. No images — only typography and a single fine-line illustration. The page reads like a manifesto, not a service description.</p>
+      <div class="page-copy">"Origins is not a catering company. It is a proposition. An invitation to reconsider what a table can mean."</div>
+    </div>
+    <div class="page-card">
+      <div class="page-num">Page 03</div>
+      <h3>Experience</h3>
+      <p>Three chapters — Before / During / After — presented as a vertical scroll with slow image transitions. Each chapter has one text block and one full-bleed visual. Navigation between chapters is gestural.</p>
+      <div class="page-copy">"The experience begins before you arrive. It ends long after you leave."</div>
+    </div>
+    <div class="page-card">
+      <div class="page-num">Page 04</div>
+      <h3>Gallery</h3>
+      <p>A curated archive of past experiences — presented as a grid of large, uncaptioned images. No dates, no client names. Click to enter full-screen mode. The scroll is horizontal, not vertical.</p>
+      <div class="page-copy">"Each experience is documented once, archived, and never repeated."</div>
+    </div>
+    <div class="page-card">
+      <div class="page-num">Page 05</div>
+      <h3>Private Bookings</h3>
+      <p>Not a form — a letter. "To commission an Origins experience is to begin a conversation." A single email address. A short paragraph describing the process: inquiry, dialogue, creation, experience. No pricing. No packages.</p>
+      <div class="page-copy">"Every experience begins with a conversation. Write to us. We will respond."</div>
+    </div>
+    <div class="page-card">
+      <div class="page-num">Page 06</div>
+      <h3>Contact</h3>
+      <p>Minimal. A single email. An optional city (Paris / available internationally). No phone number. No social links in the main body — only in the footer. The page communicates through restraint.</p>
+      <div class="page-copy">"origins.experience@—<br>Paris, and wherever the invitation leads."</div>
     </div>
   </div>
 </section>
 
-<!-- ══════ 06 — CONTACT ══════ -->
-<section class="section warm" id="contact">
-  <div class="eyebrow">06 — Page</div>
-  <h2 class="sec-title rv">Réserver &<br><em>Contact</em></h2>
-  <p class="sec-desc rv">La page de conversion finale. Son rôle unique : transformer l'intention en réservation. Formulaire épuré, dates disponibles visibles, aucune friction.</p>
+<!-- SHOOTING DIRECTION -->
+<div class="dark-section" id="shooting">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div class="label fade-in">008 — Photo & Video Direction</div>
+    <h2 class="fade-in" style="color:var(--parchment);">How to photograph<br>what <em>cannot be held.</em></h2>
 
-  <div class="page-card rv" style="margin-top:2.5rem">
-    <div class="pc-head">
-      <div class="pc-num">05</div>
-      <div class="pc-info">
-        <div class="pc-name">Réserver / Contact</div>
-        <div class="pc-url">www.[votre-domaine].com/reserver</div>
+    <div class="shooting-grid fade-in">
+      <div class="shooting-block" style="border-color:rgba(168,149,106,0.2);">
+        <h3 style="color:var(--parchment);">Scenes to Capture</h3>
+        <ul class="scene-list">
+          <li><span>01</span> Hands arranging a single element on a raw surface</li>
+          <li><span>02</span> A candle flame in an otherwise dark space</li>
+          <li><span>03</span> Steam rising from a bowl — extreme close up, macro</li>
+          <li><span>04</span> The table seen from above before the guests arrive</li>
+          <li><span>05</span> A cross-section of an ingredient — okra, citrus, fennel</li>
+          <li><span>06</span> Flowers used architecturally — single stem, radical composition</li>
+          <li><span>07</span> The pour — liquid into glass, shot from the side in hard light</li>
+          <li><span>08</span> A guest's profile in low light — never their face directly</li>
+          <li><span>09</span> The empty table after — residue, trace, memory</li>
+          <li><span>10</span> Abstract: condensation on cold stone, ash, smoke dissolving</li>
+        </ul>
       </div>
-      <div class="pc-badge-wrap"><div class="pcbadge ess">Essentielle</div><div class="pcbadge ess">Conversion</div></div>
+
+      <div class="shooting-block" style="border-color:rgba(168,149,106,0.2);">
+        <h3 style="color:var(--parchment);">Camera & Technical Direction</h3>
+        <ul class="scene-list">
+          <li><span>Lens</span> Prime lenses only — 50mm & 100mm macro for stills</li>
+          <li><span>Motion</span> Slow dolly or static tripod — no handheld</li>
+          <li><span>Frame</span> Off-center composition — subject never centered</li>
+          <li><span>DoF</span> Shallow — one element in focus, all else dissolved</li>
+          <li><span>FPS</span> 60fps slowed to 24fps in post — organic motion</li>
+          <li><span>Color</span> Desaturated warm base — grain in shadows</li>
+        </ul>
+
+        <h3 style="color:var(--parchment); margin-top:40px;">Lighting Setup</h3>
+        <ul class="scene-list">
+          <li><span>Key</span> Single hard source — window, spot, or naked bulb</li>
+          <li><span>Fill</span> None, or minimal reflector — deep shadows preserved</li>
+          <li><span>Mood</span> Chiaroscuro — 60% of frame in shadow minimum</li>
+          <li><span>Color</span> 3200K tungsten warmth, or cool daylight at golden hour</li>
+          <li><span>Night</span> Candle light supplemented by a single 150W practical</li>
+        </ul>
+      </div>
     </div>
-    <div class="pc-body">
-      <div class="pc-col">
-        <div class="col-title">Structure & contenu</div>
-        <div class="content-list">
-          <div class="ci-item"><div><strong>Section 1 — Header épuré (fond blanc)</strong>"Réserver votre expérience" en Playfair Display. Pas d'image ici — on se concentre sur l'action. Sous-titre : "Réponse garantie sous 24h."</div></div>
-          <div class="ci-item"><div><strong>Section 2 — 2 colonnes côte à côte</strong>Gauche : formulaire complet (Nom · Email · Type · Invités · Date · Message). Droite : 3 prochaines dates avec places restantes et bouton de sélection rapide.</div></div>
-          <div class="ci-item"><div><strong>Champs du formulaire</strong>Nom & Prénom · Email · Type d'expérience (menu déroulant) · Nombre d'invités · Date souhaitée · Message libre. Bouton "Envoyer" noir pleine largeur.</div></div>
-          <div class="ci-item"><div><strong>Section 3 — Contact direct</strong>📧 Email · 📸 Instagram · 💬 WhatsApp. Icônes propres, pas de numéro de téléphone visible publiquement.</div></div>
-          <div class="ci-item"><div><strong>Section 4 — FAQ accordéon (5 questions)</strong>Halal certifié? / Durée d'un événement? / Tenue recommandée? / Photos permises? / Délai de réponse?</div></div>
-        </div>
-      </div>
-      <div class="pc-col">
-        <div class="col-title">Maquette — Page Réservation</div>
-        <div class="browser" style="box-shadow:0 4px 24px rgba(0,0,0,.08);transform:none">
-          <div class="wf-bar"><div class="wf-dots"><div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div></div><div class="wf-url">www.[votre-domaine].com/reserver</div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr">
-            <div style="padding:1rem;display:flex;flex-direction:column;gap:.55rem">
-              <div style="font-family:'Playfair Display',serif;font-size:.9rem;line-height:1.1">Réserver<br><em style="color:var(--g2)">votre expérience</em></div>
-              <div style="font-size:.5rem;color:var(--gray)">Réponse garantie sous 24h.</div>
-              <div class="wf-form-grid">
-                <input class="wf-input wf-full" type="text" placeholder="Nom et Prénom" readonly>
-                <input class="wf-input" type="email" placeholder="Email" readonly>
-                <input class="wf-input" type="tel" placeholder="Téléphone" readonly>
-                <select class="wf-select wf-full">
-                  <option>Type d'expérience</option>
-                  <option>Dîner Immersif</option>
-                  <option>Buffet Artistique</option>
-                  <option>Événement Privé</option>
-                </select>
-                <input class="wf-input" type="number" placeholder="Nb d'invités" readonly>
-                <input class="wf-input" type="date" readonly>
-                <textarea class="wf-input wf-full" rows="2" placeholder="Message (optionnel)" readonly></textarea>
-                <button class="wf-submit">Envoyer ma demande →</button>
-              </div>
-            </div>
-            <div style="background:var(--cream);padding:1rem;border-left:1px solid var(--bd)">
-              <div style="font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:.7rem">Prochaines Dates</div>
-              <div class="wf-event"><div class="wf-evd">Juin 2026 · Paris</div><div class="wf-evn">Dîner Immersif — Été</div><div class="wf-evinfo">24 pers. · Scénographie florale</div><div class="wf-evbadge">12 places restantes</div></div>
-              <div class="wf-event"><div class="wf-evd">Septembre 2026 · Paris</div><div class="wf-evn">Buffet Artistique</div><div class="wf-evinfo">80 pers. · Installation monumentale</div><div class="wf-evbadge">Liste d'attente</div></div>
-              <div class="wf-event"><div class="wf-evd">Novembre 2026 · Dubai</div><div class="wf-evn">Première Internationale</div><div class="wf-evinfo">Date à confirmer</div><div class="wf-evbadge">Pré-inscription</div></div>
-              <div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--bd)">
-                <div style="font-size:.44rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);margin-bottom:.4rem">Contact Direct</div>
-                <div style="font-size:.52rem;color:var(--gray);margin-bottom:.2rem">📧 contact@[votre-domaine].com</div>
-                <div style="font-size:.52rem;color:var(--gray);margin-bottom:.2rem">📸 @[votre.projet]</div>
-                <div style="font-size:.52rem;color:var(--gray)">💬 WhatsApp disponible</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  </div>
+</div>
+
+<!-- BRAND SIGNATURE -->
+<div class="signature-section" id="signature">
+  <div class="sig-title fade-in">
+    What makes Origins<br><em>unforgettable.</em>
+  </div>
+  <p class="sig-body fade-in">
+    Origins is the only dining concept that treats each experience as a singular artwork — composed, performed, and released into memory. It does not compete in the market. It operates outside of it.
+  </p>
+  <div class="sig-divider"></div>
+  <div class="sig-pillars fade-in">
+    <div class="sig-pillar">
+      <span class="sig-pillar-word">Singular</span>
+      <div class="sig-pillar-sub">Each experience is made once</div>
+    </div>
+    <div class="sig-pillar">
+      <span class="sig-pillar-word">Silent</span>
+      <div class="sig-pillar-sub">Luxury speaks quietly</div>
+    </div>
+    <div class="sig-pillar">
+      <span class="sig-pillar-word">Somatic</span>
+      <div class="sig-pillar-sub">Felt in the body, not the mind</div>
+    </div>
+    <div class="sig-pillar">
+      <span class="sig-pillar-word">Sacred</span>
+      <div class="sig-pillar-sub">The table as ceremony</div>
+    </div>
+  </div>
+  <div class="sig-divider"></div>
+  <p class="sig-body fade-in" style="font-size:16px; opacity:0.5;">
+    "The table becomes a territory of expression."
+  </p>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-info fade-in">
+    <div class="label">009 — Private Commissions</div>
+    <h2>Begin with<br><em>a conversation.</em></h2>
+    <p>Origins accepts a limited number of commissions per year. Each engagement begins with a private dialogue — about the occasion, the space, the intention. There are no standard packages. There is only what has never been done before.</p>
+  </div>
+  <div class="fade-in">
+    <div class="contact-detail">
+      <div class="contact-detail-label">Inquiries</div>
+      <div class="contact-detail-value">origins.experience@gmail.com</div>
+    </div>
+    <div class="contact-detail" style="margin-top:32px;">
+      <div class="contact-detail-label">Location</div>
+      <div class="contact-detail-value">Paris — International</div>
+    </div>
+    <div class="contact-detail" style="margin-top:32px;">
+      <div class="contact-detail-label">Availability</div>
+      <div class="contact-detail-value">By appointment only</div>
+    </div>
+    <div class="contact-detail" style="margin-top:32px;">
+      <div class="contact-detail-label">Instagram</div>
+      <div class="contact-detail-value">@origins.experience</div>
     </div>
   </div>
 </section>
 
-<!-- ══════ 07 — CHARTE VISUELLE ══════ -->
-<section class="section" id="charte">
-  <div class="eyebrow">07 — Règles</div>
-  <h2 class="sec-title rv">Charte Visuelle<br>du <em>Site</em></h2>
-  <p class="sec-desc rv">Ces règles s'appliquent à toutes les pages sans exception. L'équipe entière doit les respecter pour maintenir la cohérence et le niveau de qualité du projet.</p>
-
-  <!-- Palette -->
-  <div style="margin-top:3rem" class="rv">
-    <div class="eyebrow" style="margin-bottom:1rem">Palette de Couleurs</div>
-    <div class="colors">
-      <div class="swatch-item"><div class="swatch-color" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)"></div><div class="swatch-name">Blanc</div><div class="swatch-hex">#FFFFFF</div><div class="swatch-use">Fond principal</div></div>
-      <div class="swatch-item"><div class="swatch-color" style="background:#F4EFE5"></div><div class="swatch-name">Crème</div><div class="swatch-hex">#F4EFE5</div><div class="swatch-use">Sections alternées</div></div>
-      <div class="swatch-item"><div class="swatch-color" style="background:#EDE8DC"></div><div class="swatch-name">Warm</div><div class="swatch-hex">#EDE8DC</div><div class="swatch-use">Grilles & séparations</div></div>
-      <div class="swatch-item"><div class="swatch-color" style="background:#C8A96E"></div><div class="swatch-name">Or clair</div><div class="swatch-hex">#C8A96E</div><div class="swatch-use">Lignes décoratives</div></div>
-      <div class="swatch-item"><div class="swatch-color" style="background:#A8843E"></div><div class="swatch-name">Or foncé</div><div class="swatch-hex">#A8843E</div><div class="swatch-use">Textes & labels dorés</div></div>
-      <div class="swatch-item"><div class="swatch-color" style="background:#0A0908"></div><div class="swatch-name">Encre</div><div class="swatch-hex">#0A0908</div><div class="swatch-use">Textes & boutons</div></div>
-      <div class="swatch-item"><div class="swatch-color" style="background:#5C5650"></div><div class="swatch-name">Gris chaud</div><div class="swatch-hex">#5C5650</div><div class="swatch-use">Corps de texte</div></div>
-    </div>
-  </div>
-
-  <!-- Typographie -->
-  <div style="margin-top:3rem" class="rv">
-    <div class="eyebrow" style="margin-bottom:1rem">Typographie</div>
-    <div class="typo-row">
-      <div class="typo-card">
-        <div class="typo-tag">Playfair Display — Tous les Titres</div>
-        <div class="typo-demo"><span style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3.5rem);font-weight:400;line-height:1">La table comme <em style="font-style:italic;color:var(--g2)">toile blanche.</em></span></div>
-        <div class="typo-note">Usage : H1, H2, H3 · Citations · Nombres décoratifs · Italiques d'accentuation. Télécharger gratuitement sur Google Fonts.</div>
-      </div>
-      <div class="typo-card" style="background:var(--off)">
-        <div class="typo-tag">Inter — Corps de texte & Interface</div>
-        <div class="typo-demo"><span style="font-family:'Inter',sans-serif;font-size:.9rem;font-weight:300;line-height:1.85;color:var(--gray)">Chaque événement est une performance unique et irrépétable — au croisement de la gastronomie halal de luxe et de l'art contemporain. La table disparaît sous les compositions artistiques du chef.</span></div>
-        <div class="typo-note">Usage : Corps de texte · Descriptions · Labels · Navigation · Boutons. Poids utilisés : 300 (corps) · 400 (normal) · 500 (semi-gras) · 600 (gras). Disponible sur Google Fonts.</div>
-      </div>
-      <div class="typo-card">
-        <div class="typo-tag">Labels — Style Uppercase Spacé</div>
-        <div class="typo-demo"><span style="font-family:'Inter',sans-serif;font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;color:var(--g2)">Art Culinaire · Paris 2026</span></div>
-        <div class="typo-note">Usage : Eyebrows de section · Tags · Badges · Navigation secondaire. Taille : 9–11px. Letter-spacing : 0.3 à 0.5em. Toujours en uppercase. Couleur : Or foncé #A8843E.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Do & Don't -->
-  <div style="margin-top:3rem" class="rv">
-    <div class="eyebrow" style="margin-bottom:1rem">Images — À faire & À éviter</div>
-    <div class="do-dont">
-      <div class="do-box">
-        <div class="do-header yes">✓ À FAIRE</div>
-        <div class="do-list">
-          <div class="doi">Utiliser les 18 photos validées en priorité absolue — ne pas ajouter sans accord VISCAP</div>
-          <div class="doi">Toujours recadrer avec object-fit: cover — jamais de déformation ou de distorsion</div>
-          <div class="doi">Appliquer filter: brightness(0.82) sur les photos qui servent de fond à du texte blanc</div>
-          <div class="doi">Pour les portraits du chef : toujours object-position: top pour ne pas couper le visage</div>
-          <div class="doi">Espacements généreux autour des images — le blanc respire autour des photos</div>
-          <div class="doi">Légendes discrètes en uppercase 9px, couleur var(--muted) — jamais de cadres épais</div>
-          <div class="doi">Exporter toutes les images en WebP, maximum 200KB avant mise en ligne</div>
-        </div>
-      </div>
-      <div class="do-box dont">
-        <div class="do-header no">✗ À ÉVITER</div>
-        <div class="do-list">
-          <div class="donti">Ajouter de nouvelles photos sans validation VISCAP Studio — cohérence avant tout</div>
-          <div class="donti">Redimensionner une photo en la pixellisant ou en changeant ses proportions</div>
-          <div class="donti">Filtres Instagram forts : noir&blanc extrême, saturation excessive, vintage trop prononcé</div>
-          <div class="donti">Superposer du texte sur une photo sans assez de contraste — toujours vérifier la lisibilité</div>
-          <div class="donti">Couper le visage du chef dans un cadrage mal pensé — toujours prévisualiser sur mobile</div>
-          <div class="donti">Utiliser 2 photos du même type dans la même section — varier les sujets et les angles</div>
-          <div class="donti">Mettre en ligne des images JPEG non compressées — toujours optimiser avant upload</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="do-dont" style="margin-top:3px">
-      <div class="do-box">
-        <div class="do-header yes">✓ À FAIRE — Cohérence globale</div>
-        <div class="do-list">
-          <div class="doi">Fond blanc pur sur toutes les pages de contenu — c'est la base identitaire du site</div>
-          <div class="doi">Or uniquement comme couleur d'accent — jamais dominant, jamais en fond plein</div>
-          <div class="doi">Espace entre les sections : minimum 64px mobile, 100px desktop</div>
-          <div class="doi">Navigation toujours visible en haut — bouton "Réserver" toujours accessible</div>
-          <div class="doi">Un seul CTA principal par section — éviter les choix multiples qui paralysent</div>
-          <div class="doi">Tester chaque page sur iPhone SE (plus petit écran courant) avant de publier</div>
-        </div>
-      </div>
-      <div class="do-box dont">
-        <div class="do-header no">✗ À ÉVITER — Cohérence globale</div>
-        <div class="do-list">
-          <div class="donti">Fond coloré ou fond dégradé sur les pages de contenu — sauf la section hero sombre</div>
-          <div class="donti">Boutons avec border-radius très arrondi — style trop "app", pas assez "luxury"</div>
-          <div class="donti">Animations trop rapides ou trop nombreuses — élégance = retenue et précision</div>
-          <div class="donti">Plus de 2 familles de polices — uniquement Playfair Display + Inter</div>
-          <div class="donti">Pop-ups, cookies banners agressifs, notifications push — interdit sur ce type de site</div>
-          <div class="donti">Deux sections de même couleur adjacentes — toujours alterner blanc / crème / warm</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Plan de travail -->
-  <div style="margin-top:4rem" class="rv">
-    <div class="eyebrow" style="margin-bottom:1rem">Plan de Travail — Ordre de développement</div>
-    <div class="tl">
-      <div class="tl-item"><div class="tl-yr">Étape 1</div><div><div class="tl-title">Setup & Identité</div><div class="tl-desc">Choix de la plateforme (Webflow / Framer / HTML custom), configuration du domaine, import des polices Google Fonts, définition des variables CSS (couleurs, espacements). Durée estimée : 2–3 jours.</div></div></div>
-      <div class="tl-item"><div class="tl-yr">Étape 2</div><div><div class="tl-title">Navigation & Footer</div><div class="tl-desc">Menu fixe desktop + hamburger mobile, liens, bouton CTA "Réserver" toujours visible. Footer avec logo, liens et réseaux. Tester sur iPhone avant de continuer. Durée : 1 jour.</div></div></div>
-      <div class="tl-item"><div class="tl-yr">Étape 3</div><div><div class="tl-title">Page Accueil</div><div class="tl-desc">Hero plein écran, barre de stats, section concept 2 colonnes, galerie preview 3×3, section événement. Optimiser toutes les images en WebP avant intégration. Durée : 3–4 jours.</div></div></div>
-      <div class="tl-item"><div class="tl-yr">Étape 4</div><div><div class="tl-title">Pages intérieures</div><div class="tl-desc">Notre Histoire → Expérience → Galerie avec filtres → Réservation avec formulaire. Dans cet ordre précis. Tester mobile à chaque page. Durée : 5–7 jours.</div></div></div>
-      <div class="tl-item"><div class="tl-yr">Étape 5</div><div><div class="tl-title">Animations & Finitions</div><div class="tl-desc">Scroll reveals sur tous les titres et images, transitions de page fluides, hover states sur les cartes et boutons, micro-animations sur les formulaires. Durée : 2 jours.</div></div></div>
-      <div class="tl-item"><div class="tl-yr">Étape 6</div><div><div class="tl-title">Tests & Mise en ligne</div><div class="tl-desc">Tests complets iPhone / Android / Safari / Chrome. Vitesse PageSpeed Insights (objectif > 90). Vérification SEO de base (titles, meta, alt). Connexion domaine et mise en ligne. Durée : 1–2 jours.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ CLOSING ══════ -->
-<section class="closing">
-  <div class="closing-tag">VISCAP Studio · Présentation Site Web · 2026</div>
-  <h2 class="closing-title">Ce document<br>est votre <em>référence.</em></h2>
-  <p class="closing-sub">Chaque décision sur le site — photo, texte, couleur, animation — doit être validée contre ce document. C'est la garantie d'un résultat cohérent, professionnel et à la hauteur du projet.</p>
-  <a href="mailto:contact@viscap.fr" class="closing-btn">Nous contacter — VISCAP Studio →</a>
-  <div class="closing-sign">Produit par <strong>VISCAP Studio</strong> · Ayoub Hamouni · Paris, 2026</div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <span>© 2026 VISCAP Studio</span>
-  <span>Présentation Site Internet — Art Culinaire Immersif</span>
-  <span>Document Confidentiel Client</span>
+  <div class="logo">Origins — 2025</div>
+  <p>A Private Dining & Artistic Catering Concept</p>
+  <p>Paris &nbsp;·&nbsp; International</p>
 </footer>
 
 <script>
-// MENU
-var hamBtn = document.getElementById('hamBtn');
-var mob = document.getElementById('mob');
-if (hamBtn && mob) {
-  hamBtn.addEventListener('click', function() { mob.classList.toggle('open'); });
-  ['m1','m2','m3','m4','m5','m6','m7'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.addEventListener('click', function() { mob.classList.remove('open'); });
-  });
-}
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-// NAV scroll compact
-var nav = document.querySelector('nav');
-window.addEventListener('scroll', function() {
-  if (nav) nav.style.padding = window.scrollY > 60 ? '.6rem 1.5rem' : '.8rem 1.5rem';
-}, {passive:true});
-
-// SCROLL REVEAL — Safari safe, no IntersectionObserver
-function reveal() {
-  var els = document.querySelectorAll('.rv,.rv2');
-  var wh = window.innerHeight;
-  for (var i = 0; i < els.length; i++) {
-    if (els[i].getBoundingClientRect().top < wh * 0.9) {
-      els[i].classList.add('in');
-    }
-  }
-}
-window.addEventListener('scroll', reveal, {passive:true});
-window.addEventListener('resize', reveal, {passive:true});
-setTimeout(reveal, 250);
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
